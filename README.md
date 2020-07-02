@@ -36,7 +36,11 @@
 ```
 Press CTRL-C for hangup 
 ```
-という表示がでればシリアル通信を行う準備が完了している
+という表示がでればシリアル通信を行う準備が完了している <br />
+can't create RFCOMM TTY: Adress already in use<br />
+というエラーが発生した場合は
+ - sudo rfcomm release hci0
+を入力しアドレスを開放する
 
 ### シリアル通信の方法（CUIの場合）
 #### Raspberry Pi 側でメッセージを確認する場合
