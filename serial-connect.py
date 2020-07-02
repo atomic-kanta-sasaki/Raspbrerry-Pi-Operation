@@ -1,7 +1,13 @@
 import serial
 
-comport = serial.Serial('com8', baudrate=19200, parity=serial.PARITY_NONE)
-recv_data = comport.read(12)
-meas_data = float(recv_data.decode('utf-8').split('+')[1])
-print(meas_data)
-comport.close()
+dev = "/dev/rfcomm0"
+rate = 9600
+ser = serial.Serial(dev, rate, timeout=10)
+
+string = "hello world"
+string = string + "\r\n"
+
+ser.write(string)
+res = ser.readline(10000)
+res = res.encode()
+print res
