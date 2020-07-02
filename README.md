@@ -51,4 +51,6 @@ can't create RFCOMM TTY: Adress already in use<br />
 ### 参考文献
 　https://qiita.com/oko1977/items/9f53f3b11a1b033219ea
 
-
+#### 現在の状況
+Raspberry Pi 4B上で/dev/rfcomm0 22のアドレスを開放しwindowsとCUIベースでのシリアル通信ができるという状況の下Pythonを使用してデータのやり取りが可能である.<br />
+複数台のWindowsPCと接続した状態で選択的に接続するWindowsを選べるのかどうかはよくわかっていないため後日実験が必要.
