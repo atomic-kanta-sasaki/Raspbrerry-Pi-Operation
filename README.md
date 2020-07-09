@@ -60,7 +60,9 @@ can't create RFCOMM TTY: Adress already in use<br />
  - paired-devices # ペアリング済みのデバイス表示
  - connect (device Adress) # 接続
  - info (device Adress) # デバイス状態の表示
-
+ - remove (device Adress) # ペアリングの削除
+ - disconnect (device Adress) # デバイスの切断
+ - 
 ### 参考文献
 　https://qiita.com/oko1977/items/9f53f3b11a1b033219ea
 
