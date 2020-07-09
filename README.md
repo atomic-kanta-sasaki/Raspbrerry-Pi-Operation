@@ -52,6 +52,15 @@ can't create RFCOMM TTY: Adress already in use<br />
 #### windows側でcomポートを設定するときの注意点
  - 今現在の推測だが rfcomm listen /dev/rfcomm0 22を実行してRaspberry Pi側で待機をしていないとWindowsで仮想COMポートの設定ができないため注意が必要
 
+#### bluetooth接続確認方法
+ - scan on # デバイス検索
+ - devices # 接続中のデバイス表示
+ - pair (device Adress) # ペアリング
+ - trust (device Adress # デバイスを信用する
+ - paired-devices # ペアリング済みのデバイス表示
+ - connect (device Adress) # 接続
+ - info (device Adress) # デバイス状態の表示
+
 ### 参考文献
 　https://qiita.com/oko1977/items/9f53f3b11a1b033219ea
 
