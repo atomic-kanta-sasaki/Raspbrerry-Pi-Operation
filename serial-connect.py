@@ -11,9 +11,13 @@ def serial_send():
 
 def serial_read():
     res = ser.readline(10000)
-    res = res.encode()
-    print "------------------"
+    print "---------------------------"
     print res
+    return res
+
+def sentenceShaping(text):
+    shaping_text = text.strip().decode('utf-8')
+    return shaping_text
 
 beContinue = True
 
@@ -21,3 +25,6 @@ beSend = True
  
 serial_send()
 
+read_text = serial_read()
+read_text = sentenceShaping(read_text)
+print read_text
