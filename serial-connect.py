@@ -4,7 +4,7 @@ dev = "/dev/rfcomm0"
 rate = 9600
 ser = serial.Serial(dev, rate, timeout=10)
 def serial_send():
-    data = "1"
+    data = "hello"
     data += "\r\n"
     ser.write(data)
     print "============================"
