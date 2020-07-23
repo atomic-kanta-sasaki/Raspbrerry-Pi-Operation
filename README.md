@@ -70,4 +70,11 @@ can't create RFCOMM TTY: Adress already in use<br />
 Raspberry Pi 4B上で/dev/rfcomm0 22のアドレスを開放しwindowsとCUIベースでのシリアル通信ができるという状況の下Pythonを使用してデータのやり取りが可能である.<br />
 複数台のWindowsPCと接続した状態で選択的に接続するWindowsを選べるのかどうかはよくわかっていないため後日実験が必要.
 
+### macでssh接続する方法
+#### RaspberryPiのMacアドレスを確認する
+ - ifconfig wlan
+これのinet 以降にあるアドレスがラズパイのMacアドレス
+ - macで ssh pi@<先ほど確認したアドレス>
+ - PASSの入力
+これでOK
 
