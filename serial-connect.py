@@ -75,10 +75,10 @@ csvファイルを更新する
 @param new_url_list
 """
 def updataCsv(new_url_list):
-   with open("url.csv", 'w') as f:
-       writer = csv.writer(f)
-       writer.writerow(new_url_list)
-
+    with open("url.csv", 'w') as f:
+        writer = csv.writer(f)
+        for row in new_url_list:
+            writer.writerow(row)
 """
 有効なURLが入っているindex番号を返す
 
@@ -98,6 +98,9 @@ Drop後新しい更新用のURLリストを作成する
 def createNewUrlList():
     with open("url.csv") as f:
         for row in csv.reader(f):
+            print "row"
+            print row
+            print row[0]
             new_url_list.append(row)
         
         del new_url_list[0]
