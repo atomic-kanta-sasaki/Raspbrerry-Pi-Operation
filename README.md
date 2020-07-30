@@ -80,4 +80,7 @@ Raspberry Pi 4B上で/dev/rfcomm0 22のアドレスを開放しwindowsとCUIベ�
 
 #### ssh周りの参考文献
  - https://qiita.com/murs313/items/81757bf8bc74b6b76cdf
- - https://qiita.com/ponkan1219/items/a753a78dfdfc08e846b8
+ - https://qiita.com/ponkan1219/items/a753a78dfdfc08e846b
+
+#### 接続済デバイスのRSSIを取得するコマンド
+ - sudo btmgmt find8
