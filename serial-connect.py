@@ -3,11 +3,14 @@
 import serial
 import csv
 import pandas as pd
+import scan
 
 dev = "/dev/rfcomm0"
 rate = 9600
 ser = serial.Serial(dev, rate, timeout=10)
 new_url_list = []
+
+print scan.
 
 """
 シリアル通信でURLORフラグを送信する

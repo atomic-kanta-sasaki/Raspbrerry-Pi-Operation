@@ -4,30 +4,56 @@ import subprocess as spc
 MAC_Address_1 = "D0:57:7B:20:46:ED"
 MAC_Address_2 = "00:28:F8:AA:6B:3E"
 
-# MACアドレスをKeyとする辞書を作成
-mydict = {MAC_Address_1: "", MAC_Address_2: ""}
+"""
+特定のMACアドレスのRSSIを取得し辞書型で返す
 
-# RSSIを取得するShellをたたく場所を作成
-res=spc.check_output("getsi")
+@param MAC_Address_1
+@param MAC_Address_2
 
-# 以下取得したデータを整形する
-res = res.split("\n")
+@return RSSI_dict
+"""
+def RSSI_Scan(MAC_Address_1, MAC_Address_2):
 
-dict1_rssi = [row for row in res if MAC_Address_1 in row]
+    # MACアドレスをKeyとする辞書を作成
+    RSSI_dict = {MAC_Address_1: "", MAC_Address_2: ""}
 
-dict2_rssi = [row for row in res if MAC_Address_2 in row]
+    # RSSIを取得するShellをたたく場所を作成
+    res=spc.check_output("getsi")
 
-print dict1_rssi
-print dict2_rssi
+    # 以下取得したデータを整形する
+    res = res.split("\n")
 
-dict1_rssi = dict1_rssi[0].split(" ")
-dict2_rssi = dict2_rssi[0].split(" ")
+    dict1_rssi = [row for row in res if MAC_Address_1 in row]
 
-rssi_1 = dict1_rssi[6]
-rssi_2 = dict2_rssi[6]
+    dict2_rssi = [row for row in res if MAC_Address_2 in row]
 
-mydict[MAC_Address_1] = rssi_1
-mydict[MAC_Address_2] = rssi_2
+    print dict1_rssi
+    print dict2_rssi
 
-print mydict
+    dict1_rssi = dict1_rssi[0].split(" ")
+    dict2_rssi = dict2_rssi[0].split(" ")
 
+    rssi_1 = dict1_rssi[6]
+    rssi_2 = dict2_rssi[6]
+
+    RSSI_dict[MAC_Address_1] = rssi_1
+    RSSI_dict[MAC_Address_2] = rssi_2
+
+    print RSSI_dict
+    return RSSI_dict
+
+RSSI_Scan(MAC_Address_1, MAC_Address_2)
+
+"""
+キャリブレーションの際に必要なRSSI値の差を返却する
+
+@param RSSI_1
+@param RSSI_2
+
+@return difference
+"""
+def Calibration(RSSI_1, RSSI_2):
+    difference = RSSI_1 - RSSI_2
+    
+    return difference
+    
