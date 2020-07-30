@@ -5,12 +5,14 @@ import csv
 import pandas as pd
 import scan
 
+
 dev = "/dev/rfcomm0"
 rate = 9600
 ser = serial.Serial(dev, rate, timeout=10)
 new_url_list = []
-
-print scan.
+# 使用するMACアドレスを変数化
+MAC_Address_1 = "D0:57:7B:20:46:ED"
+MAC_Address_2 = "00:28:F8:AA:6B:3E" 
 
 """
 シリアル通信でURLORフラグを送信する
@@ -113,33 +115,36 @@ beContinue = True
 
 beSend = True
 
-print "select 1 or 2 :1 is pick 2is drop "
-select = int(raw_input())
-if select == 1:
-    data = "hello"
-    data += "\r\n"
-    serial_send(data)
+def main():
+    print "select 1 or 2 :1 is pick 2is drop "
+    select = int(raw_input())
+    if select == 1:
+        data = "hello"
+        data += "\r\n"
+        serial_send(data)
 
-    read_text = serial_read()
-    read_text = sentenceShaping(read_text)
+        read_text = serial_read()
+        read_text = sentenceShaping(read_text)
 
-    print "取得したデータを書き込みます"
-    writeCsv(read_text)
+        print "取得したデータを書き込みます"
+        writeCsv(read_text)
 
-    print "現在のCSvファイルの情報"
-    printCsvContents()
+        print "現在のCSvファイルの情報"
+        printCsvContents()
 
-elif select == 2:
-    data = readCsv()
-    print data
-    data += "\r\n"
-    serial_send(data)
-    new_list = createNewUrlList()
-    updataCsv(new_list)
-    print "更新されたURLリスト"
-    print new_list
+    elif select == 2:
+        data = readCsv()
+        print data
+        data += "\r\n"
+        serial_send(data)
+        new_list = createNewUrlList()
+        updataCsv(new_list)
+        print "更新されたURLリスト"
+        print new_list
 
-    print "現在のCSVファイルの情報"
-    printCsvContents()
+        print "現在のCSVファイルの情報"
+        printCsvContents()
 
+if __name__ == '__main__':
+    main()
 
