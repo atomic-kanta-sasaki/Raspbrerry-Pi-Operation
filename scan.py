@@ -1,8 +1,16 @@
 # coding: utf-8
 import subprocess as spc
+import serial
 
-MAC_Address_1 = "D0:57:7B:20:46:ED"
+MAC_Address_1 = "1C:BF:C0:2B:52:D2"
 MAC_Address_2 = "00:28:F8:AA:6B:3E"
+dev = "/dev/rfcomm0"
+rate = 9600
+ser_1 = serial.Serial(dev, rate, timeout=10)
+
+dev = "/dev/rfcomm1"
+rate = 9600
+ser_2 = serial.Serial(dev, rate, timeout=10)
 
 """
 特定のMACアドレスのRSSIを取得し辞書型で返す
@@ -42,8 +50,6 @@ def RSSI_Scan(MAC_Address_1, MAC_Address_2):
     print RSSI_dict
     return RSSI_dict
 
-RSSI_Scan(MAC_Address_1, MAC_Address_2)
-
 """
 キャリブレーションの際に必要なRSSI値の差を返却する
 
@@ -56,4 +62,16 @@ def Calibration(RSSI_1, RSSI_2):
     difference = RSSI_1 - RSSI_2
     
     return difference
-    
+
+def serial_send(ser):
+    data = "hello"
+    data += "\r\n"
+    ser.write(data)
+    print "============================"
+
+rssi_dict = RSSI_Scan(MAC_Address_1, MAC_Address_2)
+
+if rssi_dict[MAC_Address_1] < rssi_dict[MAC_Address_2]:
+    serial_send(ser_1)
+else:
+    serial_send(ser_2)

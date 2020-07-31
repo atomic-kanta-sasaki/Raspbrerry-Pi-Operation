@@ -11,7 +11,7 @@ rate = 9600
 ser = serial.Serial(dev, rate, timeout=10)
 new_url_list = []
 # 使用するMACアドレスを変数化
-MAC_Address_1 = "D0:57:7B:20:46:ED"
+MAC_Address_1 = "1C:BF:C0:2B:52:D2"
 MAC_Address_2 = "00:28:F8:AA:6B:3E" 
 
 """
@@ -119,7 +119,7 @@ def main():
     print "select 1 or 2 :1 is pick 2is drop "
     select = int(raw_input())
     if select == 1:
-        data = "hello"
+        data = 1
         data += "\r\n"
         serial_send(data)
 

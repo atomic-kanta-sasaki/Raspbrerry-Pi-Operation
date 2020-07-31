@@ -83,4 +83,8 @@ Raspberry Pi 4B上で/dev/rfcomm0 22のアドレスを開放しwindowsとCUIベ�
  - https://qiita.com/ponkan1219/items/a753a78dfdfc08e846b
 
 #### 接続済デバイスのRSSIを取得するコマンド
- - sudo btmgmt find8
+ - sudo btmgmt find
+
+#### 複数台のPCでシリアル通信の接続をする方法
+ - rfcomm<数字>によりいくらでも接続することができるのかもしれない
+
