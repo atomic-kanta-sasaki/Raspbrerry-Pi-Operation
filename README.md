@@ -41,7 +41,8 @@ can't create RFCOMM TTY: Adress already in use<br />
 というエラーが発生した場合は
  - sudo rfcomm release hci0
 を入力しアドレスを開放する
-
+ - sudo sdptool add --channel=22 SP
+でSerial Portを追加する
 ### シリアル通信の方法（CUIの場合）
 #### Raspberry Pi 側でメッセージを確認する場合
  - sudo cat /dev/rfcomm0

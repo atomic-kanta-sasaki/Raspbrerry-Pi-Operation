@@ -75,3 +75,10 @@ if rssi_dict[MAC_Address_1] < rssi_dict[MAC_Address_2]:
     serial_send(ser_1)
 else:
     serial_send(ser_2)
+
+def main():
+    RSSI_Scan(MAC_Address_1, MAC_Address_2)
+
+
+if __name__ == '__main__':
+    main()
