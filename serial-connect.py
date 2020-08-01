@@ -8,7 +8,7 @@ import scan
 # MAC_Address_1に接続するためのシリアル
 dev = "/dev/rfcomm0"
 rate = 9600
-ser = serial.Serial(dev, rate, timeout=10)
+ser_1 = serial.Serial(dev, rate, timeout=10)
 
 # MAC_Address_2に接続するためのシリアル
 dev = "/dev/rfcomm1"
@@ -128,11 +128,14 @@ def main():
         data = 1
         data += "\r\n"
         rssi_dict = scan.RSSI_Scan(MAC_Address_1, MAC_Address_2)
+        # MACアドレスの２が大きいとき
         if rssi_dict[MAC_Address_1] < rssi_dict[MAC_Address_2]:
             serial_send(ser_1, data)
+        # MACアドレスの１が大きいとき
         else:
             serial_send(ser_2, data)
         read_text = serial_read()
+        # 受信時にいろいろいらないものがくっついてくるため整形する
         read_text = sentenceShaping(read_text)
 
         print "取得したデータを書き込みます"
@@ -145,11 +148,12 @@ def main():
         data = readCsv()
         print data
         data += "\r\n"
-        rssi_dict = scan.RSSI_Scan()
+        rssi_dict = scan.RSSI_Scan(MAC_Address_1, MAC_Address_2)
         if rssi_dict[MAC_Address_1] < rssi_dict[MAC_Address_2]:
             serial_send(ser_1, data)
         else:
             serial_send(ser_2, data)
+        # 送信したデータはcsvファイルから削除する
         new_list = createNewUrlList()
         updataCsv(new_list)
         print "更新されたURLリスト"

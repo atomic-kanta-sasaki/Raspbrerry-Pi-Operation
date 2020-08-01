@@ -4,6 +4,7 @@ import serial
 
 MAC_Address_1 = "1C:BF:C0:2B:52:D2"
 MAC_Address_2 = "00:28:F8:AA:6B:3E"
+
 dev = "/dev/rfcomm0"
 rate = 9600
 ser_1 = serial.Serial(dev, rate, timeout=10)
@@ -78,7 +79,6 @@ else:
 
 def main():
     RSSI_Scan(MAC_Address_1, MAC_Address_2)
-
 
 if __name__ == '__main__':
     main()
