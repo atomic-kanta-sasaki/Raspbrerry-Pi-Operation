@@ -3,7 +3,6 @@
 import serial
 import csv
 import pandas as pd
-import scan
 
 # MAC_Address_1に接続するためのシリアル
 dev = "/dev/rfcomm0"
@@ -120,7 +119,7 @@ def main():
     print "select 1 or 2 :1 is pick 2is drop "
     select = int(raw_input())
     if select == 1:
-        data = 1
+        data = "1"
         data += "\r\n"
         serial_send(data)
         read_text = serial_read()
