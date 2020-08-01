@@ -84,7 +84,8 @@ Raspberry Pi 4B上で/dev/rfcomm0 22のアドレスを開放しwindowsとCUIベ�
 
 #### 接続済デバイスのRSSIを取得するコマンド
  - sudo btmgmt find
+ - 毎回一度BluetoothデバイスをRaspberryPiとPC側で削除しないと検出されない
+ - 現状検出が安定していないことがある
 
 #### 複数台のPCでシリアル通信の接続をする方法
  - rfcomm<数字>によりいくらでも接続することができるのかもしれない
-
