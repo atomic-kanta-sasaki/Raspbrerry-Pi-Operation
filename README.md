@@ -84,7 +84,8 @@ Raspberry Pi 4B上で/dev/rfcomm0 22のアドレスを開放しwindowsとCUIベ�
  - https://qiita.com/ponkan1219/items/a753a78dfdfc08e846b
 
 #### 接続済デバイスのRSSIを取得するコマンド
- - sudo btmgmt find
+ - timeout 7 sudo btmgmt find # timeoutをつけないとレスポンス速度が遅くなるためつけている
+ このタイムアウトの時間は何か裏付けがある時間ではないため不具合が確実に起こらず最短で実装できる時間を探していく必要がある
  - 毎回一度BluetoothデバイスをRaspberryPiとPC側で削除しないと検出されない
  - 現状検出が安定していないことがある
 
