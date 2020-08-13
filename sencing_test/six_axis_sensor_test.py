@@ -72,8 +72,9 @@ while 1:
 
     #pitch = math.atan(-ax / (ay*math.sin(roll) + az*math.cos(roll)))
 
-    print('{0:4.3f},   {0:4.3f},' .format(pitch, roll))
+  #  print('{0:4.3f},   {0:4.3f},' .format(pitch, roll))
     
     print 'csvファイル書き込み'
-    insert_csv(gx, gy, gz, ax, ay, az)
+ #   insert_csv(gx, gy, gz, ax, ay, az)
+    print gz
 

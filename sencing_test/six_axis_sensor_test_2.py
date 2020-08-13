@@ -93,6 +93,6 @@ while 1:
     print # 改行
     
     print 'csvファイル書き込み'
-    insert_csv(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z)
+    insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
 
 
