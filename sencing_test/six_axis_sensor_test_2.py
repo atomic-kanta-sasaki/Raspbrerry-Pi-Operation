@@ -76,6 +76,7 @@ def insert_csv(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z):
 ### Main function ######################################################
 bus = smbus.SMBus( 1 )
 bus.write_byte_data( DEV_ADDR, PWR_MGMT_1, 0 )
+
 while 1:
 
     temp = get_temp()
