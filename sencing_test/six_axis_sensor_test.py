@@ -3,6 +3,7 @@
 import smbus
 import math
 from time import sleep
+import csv
 
 DEV_ADDR = 0x68
 
@@ -55,6 +56,11 @@ def getAccel():
     z= read_word_sensor(ACCEL_ZOUT)/ 16384.0
     return [x, y, z]
 
+def insert_csv(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z):
+    with open('sample.csv', 'a') as csvfile:
+        writer = csv.writer(csvfile, lineterminator='\n')
+        writer.writerow([gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z])
+
 
 while 1:
     ax, ay, az = getAccel()
@@ -67,4 +73,7 @@ while 1:
     #pitch = math.atan(-ax / (ay*math.sin(roll) + az*math.cos(roll)))
 
     print('{0:4.3f},   {0:4.3f},' .format(pitch, roll))
+    
+    print 'csvファイル書き込み'
+    insert_csv(gx, gy, gz, ax, ay, az)
 
