@@ -77,6 +77,12 @@ def insert_csv(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z):
 bus = smbus.SMBus( 1 )
 bus.write_byte_data( DEV_ADDR, PWR_MGMT_1, 0 )
 
+def check_posture(accel_x, accel_y, accel_z):
+    if 0.05  < accel_x < 0.35 and -0.1 < accel_y < 0.2 and 0.75 < accel_z < 1.10:
+        return "raise_arms"
+    else:
+        return "down_arms"
+
 while 1:
 
     temp = get_temp()
@@ -94,6 +100,8 @@ while 1:
     print # 改行
     
     print 'csvファイル書き込み'
-    insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
+    # insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
 
+    print '現在の状態'
+    print check_posture(accel_x, accel_y, accel_z)
 
