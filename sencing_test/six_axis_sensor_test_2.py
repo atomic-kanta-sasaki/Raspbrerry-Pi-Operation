@@ -83,8 +83,12 @@ def check_posture(accel_x, accel_y, accel_z):
     else:
         return "down_arms"
 
-def chekc_motion():
-    print ''
+def check_motion(gyro_x, gyro_y):
+    if 90  < gyro_x and -80 < gyro_y:
+        print'pick'
+    else:
+        print 'not motion'
+    
 
 while 1:
     temp = get_temp()
@@ -107,3 +111,5 @@ while 1:
     print '現在の状態'
     print check_posture(accel_x, accel_y, accel_z)
 
+    if check_posture(accel_x, accel_y, accel_z) == "raise_arms":
+        print check_motion(gyro_x, gyro_y)
