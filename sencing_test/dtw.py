@@ -14,11 +14,24 @@ x = pd.read_csv('sample.csv', usecols=[0]).values.reshape(-1, 1)
 y_init = pd.read_csv('experimental_data.csv', usecols=[0]).values.reshape(-1, 1)
 y = y_init[0:128]
 print(len(y))
-# DTWを計算
+index = 1
+# for item in range(129, len(y_init)):
+#     # DTWを計算
+#     distance, path = fastdtw(x, y, dist=euclidean)
+#     print ('===================')
+#     print (distance)
+#     print('===================')
+#     y = y_init[index : item]
+#     index += 1
+
 distance, path = fastdtw(x, y, dist=euclidean)
 print ('===================')
 print (distance)
-print ('===================')
+print('===================')
+# y = y_init[index : item]
+
+
+
 plt.plot(x, label='x')
 plt.plot(y, label='y')
 
