@@ -3,7 +3,15 @@
 import smbus            # use I2C
 import math
 from time import sleep  # time module
-import csv 
+import csv
+import dtw
+import numpy as np
+from scipy.spatial.distance import euclidean
+from fastdtw import fastdtw
+from matplotlib import pyplot as plt
+import pandas as pd
+
+
 ### define #############################################################
 DEV_ADDR = 0x68         # device address
 PWR_MGMT_1 = 0x6b       # Power Management 1
@@ -14,7 +22,16 @@ TEMP_OUT = 0x41         # Temperature
 GYRO_XOUT = 0x43        # Gyro X-axis
 GYRO_YOUT = 0x45        # Gyro Y-axis
 GYRO_ZOUT = 0x47        # Gyro Z-axis
- 
+
+# 異なる2種類のデータを定義
+train_data_set = pd.read_csv('sample.csv', usecols=[0]).values.reshape(-1, 1)
+test_data_set = np.arange(120).reshape(-1, 1)
+
+def remake_test_data_set(test_data_set, data):
+    new_data = np.insert(test_data_set, 120, data, axis=0)
+    new_data = np.delete(new_data, 0, 0)
+    return new_data
+
 # 1byte read
 def read_byte( addr ):
     return bus.read_byte_data( DEV_ADDR, addr )
@@ -106,10 +123,14 @@ while 1:
     print # 改行
     
     print 'csvファイル書き込み'
-    insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
+    #insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
 
-    print '現在の状態'
+   print '現在の状態'
     print check_posture(accel_x, accel_y, accel_z)
+
+    test_data_set = remake_test_data_set(test_data_set, accel_x)
+    print (len(test_data_set))
+    print (dtw.getDTW(train_data_set, test_data_set))
 
     if check_posture(accel_x, accel_y, accel_z) == "raise_arms":
         print check_motion(gyro_x, gyro_y)
