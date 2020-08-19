@@ -24,7 +24,11 @@ GYRO_YOUT = 0x45        # Gyro Y-axis
 GYRO_ZOUT = 0x47        # Gyro Z-axis
 
 # 異なる2種類のデータを定義
-train_data_set = pd.read_csv('gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_ax = pd.read_csv('accel_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_ay = pd.read_csv('accel_y.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_az = pd.read_csv('accel_z.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gx = pd.read_csv('gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gy = pd.read_csv('gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
 test_data_set = np.arange(120).reshape(-1, 1)
 
 def remake_test_data_set(test_data_set, data):
@@ -132,8 +136,8 @@ while 1:
     
     test_data_set = remake_test_data_set(test_data_set, gyro_y)
 #    print (len(test_data_set))
-    dtw_result = dtw.getDTW(train_data_set, test_data_set)
-    if dtw_result < 2300:
+    dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set)
+    if dtw_gy_result < 2300:
         count += 1
         print('=======================================================')
         print(count)
