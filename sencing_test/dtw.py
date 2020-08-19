@@ -47,7 +47,7 @@ y = y_init[0:128]
 
 def getDTW(train_data_set, test_data_set):
     distance, path = fastdtw(train_data_set, test_data_set)
-    print (distance)
+#    print (distance)
     return distance
 
 def main():

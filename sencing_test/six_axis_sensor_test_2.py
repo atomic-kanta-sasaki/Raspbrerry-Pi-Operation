@@ -24,7 +24,7 @@ GYRO_YOUT = 0x45        # Gyro Y-axis
 GYRO_ZOUT = 0x47        # Gyro Z-axis
 
 # 異なる2種類のデータを定義
-train_data_set = pd.read_csv('accel_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set = pd.read_csv('gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
 test_data_set = np.arange(120).reshape(-1, 1)
 
 def remake_test_data_set(test_data_set, data):
@@ -121,15 +121,22 @@ def print_sencing_data():
     print 'Az= %.3f' % accel_z, '\t',
     print # 改行
 
-
+count = 0
 while 1:
 #    print_sencing_data()
 #    print 'csvファイル書き込み'
     #insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
 
     accel_x, accel_y, accel_z = get_accel_data_g()
-
-    test_data_set = remake_test_data_set(test_data_set, accel_x)
+    gyro_x, gyro_y, gyro_z = get_gyro_data_deg()
+    
+    test_data_set = remake_test_data_set(test_data_set, gyro_y)
 #    print (len(test_data_set))
-    print (dtw.getDTW(train_data_set, test_data_set))
+    dtw_result = dtw.getDTW(train_data_set, test_data_set)
+    if dtw_result < 2300:
+        count += 1
+        print('=======================================================')
+        print(count)
+        print("======================================================")
+    # print (dtw.getDTW(train_data_set, test_data_set))
 
