@@ -24,7 +24,7 @@ GYRO_YOUT = 0x45        # Gyro Y-axis
 GYRO_ZOUT = 0x47        # Gyro Z-axis
 
 # 異なる2種類のデータを定義
-train_data_set = pd.read_csv('accel_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set = pd.read_csv('sample.csv', usecols=[0]).values.reshape(-1, 1)
 test_data_set = np.arange(120).reshape(-1, 1)
 
 def remake_test_data_set(test_data_set, data):
@@ -86,50 +86,61 @@ def get_accel_data_g():
     z = z / 16384.0
     return [x, y, z]
 
-def insert_csv(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z):
-    with open('sample.csv', 'a') as csvfile:
+def insert_accel_x_csv(accel_x):
+    with open('accel_x.csv', 'a') as csvfile:
         writer = csv.writer(csvfile, lineterminator='\n')
-        writer.writerow([gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z])
+        writer.writerow([accel_x])
+
+def insert_accel_y_csv(accel_y):
+    with open('accel_y.csv', 'a') as csvfile:
+        writer = csv.writer(csvfile, lineterminator='\n')
+        writer.writerow([accel_y])
+
+def insert_accel_z_csv(accel_z):
+    with open('accel_z.csv', 'a') as csvfile:
+        writer = csv.writer(csvfile, lineterminator='\n')
+        writer.writerow([accel_z])
+
+def insert_gyro_x_csv(gyro_x):
+    with open('gyro_x.csv', 'a') as csvfile:
+        writer = csv.writer(csvfile, lineterminator='\n')
+        writer.writerow([gyro_x])
+
+def insert_gyro_y_csv(gyro_y):
+    with open('gyro_y.csv', 'a') as csvfile:
+        writer = csv.writer(csvfile, lineterminator='\n')
+        writer.writerow([gyro_y])
+
 ### Main function ######################################################
 bus = smbus.SMBus( 1 )
 bus.write_byte_data( DEV_ADDR, PWR_MGMT_1, 0 )
 
-def check_posture(accel_x, accel_y, accel_z):
-    if 0  < accel_x < 0.35 and -0.1 < accel_y < 0.25 and 0.75 < accel_z < 1.10:
-        return "raise_arms"
-    else:
-        return "down_arms"
-
-def check_motion(gyro_x, gyro_y):
-    if 90  < gyro_x and -80 < gyro_y:
-        print'pick'
-    else:
-        print 'not motion'
-    
-def print_sencing_data():
+print '計測する値を入力してください'
+print 'accel_x, accel_y, accel_z, gyro_x, gyro_y'
+raw = raw_input()
+while 1:
     temp = get_temp()
     print 't= %.2f' % temp, '\t',
-
+ 
     gyro_x,gyro_y,gyro_z = get_gyro_data_deg()
     print 'Gx= %.3f' % gyro_x, '\t',
     print 'Gy= %.3f' % gyro_y, '\t',
     print 'Gz= %.3f' % gyro_z, '\t',
-
+ 
     accel_x,accel_y,accel_z = get_accel_data_g()
     print 'Ax= %.3f' % accel_x, '\t',
     print 'Ay= %.3f' % accel_y, '\t',
     print 'Az= %.3f' % accel_z, '\t',
     print # 改行
-
-
-while 1:
-#    print_sencing_data()
-#    print 'csvファイル書き込み'
-    #insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
-
-    accel_x, accel_y, accel_z = get_accel_data_g()
-
-    test_data_set = remake_test_data_set(test_data_set, accel_x)
-#    print (len(test_data_set))
-    print (dtw.getDTW(train_data_set, test_data_set))
-
+    
+    print 'csvファイル書き込み'
+    if raw == 'accel_x':
+        insert_accel_x_csv(accel_x)
+    elif raw == 'accel_y':
+        insert_accel_y_csv(accel_y)
+    elif raw == 'accel_z':
+        insert_accel_z_csv(accel_z)
+    elif raw == 'gyro_x':
+        insert_gyro_x_csv(gyro_x)
+    elif raw == 'gyro_y':
+        insert_gyro_y_csv(gyro_y)
