@@ -117,7 +117,7 @@ def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result
         print ('pick')
         return 'pick'
 def check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result):
-    if drop_dtw_gx_result < 1100 and drop_dtw_gy_result < 5000:
+    if drop_dtw_ax_result < 48 and drop_dtw_ay_result < 28 and drop_dtw_az_result < 72 and  drop_dtw_gx_result < 1100 and drop_dtw_gy_result < 5000:
         print('drop')
         return 'drop'
 
