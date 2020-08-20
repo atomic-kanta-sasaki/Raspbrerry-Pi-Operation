@@ -23,12 +23,20 @@ GYRO_XOUT = 0x43        # Gyro X-axis
 GYRO_YOUT = 0x45        # Gyro Y-axis
 GYRO_ZOUT = 0x47        # Gyro Z-axis
 
-# 異なる2種類のデータを定義
-train_data_set_ax = pd.read_csv('accel_x.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_ay = pd.read_csv('accel_y.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_az = pd.read_csv('accel_z.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_gx = pd.read_csv('gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_gy = pd.read_csv('gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+# Pickの学習用データを定義
+train_data_set_ax = pd.read_csv('pick_train_data/pick_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_ay = pd.read_csv('pick_train_data/pick_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_az = pd.read_csv('pick_train_data/pick_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gx = pd.read_csv('pick_train_data/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gy = pd.read_csv('pick_train_data/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+
+# Dropの学習用データを定義
+drop_train_data_set_ax = pd.read_csv('drop_train_data/drop_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_ay = pd.read_csv('drop_train_data/drop_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_az = pd.read_csv('drop_train_data/drop_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gx = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gy = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+
 
 # テストデータを作成するための初期データを作成
 test_data_set_ax = np.arange(120).reshape(-1, 1)
@@ -104,10 +112,14 @@ def insert_csv(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z):
 bus = smbus.SMBus( 1 )
 bus.write_byte_data( DEV_ADDR, PWR_MGMT_1, 0 )
 
-def check_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
+def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
     if dtw_ax_result < 50 and dtw_az_result < 1000 and dtw_gx_result < 1500 and dtw_gy_result < 2000:
         print ('pick')
         return 'pick'
+def check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result):
+    if drop_dtw_gx_result < 1100 and drop_dtw_gy_result < 5000:
+        print('drop')
+        return 'drop'
 
 def print_sencing_data():
     temp = get_temp()
@@ -144,21 +156,41 @@ while 1:
 
 #    print (len(test_data_set))
     
-    # DTWの値を取得する
-    dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
-    dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
-    dtw_az_result = dtw.getDTW(train_data_set_az, test_data_set_az)
-    dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx)
-    dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set_gy)
-    if check_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result) == 'pick':
+    # pickのDTWの値を取得する
+    pick_dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
+    pick_dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
+    pick_dtw_az_result = dtw.getDTW(train_data_set_az, test_data_set_az)
+    pick_dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx)
+    pick_dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set_gy)
+    if check_pick_motion(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result) == 'pick':
         count += 1
         print('=======================================================')
         print(count)
         print("======================================================")
+    else:
+        drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)
+        drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
+        drop_dtw_az_result = dtw.getDTW(drop_train_data_set_az, test_data_set_az)
+        drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
+        drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
+        if check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result) == 'drop':
+            drop_count = 1
+            print('-----------------------------------------------------')
+            print(drop_count)
+            print('-----------------------------------------------------')
+
     print('ax~gyまでデータを出力')
-    print (dtw_ax_result)
-    print (dtw_ay_result)
-    print (dtw_az_result)
-    print (dtw_gx_result)
-    print (dtw_gy_result)
+#    print (pick_dtw_ax_result)
+#    print (pick_dtw_ay_result)
+#    print (pick_dtw_az_result)
+#    print (pick_dtw_gx_result)
+#    print (pick_dtw_gy_result)
+    
+    print(drop_dtw_ax_result)
+    print(drop_dtw_ay_result)
+    print(drop_dtw_az_result)
+    print(drop_dtw_gx_result)
+    print(drop_dtw_gy_result)
+
+
 
