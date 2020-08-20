@@ -84,7 +84,7 @@ def get_accel_data_g():
     return [x, y, z]
 
 def insert_csv(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z):
-    with open('sample_5.csv', 'a') as csvfile:
+    with open('sample_6.csv', 'a') as csvfile:
         writer = csv.writer(csvfile, lineterminator='\n')
         writer.writerow([gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z])
 ### Main function ######################################################
