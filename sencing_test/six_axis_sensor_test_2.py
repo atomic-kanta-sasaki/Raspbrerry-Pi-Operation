@@ -29,7 +29,13 @@ train_data_set_ay = pd.read_csv('accel_y.csv', usecols=[0]).values.reshape(-1, 1
 train_data_set_az = pd.read_csv('accel_z.csv', usecols=[0]).values.reshape(-1, 1)
 train_data_set_gx = pd.read_csv('gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
 train_data_set_gy = pd.read_csv('gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
-test_data_set = np.arange(120).reshape(-1, 1)
+
+# テストデータを作成するための初期データを作成
+test_data_set_ax = np.arange(120).reshape(-1, 1)
+test_data_set_ay = np.arange(120).reshape(-1, 1)
+test_data_set_az = np.arange(120).reshape(-1, 1)
+test_data_set_gx = np.arange(120).reshape(-1, 1)
+test_data_set_gy = np.arange(120).reshape(-1, 1)
 
 def remake_test_data_set(test_data_set, data):
     new_data = np.insert(test_data_set, 120, data, axis=0)
@@ -98,18 +104,11 @@ def insert_csv(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z):
 bus = smbus.SMBus( 1 )
 bus.write_byte_data( DEV_ADDR, PWR_MGMT_1, 0 )
 
-def check_posture(accel_x, accel_y, accel_z):
-    if 0  < accel_x < 0.35 and -0.1 < accel_y < 0.25 and 0.75 < accel_z < 1.10:
-        return "raise_arms"
-    else:
-        return "down_arms"
+def check_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
+    if dtw_ax_result < 50 and dtw_az_result < 1000 and dtw_gx_result < 1500 and dtw_gy_result < 2000:
+        print ('pick')
+        return 'pick'
 
-def check_motion(gyro_x, gyro_y):
-    if 90  < gyro_x and -80 < gyro_y:
-        print'pick'
-    else:
-        print 'not motion'
-    
 def print_sencing_data():
     temp = get_temp()
     print 't= %.2f' % temp, '\t',
@@ -131,16 +130,35 @@ while 1:
 #    print 'csvファイル書き込み'
     #insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
 
+    # 加速度を取得
     accel_x, accel_y, accel_z = get_accel_data_g()
+    # 角加速度を取得
     gyro_x, gyro_y, gyro_z = get_gyro_data_deg()
     
-    test_data_set = remake_test_data_set(test_data_set, gyro_y)
+    # 枠内にデータを作成する
+    test_data_set_ax = remake_test_data_set(test_data_set_ax, accel_x)
+    test_data_set_ay = remake_test_data_set(test_data_set_ay, accel_y)
+    test_data_set_az = remake_test_data_set(test_data_set_az, accel_z)
+    test_data_set_gx = remake_test_data_set(test_data_set_gx, gyro_x)
+    test_data_set_gy = remake_test_data_set(test_data_set_gy, gyro_y)
+
 #    print (len(test_data_set))
-    dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set)
-    if dtw_gy_result < 2300:
+    
+    # DTWの値を取得する
+    dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
+    dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
+    dtw_az_result = dtw.getDTW(train_data_set_az, test_data_set_az)
+    dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx)
+    dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set_gy)
+    if check_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result) == 'pick':
         count += 1
         print('=======================================================')
         print(count)
         print("======================================================")
-    # print (dtw.getDTW(train_data_set, test_data_set))
+    print('ax~gyまでデータを出力')
+    print (dtw_ax_result)
+    print (dtw_ay_result)
+    print (dtw_az_result)
+    print (dtw_gx_result)
+    print (dtw_gy_result)
 
