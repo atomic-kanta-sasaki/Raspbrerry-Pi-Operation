@@ -39,11 +39,11 @@ drop_train_data_set_gy = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=
 
 
 # テストデータを作成するための初期データを作成
-test_data_set_ax = np.arange(120).reshape(-1, 1)
-test_data_set_ay = np.arange(120).reshape(-1, 1)
-test_data_set_az = np.arange(120).reshape(-1, 1)
-test_data_set_gx = np.arange(120).reshape(-1, 1)
-test_data_set_gy = np.arange(120).reshape(-1, 1)
+test_data_set_ax = np.arange(60).reshape(-1, 1)
+test_data_set_ay = np.arange(60).reshape(-1, 1)
+test_data_set_az = np.arange(60).reshape(-1, 1)
+test_data_set_gx = np.arange(60).reshape(-1, 1)
+test_data_set_gy = np.arange(60).reshape(-1, 1)
 
 """
 データ数120個の枠内に新しいデータを挿入し不要なデータをドロップさせる
@@ -55,7 +55,7 @@ test_data_set_gy = np.arange(120).reshape(-1, 1)
 @return 生成した観測データセット
 """
 def remake_test_data_set(test_data_set, data):
-    new_data = np.insert(test_data_set, 120, data, axis=0)
+    new_data = np.insert(test_data_set, 60, data, axis=0)
     new_data = np.delete(new_data, 0, 0)
     return new_data
 
@@ -136,7 +136,7 @@ Drop動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result):
-    if drop_dtw_ax_result < 54 and drop_dtw_ay_result < 34 and drop_dtw_az_result < 72 and  drop_dtw_gx_result < 1500 and drop_dtw_gy_result < 3600:
+    if drop_dtw_ax_result < 100 and drop_dtw_ay_result < 100 and drop_dtw_az_result < 100 and  drop_dtw_gx_result < 1000 and drop_dtw_gy_result < 1800:
         print('drop')
         return 'drop'
 """
@@ -156,6 +156,24 @@ def print_sencing_data():
     print 'Ay= %.3f' % accel_y, '\t',
     print 'Az= %.3f' % accel_z, '\t',
     print # 改行
+
+def print_pick_dtw_result(ax, ay, az, gx, gy):
+    print('-----------------------pick dtw result-------------------------------')
+    print(ax)
+    print(ay)
+    print(az)
+    print(gx)
+    print(gy)
+    print('--------------------------------end-----------------------------------')
+
+def print_drop_dtw_result(ax, ay, az, gx, gy):
+    print('-----------------------drop dtw result--------------------------------')
+    print(ax)
+    print(ay)
+    print(az)
+    print(gx)
+    print(gy)
+    print('--------------------------------end------------------------------------')
 
 count = 0
 drop_count = 0
@@ -202,19 +220,9 @@ while 1:
             print('-----------------------------------------------------')
             print(drop_count)
             print('-----------------------------------------------------')
+            print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
-    print('ax~gyまでデータを出力')
-    """
-    print (pick_dtw_ax_result)
-    print (pick_dtw_ay_result)
-    print (pick_dtw_az_result)
-    print (pick_dtw_gx_result)
-    print (pick_dtw_gy_result)
-    """
-    print(drop_dtw_ax_result)
-    print(drop_dtw_ay_result)
-    print(drop_dtw_az_result)
-    print(drop_dtw_gx_result)
-    print(drop_dtw_gy_result)
 
+   # print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
+   # print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
