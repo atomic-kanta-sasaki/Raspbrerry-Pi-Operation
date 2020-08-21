@@ -127,7 +127,7 @@ pick動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
-    if dtw_ax_result < 50 and dtw_az_result < 1000 and dtw_gx_result < 1500 and dtw_gy_result < 2000:
+    if dtw_ax_result < 50 and dtw_az_result < 100 and dtw_gx_result < 1000 and dtw_gy_result < 1800:
         print ('pick')
         return 'pick'
 
@@ -158,6 +158,7 @@ def print_sencing_data():
     print # 改行
 
 count = 0
+drop_count = 0
 while 1:
 #    print_sencing_data()
 #    print 'csvファイル書き込み'
@@ -197,23 +198,23 @@ while 1:
         drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
         drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
         if check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result) == 'drop':
-            drop_count = 1
+            drop_count += 1
             print('-----------------------------------------------------')
             print(drop_count)
             print('-----------------------------------------------------')
-"""
+
     print('ax~gyまでデータを出力')
+    """
     print (pick_dtw_ax_result)
     print (pick_dtw_ay_result)
     print (pick_dtw_az_result)
     print (pick_dtw_gx_result)
     print (pick_dtw_gy_result)
-    
+    """
     print(drop_dtw_ax_result)
     print(drop_dtw_ay_result)
     print(drop_dtw_az_result)
     print(drop_dtw_gx_result)
     print(drop_dtw_gy_result)
-"""
 
 
