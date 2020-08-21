@@ -45,6 +45,15 @@ test_data_set_az = np.arange(120).reshape(-1, 1)
 test_data_set_gx = np.arange(120).reshape(-1, 1)
 test_data_set_gy = np.arange(120).reshape(-1, 1)
 
+"""
+データ数120個の枠内に新しいデータを挿入し不要なデータをドロップさせる
+* 枠内のデータ数は考える必要あり
+
+@param 観測データセット
+@param 観測データ
+
+@return 生成した観測データセット
+"""
 def remake_test_data_set(test_data_set, data):
     new_data = np.insert(test_data_set, 120, data, axis=0)
     new_data = np.delete(new_data, 0, 0)
@@ -112,15 +121,27 @@ def insert_csv(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z):
 bus = smbus.SMBus( 1 )
 bus.write_byte_data( DEV_ADDR, PWR_MGMT_1, 0 )
 
+"""
+pick動作を検出する
+
+@param 加速度、各加速度を用いたDTWの値
+"""
 def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
     if dtw_ax_result < 50 and dtw_az_result < 1000 and dtw_gx_result < 1500 and dtw_gy_result < 2000:
         print ('pick')
         return 'pick'
+
+"""
+Drop動作を検出する
+@param 加速度、各加速度を用いたDTWの値
+"""
 def check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result):
     if drop_dtw_ax_result < 48 and drop_dtw_ay_result < 28 and drop_dtw_az_result < 72 and  drop_dtw_gx_result < 1100 and drop_dtw_gy_result < 5000:
         print('drop')
         return 'drop'
-
+"""
+観測データを出力する
+"""
 def print_sencing_data():
     temp = get_temp()
     print 't= %.2f' % temp, '\t',
@@ -168,6 +189,8 @@ while 1:
         print(count)
         print("======================================================")
     else:
+        
+        #計算速度を早めるためPick動作が検出されなかった場合のみDrop動作を検出する関数を動かす
         drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)
         drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
         drop_dtw_az_result = dtw.getDTW(drop_train_data_set_az, test_data_set_az)
@@ -178,19 +201,19 @@ while 1:
             print('-----------------------------------------------------')
             print(drop_count)
             print('-----------------------------------------------------')
-
+"""
     print('ax~gyまでデータを出力')
-#    print (pick_dtw_ax_result)
-#    print (pick_dtw_ay_result)
-#    print (pick_dtw_az_result)
-#    print (pick_dtw_gx_result)
-#    print (pick_dtw_gy_result)
+    print (pick_dtw_ax_result)
+    print (pick_dtw_ay_result)
+    print (pick_dtw_az_result)
+    print (pick_dtw_gx_result)
+    print (pick_dtw_gy_result)
     
     print(drop_dtw_ax_result)
     print(drop_dtw_ay_result)
     print(drop_dtw_az_result)
     print(drop_dtw_gx_result)
     print(drop_dtw_gy_result)
-
+"""
 
 
