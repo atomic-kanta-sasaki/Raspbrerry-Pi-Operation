@@ -127,7 +127,7 @@ pick動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
-    if dtw_ax_result < 40 and dtw_ay_result < 35 and dtw_az_result < 35 and dtw_gx_result < 800 and dtw_gy_result < 2700:
+    if dtw_ax_result < 32 and dtw_ay_result < 30 and dtw_az_result < 30 and dtw_gx_result < 800 and dtw_gy_result < 3000:
         print ('pick')
         return 'pick'
 
@@ -136,7 +136,7 @@ Drop動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result):
-    if drop_dtw_ax_result < 40 and drop_dtw_ay_result < 15 and drop_dtw_az_result < 40 and  drop_dtw_gx_result < 700 and drop_dtw_gy_result < 3000:
+    if drop_dtw_ax_result < 40 and drop_dtw_ay_result < 30 and drop_dtw_az_result < 30 and  drop_dtw_gx_result < 800 and drop_dtw_gy_result < 4200:
         print('drop')
         return 'drop'
 """
