@@ -136,7 +136,7 @@ Drop動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result):
-    if drop_dtw_ax_result < 48 and drop_dtw_ay_result < 28 and drop_dtw_az_result < 72 and  drop_dtw_gx_result < 1100 and drop_dtw_gy_result < 5000:
+    if drop_dtw_ax_result < 54 and drop_dtw_ay_result < 34 and drop_dtw_az_result < 72 and  drop_dtw_gx_result < 1500 and drop_dtw_gy_result < 3600:
         print('drop')
         return 'drop'
 """
