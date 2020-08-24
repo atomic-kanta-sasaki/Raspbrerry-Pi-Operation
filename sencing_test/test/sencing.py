@@ -25,18 +25,18 @@ GYRO_YOUT = 0x45        # Gyro Y-axis
 GYRO_ZOUT = 0x47        # Gyro Z-axis
 
 # Pickの学習用データを定義
-train_data_set_ax = pd.read_csv('pick_train_data/pick_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_ay = pd.read_csv('pick_train_data/pick_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_az = pd.read_csv('pick_train_data/pick_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_gx = pd.read_csv('pick_train_data/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_gy = pd.read_csv('pick_train_data/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_ax = pd.read_csv('../pick_train_data/pick_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_ay = pd.read_csv('../pick_train_data/pick_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_az = pd.read_csv('../pick_train_data/pick_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gx = pd.read_csv('../pick_train_data/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gy = pd.read_csv('../pick_train_data/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
 
 # Dropの学習用データを定義
-drop_train_data_set_ax = pd.read_csv('drop_train_data/drop_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_ay = pd.read_csv('drop_train_data/drop_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_az = pd.read_csv('drop_train_data/drop_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_gx = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_gy = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_ax = pd.read_csv('../drop_train_data/drop_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_ay = pd.read_csv('../drop_train_data/drop_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_az = pd.read_csv('../drop_train_data/drop_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gx = pd.read_csv('../drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gy = pd.read_csv('../drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
 
 
 # テストデータを作成するための初期データを作成
@@ -210,6 +210,7 @@ while 1:
         print("======================================================")
         print(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
         pick.main()
+        break
     else:
         
         #計算速度を早めるためPick動作が検出されなかった場合のみDrop動作を検出する関数を動かす
@@ -225,7 +226,7 @@ while 1:
             print('======================================================')
             print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
             drop.main()
-
+            break
     #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
     #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 

@@ -3,7 +3,8 @@
 import serial
 import csv
 import pandas as pd
-import scan
+#import scan
+import sencing
 
 # MAC_Address_1に接続するためのシリアル
 dev = "/dev/rfcomm0"
@@ -11,9 +12,9 @@ rate = 9600
 ser_1 = serial.Serial(dev, rate, timeout=10)
 
 # MAC_Address_2に接続するためのシリアル
-dev = "/dev/rfcomm1"
-rate = 9600
-ser_2 = serial.Serial(dev, rate, timeout=10)
+#dev = "/dev/rfcomm1"
+#rate = 9600
+#ser_2 = serial.Serial(dev, rate, timeout=10)
 
 new_url_list = []
 # 使用するMACアドレスを変数化
@@ -122,7 +123,7 @@ beContinue = True
 beSend = True
 
 def main():
-    data = 1
+    data = str('1')
     data += "\r\n"
     #rssi_dict = scan.RSSI_Scan(MAC_Address_1, MAC_Address_2)
     # MACアドレスの２が大きいとき
@@ -136,6 +137,7 @@ def main():
 
     print "現在のCSvファイルの情報"
     printCsvContents()
+    sencing
 
 if __name__ == '__main__':
     main()

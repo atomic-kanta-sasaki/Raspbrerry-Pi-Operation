@@ -11,9 +11,9 @@ rate = 9600
 ser_1 = serial.Serial(dev, rate, timeout=10)
 
 # MAC_Address_2に接続するためのシリアル
-dev = "/dev/rfcomm1"
-rate = 9600
-ser_2 = serial.Serial(dev, rate, timeout=10)
+#dev = "/dev/rfcomm1"
+#rate = 9600
+#ser_2 = serial.Serial(dev, rate, timeout=10)
 
 new_url_list = []
 # 使用するMACアドレスを変数化
