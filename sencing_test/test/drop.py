@@ -4,6 +4,7 @@ import serial
 import csv
 import pandas as pd
 # import scan
+import sencing
 
 # MAC_Address_1に接続するためのシリアル
 dev = "/dev/rfcomm0"
@@ -137,6 +138,6 @@ def main():
 
     print "現在のCSVファイルの情報"
     printCsvContents()
-
+    sencing.main()
 if __name__ == '__main__':
     main()

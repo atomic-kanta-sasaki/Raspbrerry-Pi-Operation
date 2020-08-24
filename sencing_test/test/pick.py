@@ -137,7 +137,7 @@ def main():
 
     print "現在のCSvファイルの情報"
     printCsvContents()
-    sencing
+    sencing.main()
 
 if __name__ == '__main__':
     main()
