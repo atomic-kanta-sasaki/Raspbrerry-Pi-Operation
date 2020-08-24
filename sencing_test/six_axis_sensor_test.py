@@ -10,8 +10,6 @@ from scipy.spatial.distance import euclidean
 from fastdtw import fastdtw
 from matplotlib import pyplot as plt
 import pandas as pd
-import test/pick
-import test/drop
 
 ### define #############################################################
 DEV_ADDR = 0x68         # device address
@@ -209,7 +207,7 @@ while 1:
         print(count)
         print("======================================================")
         print(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
-        pick.main()
+        
     else:
         
         #計算速度を早めるためPick動作が検出されなかった場合のみDrop動作を検出する関数を動かす
@@ -224,8 +222,7 @@ while 1:
             print(drop_count)
             print('======================================================')
             print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
-            drop.main()
 
-    #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
+    print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
     #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
