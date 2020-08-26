@@ -33,8 +33,8 @@ train_data_set_gy = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[2]
 drop_train_data_set_ax = pd.read_csv('drop_train_data/drop_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
 drop_train_data_set_ay = pd.read_csv('drop_train_data/drop_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
 drop_train_data_set_az = pd.read_csv('drop_train_data/drop_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_gx = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_gy = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gx = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
+drop_train_data_set_gy = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
 
 
 # テストデータを作成するための初期データを作成
@@ -126,7 +126,7 @@ pick動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
-    if dtw_ay_result < 30 and dtw_az_result < 60 and dtw_gx_result < 500 and dtw_gy_result < 900:
+    if dtw_ay_result < 30 and dtw_az_result < 60 and dtw_gx_result < 700000 and dtw_gy_result < 2000000:
         print ('pick')
         return 'pick'
 
@@ -135,7 +135,7 @@ Drop動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result):
-    if drop_dtw_ax_result < 40 and drop_dtw_ay_result < 30 and drop_dtw_az_result < 30 and  drop_dtw_gx_result < 800 and drop_dtw_gy_result < 4200:
+    if drop_dtw_ax_result < 40 and drop_dtw_ay_result < 30 and drop_dtw_az_result < 30 and  drop_dtw_gx_result < 300000 and drop_dtw_gy_result < 2600000:
         print('drop')
         return 'drop'
 """
@@ -199,8 +199,8 @@ while 1:
     pick_dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
     pick_dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
     pick_dtw_az_result = dtw.getDTW(train_data_set_az, test_data_set_az)
-    pick_dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx)
-    pick_dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set_gy)
+    pick_dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx) ** 2
+    pick_dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set_gy) ** 2
     if check_pick_motion(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result) == 'pick':
         count += 1
         print('=======================================================')
@@ -211,11 +211,11 @@ while 1:
     else:
         
         #計算速度を早めるためPick動作が検出されなかった場合のみDrop動作を検出する関数を動かす
-        drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)
+        drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax )
         drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
         drop_dtw_az_result = dtw.getDTW(drop_train_data_set_az, test_data_set_az)
-        drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
-        drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
+        drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx) ** 2
+        drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy) ** 2
         if check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result) == 'drop':
             drop_count += 1
             print('======================================================')
@@ -224,6 +224,6 @@ while 1:
             print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
     #print_sencing_data()
-   # print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
-    print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
+    print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
+    #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
