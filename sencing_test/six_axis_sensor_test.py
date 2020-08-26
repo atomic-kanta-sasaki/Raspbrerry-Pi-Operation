@@ -126,7 +126,7 @@ pick動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
-    if dtw_ay_result < 30 and dtw_az_result < 60 and dtw_gx_result < 800 and dtw_gy_result < 2000:
+    if dtw_ay_result < 30 and dtw_az_result < 60 and dtw_gx_result < 500 and dtw_gy_result < 900:
         print ('pick')
         return 'pick'
 
@@ -223,6 +223,7 @@ while 1:
             print('======================================================')
             print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
-    print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
-    #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
+    #print_sencing_data()
+   # print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
+    print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
