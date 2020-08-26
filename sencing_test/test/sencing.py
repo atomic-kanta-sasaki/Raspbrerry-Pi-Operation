@@ -28,8 +28,8 @@ GYRO_ZOUT = 0x47        # Gyro Z-axis
 train_data_set_ax = pd.read_csv('../pick_train_data/pick_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
 train_data_set_ay = pd.read_csv('../pick_train_data/pick_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
 train_data_set_az = pd.read_csv('../pick_train_data/pick_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_gx = pd.read_csv('../pick_train_data/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_gy = pd.read_csv('../pick_train_data/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gx = pd.read_csv('../pick_train_data/pick_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
+train_data_set_gy = pd.read_csv('../pick_train_data/pick_gyro_y.csv', usecols=[3]).values.reshape(-1, 1)
 
 # Dropの学習用データを定義
 drop_train_data_set_ax = pd.read_csv('../drop_train_data/drop_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
@@ -128,7 +128,7 @@ pick動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
-    if dtw_ax_result < 32 and dtw_ay_result < 30 and dtw_az_result < 30 and dtw_gx_result < 800 and dtw_gy_result < 3000:
+    if dtw_ax_result < 320 and dtw_ay_result < 300 and dtw_az_result < 300 and dtw_gx_result < 800 and dtw_gy_result < 3000:
         print ('pick')
         return 'pick'
 
