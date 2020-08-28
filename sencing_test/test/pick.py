@@ -119,24 +119,23 @@ def createNewUrlList():
         del new_url_list[0]
         return new_url_list
 
-beContinue = True
+def main():
+    print('sdlkjfla;jsd;l')
+    data = str('1')
+    data += "\r\n"
+    #rssi_dict = scan.RSSI_Scan(MAC_Address_1, MAC_Address_2)
+    # MACアドレスの２が大きいとき
+    serial_send(ser_1, data)
+    read_text = serial_read(ser_1)
+    # 受信時にいろいろいらないものがくっついてくるため整形する
+    read_text = sentenceShaping(read_text)
 
-beSend = True
+    print "取得したデータを書き込みます"
+    writeCsv(read_text)
 
-print('sdlkjfla;jsd;l')
-data = str('1')
-data += "\r\n"
-#rssi_dict = scan.RSSI_Scan(MAC_Address_1, MAC_Address_2)
-# MACアドレスの２が大きいとき
-serial_send(ser_1, data)
-read_text = serial_read(ser_1)
-# 受信時にいろいろいらないものがくっついてくるため整形する
-read_text = sentenceShaping(read_text)
+    print "現在のCSvファイルの情報"
+    printCsvContents()
+    sencing
 
-print "取得したデータを書き込みます"
-writeCsv(read_text)
-
-print "現在のCSvファイルの情報"
-printCsvContents()
-sencing
-
+if __name__ == '__main__':
+    main()
