@@ -255,18 +255,17 @@ while 1:
 
         drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
         drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
-        drop_dtw_gx_result_1 = dtw.getDTW(drop_train_data_set_gx_1, test_data_set_gx)
-        drop_dtw_gy_result_1 = dtw.getDTW(drop_train_data_set_gy_1, test_data_set_gy)
-        drop_dtw_gx_result_2 = dtw.getDTW(drop_train_data_set_gx_2, test_data_set_gx)
-        drop_dtw_gy_result_2 = dtw.getDTW(drop_train_data_set_gy_2, test_data_set_gy)
-        drop_dtw_gx_result_3 = dtw.getDTW(drop_train_data_set_gx_3, test_data_set_gx)
-        drop_dtw_gy_result_3 = dtw.getDTW(drop_train_data_set_gy_3, test_data_set_gy)
-        drop_dtw_gx_result_4 = dtw.getDTW(drop_train_data_set_gx_4, test_data_set_gx)
-        drop_dtw_gy_result_4 = dtw.getDTW(drop_train_data_set_gy_4, test_data_set_gy)
+        drop_dtw_gx_result_1 = dtw.getDTW(drop_train_data_set_gx_2, test_data_set_gx)
+        drop_dtw_gy_result_1 = dtw.getDTW(drop_train_data_set_gy_2, test_data_set_gy)
+        drop_dtw_gx_result_2 = dtw.getDTW(drop_train_data_set_gx_3, test_data_set_gx)
+        drop_dtw_gy_result_2 = dtw.getDTW(drop_train_data_set_gy_3, test_data_set_gy)
+        drop_dtw_gx_result_3 = dtw.getDTW(drop_train_data_set_gx_4, test_data_set_gx)
+        drop_dtw_gy_result_3 = dtw.getDTW(drop_train_data_set_gy_4, test_data_set_gy)
+        drop_dtw_gx_result_4 = dtw.getDTW(drop_train_data_set_gx_5, test_data_set_gx)
+        drop_dtw_gy_result_4 = dtw.getDTW(drop_train_data_set_gy_5, test_data_set_gy)
 
-        drop_dtw_gx_list.extend(drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gx_result_4)
-        drop_dtw_gy_list.extend(drop_dtw_gy_result, drop_dtw_gy_result_1, drop_dtw_gy_result_2, drop_dtw_gy_result_3, drop_dtw_gy_result_4)
-
+        drop_dtw_gx_list.extend([drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gx_result_4])
+        drop_dtw_gy_list.extend([drop_dtw_gy_result, drop_dtw_gy_result_1, drop_dtw_gy_result_2, drop_dtw_gy_result_3, drop_dtw_gy_result_4])
         drop_dtw_gx_result = min(drop_dtw_gx_list) ** 2
         drop_dtw_gy_result = min(drop_dtw_gy_list) ** 2
 
@@ -274,14 +273,16 @@ while 1:
             drop_count += 1
             print('======================================================')
             print(drop_count)
-            print(i'======================================================')
+            print('======================================================')
             print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
     print_sencing_data()
-    print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
+    #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
     #print_pick_dtw_result(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
-    #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
+    print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
     #print_drop_dtw_result(pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4)
     pick_dtw_gx_list = []
     pick_dtw_gy_list = []
+    drop_dtw_gx_list = []
+    drop_dtw_gy_list = []
     tt += 1
