@@ -339,18 +339,21 @@ def pick():
 def drop():
     data = readCsv()
     print data
-    data += "\r\n"
-#    rssi_dict = scan.RSSI_Scan(MAC_Address_1, MAC_Address_2)
-    serial_send(ser_1, data)
+    if data == None:
+        print "not url"
+    else:
+        data += "\r\n"
+    #    rssi_dict = scan.RSSI_Scan(MAC_Address_1, MAC_Address_2)
+        serial_send(ser_1, data)
 
-    # 送信したデータはcsvファイルから削除する
-    new_list = createNewUrlList()
-    updataCsv(new_list)
-    print "更新されたURLリスト"
-    print new_list
+        # 送信したデータはcsvファイルから削除する
+        new_list = createNewUrlList()
+        updataCsv(new_list)
+        print "更新されたURLリスト"
+        print new_list
 
-    print "現在のCSVファイルの情報"
-    printCsvContents()
+        print "現在のCSVファイルの情報"
+        printCsvContents()
     
 
 count = 0
@@ -449,8 +452,8 @@ while 1:
                 drop_motion_count = loop_count
 
     loop_count += 1
-    print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
-    #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
+    #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
+    print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
     pick_dtw_gx_list = []
     pick_dtw_gy_list = []
     drop_dtw_gx_list = []
