@@ -150,7 +150,7 @@ pick動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
-    if -0.4< accel_x < 0.4 and -0.4 < accel_y < 0.4 and 0.75 < accel_z < 1.25 and dtw_gx_result < 100000 and dtw_gy_result < 2000000:
+    if 0.75 < accel_z and dtw_gx_result < 100000 and dtw_gy_result < 2000000:
         print ('pick')
         return 'pick'
 
@@ -159,7 +159,7 @@ Drop動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result):
-    if drop_dtw_ax_result < 40 and drop_dtw_ay_result < 30 and drop_dtw_az_result < 30 and  drop_dtw_gx_result < 300000 and drop_dtw_gy_result < 2600000:
+    if 0.75 < accel_z and  drop_dtw_gx_result < 400000 and drop_dtw_gy_result < 2000000:
         print('drop')
         return 'drop'
 """
@@ -276,10 +276,10 @@ while 1:
             print('======================================================')
             print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
-    print_sencing_data()
+    #print_sencing_data()
     #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
     #print_pick_dtw_result(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
-    print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
+    #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
     #print_drop_dtw_result(pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4)
     pick_dtw_gx_list = []
     pick_dtw_gy_list = []

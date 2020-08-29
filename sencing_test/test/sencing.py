@@ -334,7 +334,7 @@ def drop():
 
 count = 0
 drop_count = 0
-loop_count = 0
+loop_count = 1
 pick_motion_count = 0
 drop_motion_count = 0
 while 1:
@@ -371,8 +371,6 @@ while 1:
         if loop_count != pick_motion_count + 1:
             pick()
             pick_motion_count =loop_count
-
-        
     else:
             
         #計算速度を早めるためPick動作が検出されなかった場合のみDrop動作を検出する関数を動かす
@@ -389,7 +387,7 @@ while 1:
             print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
             if loop_count != drop_motion_count + 1:
                 drop()
-    loop_count += 1
+                loop_count += 1
     #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
     #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
