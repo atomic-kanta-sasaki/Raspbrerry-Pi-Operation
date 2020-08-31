@@ -172,7 +172,7 @@ pick動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
-    if 0.75 < accel_z and dtw_gx_result < 100000 and dtw_gy_result < 2000000:
+    if 0.75 < accel_z and dtw_gx_result < 60000 and dtw_gy_result < 600000:
         print ('pick')
         return 'pick'
 
@@ -334,25 +334,27 @@ def pick():
 
     print "現在のCSvファイルの情報"
     printCsvContents()
-    sencing
 
 
 def drop():
     data = readCsv()
     print data
-    data += "\r\n"
-#    rssi_dict = scan.RSSI_Scan(MAC_Address_1, MAC_Address_2)
-    serial_send(ser_1, data)
+    if data == None:
+        print "not url"
+    else:
+        data += "\r\n"
+    #    rssi_dict = scan.RSSI_Scan(MAC_Address_1, MAC_Address_2)
+        serial_send(ser_1, data)
 
-    # 送信したデータはcsvファイルから削除する
-    new_list = createNewUrlList()
-    updataCsv(new_list)
-    print "更新されたURLリスト"
-    print new_list
+        # 送信したデータはcsvファイルから削除する
+        new_list = createNewUrlList()
+        updataCsv(new_list)
+        print "更新されたURLリスト"
+        print new_list
 
-    print "現在のCSVファイルの情報"
-    printCsvContents()
-    sencing.main()
+        print "現在のCSVファイルの情報"
+        printCsvContents()
+    
 
 count = 0
 drop_count = 0
@@ -405,9 +407,14 @@ while 1:
         print(count)
         print("======================================================")
         print(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
-        if loop_count != pick_motion_count + 1:
+
+        if loop_count == pick_motion_count + 1:
+            print pick_motion_count
+            print loop_count
+            pick_motion_count = loop_count
+        else:
             pick()
-            pick_motion_count =loop_count
+            pick_motion_count = loop_count
     else:
             
         #計算速度を早めるためPick動作が検出されなかった場合のみDrop動作を検出する関数を動かす
@@ -437,11 +444,16 @@ while 1:
             print(drop_count)
             print('======================================================')
             print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
-            if loop_count != drop_motion_count + 1:
+            
+            if loop_count == drop_motion_count + 1:
+                drop_motion_count = loop_count
+            else:
                 drop()
-                loop_count += 1
+                drop_motion_count = loop_count
+
+    loop_count += 1
     #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
-    #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
+    print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
     pick_dtw_gx_list = []
     pick_dtw_gy_list = []
     drop_dtw_gx_list = []
