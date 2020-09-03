@@ -69,6 +69,18 @@ pick_dtw_gy_list = []
 drop_dtw_gx_list = []
 drop_dtw_gy_list = []
 
+
+pick_dtw_gx_result = []
+pick_dtw_gx_result_1 = []
+pick_dtw_gx_result_2 = []
+pick_dtw_gx_result_3 = []
+pick_dtw_gx_result_4 = []
+
+pick_dtw_gy_result = []
+pick_dtw_gy_result_1 = []
+pick_dtw_gy_result_2 = []
+pick_dtw_gy_result_3 = []
+pick_dtw_gy_result_4 = []
 """
 データ数120個の枠内に新しいデータを挿入し不要なデータをドロップさせる
 * 枠内のデータ数は考える必要あり
@@ -204,6 +216,14 @@ def check_pick_or_drop(pick_diw_x, pick_dtw_y, drop_dtw_x, drop_dtw_y):
         return 'pick'
     elif pick_diw_x > drop_dtw_x and pick_dtw_y > drop_dtw_y:
         return 'drop'
+def get_min_data(dtw_1, dtw_2, dtw_3, dtw_4, dtw_5):
+    gx_list = []
+    gx_list.append(min(dtw_1))
+    gx_list.append(min(dtw_2))
+    gx_list.append(min(dtw_3))
+    gx_list.append(min(dtw_4))
+    gx_list.append(min(dtw_5))
+    return min(gx_list)
 
 
 
@@ -229,59 +249,88 @@ while 1:
 
 #    print (len(test_data_set))
     
-    # pickのDTWの値を取得する
-    pick_dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
-    pick_dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
-    pick_dtw_az_result = dtw.getDTW(train_data_set_az, test_data_set_az)
-    pick_dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx)
-    pick_dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set_gy)
-    pick_dtw_gx_result_1 = dtw.getDTW(train_data_set_gx_2, test_data_set_gx)
-    pick_dtw_gy_result_1 = dtw.getDTW(train_data_set_gy_2, test_data_set_gy)
-    pick_dtw_gx_result_2 = dtw.getDTW(train_data_set_gx_3, test_data_set_gx)
-    pick_dtw_gy_result_2 = dtw.getDTW(train_data_set_gy_3, test_data_set_gy)
-    pick_dtw_gx_result_3 = dtw.getDTW(train_data_set_gx_4, test_data_set_gx)
-    pick_dtw_gy_result_3 = dtw.getDTW(train_data_set_gy_4, test_data_set_gy)
-    pick_dtw_gx_result_4 = dtw.getDTW(train_data_set_gx_5, test_data_set_gx)
-    pick_dtw_gy_result_4 = dtw.getDTW(train_data_set_gy_5, test_data_set_gy)
-
-    pick_dtw_gx_list.extend([pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4])
-    pick_dtw_gy_list.extend([pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4])
-    pick_dtw_gx_result = min(pick_dtw_gx_list) ** 2     
-
-    # DroｐのDTW値を算出
-    drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)
-    drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
-    drop_dtw_az_result = dtw.getDTW(drop_train_data_set_az, test_data_set_az)
-
-    drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
-    drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
-    drop_dtw_gx_result_1 = dtw.getDTW(drop_train_data_set_gx_2, test_data_set_gx)
-    drop_dtw_gy_result_1 = dtw.getDTW(drop_train_data_set_gy_2, test_data_set_gy)
-    drop_dtw_gx_result_2 = dtw.getDTW(drop_train_data_set_gx_3, test_data_set_gx)
-    drop_dtw_gy_result_2 = dtw.getDTW(drop_train_data_set_gy_3, test_data_set_gy)
-    drop_dtw_gx_result_3 = dtw.getDTW(drop_train_data_set_gx_4, test_data_set_gx)
-    drop_dtw_gy_result_3 = dtw.getDTW(drop_train_data_set_gy_4, test_data_set_gy)
-    drop_dtw_gx_result_4 = dtw.getDTW(drop_train_data_set_gx_5, test_data_set_gx)
-    drop_dtw_gy_result_4 = dtw.getDTW(drop_train_data_set_gy_5, test_data_set_gy)
-
-    drop_dtw_gx_list.extend([drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gx_result_4])
-    drop_dtw_gy_list.extend([drop_dtw_gy_result, drop_dtw_gy_result_1, drop_dtw_gy_result_2, drop_dtw_gy_result_3, drop_dtw_gy_result_4])
-    drop_dtw_gx_result = min(drop_dtw_gx_list) ** 2
-    drop_dtw_gy_result = min(drop_dtw_gy_list) ** 2
-    
     second = time.time()
-    
+    sencing_count = 0
     while 0.75 < accel_z < 1.25:
         sec = time.time()
         elapsed_time = sec - second
         
-        print(elapsed_time)
-        print (accel_z)
-        
         if elapsed_time > 2:
-            print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
-            sec = 0
-            elapsed_time = 0
+            while sencing_count <= 200:
+                # pickのDTWの値を取得する
+                
+                pick_dtw_gx_result.append(dtw.getDTW(train_data_set_gx, test_data_set_gx))
+                pick_dtw_gx_result_1.append(dtw.getDTW(train_data_set_gx_2, test_data_set_gx))
+                pick_dtw_gx_result_2.append(dtw.getDTW(train_data_set_gx_3, test_data_set_gx))
+                pick_dtw_gx_result_3.append(dtw.getDTW(train_data_set_gx_4, test_data_set_gx))
+                pick_dtw_gx_result_4.append(dtw.getDTW(train_data_set_gx_5, test_data_set_gx))
+                pick_dtw_gy_result.append(dtw.getDTW(train_data_set_gy, test_data_set_gy))
+                pick_dtw_gy_result_1.append(dtw.getDTW(train_data_set_gy_2, test_data_set_gy))
+                pick_dtw_gy_result_2.append(dtw.getDTW(train_data_set_gy_3, test_data_set_gy))
+                pick_dtw_gy_result_3.append(dtw.getDTW(train_data_set_gy_4, test_data_set_gy))
+                pick_dtw_gy_result_4.append(dtw.getDTW(train_data_set_gy_5, test_data_set_gy))
+
+                pick_dtw_gx_list.extend([pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4])
+                pick_dtw_gy_list.extend([pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4])
+                pick_dtw_gx_result = min(pick_dtw_gx_list) ** 2     
+
+                # DroｐのDTW値を算出
+
+                drop_dtw_gx_result = []
+                drop_dtw_gx_result_1 = []
+                drop_dtw_gx_result_2 = []
+                drop_dtw_gx_result_3 = []
+                drop_dtw_gx_result_4 = []
+
+                drop_dtw_gy_result = []
+                drop_dtw_gy_result_1 = []
+                drop_dtw_gy_result_2 = []
+                drop_dtw_gy_result_3 = []
+                drop_dtw_gy_result_4 = []
+
+                drop_dtw_gx_result.append(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
+                drop_dtw_gy_result.append(dtw.getDTW(drop_train_data_set_gy, test_data_set_gy))
+                drop_dtw_gx_result_1.append(dtw.getDTW(drop_train_data_set_gx_2, test_data_set_gx))
+                drop_dtw_gy_result_1.append(dtw.getDTW(drop_train_data_set_gy_2, test_data_set_gy))
+                drop_dtw_gx_result_2.append(dtw.getDTW(drop_train_data_set_gx_3, test_data_set_gx)) 
+                drop_dtw_gy_result_2.append(dtw.getDTW(drop_train_data_set_gy_3, test_data_set_gy))
+                drop_dtw_gx_result_3.append(dtw.getDTW(drop_train_data_set_gx_4, test_data_set_gx))
+                drop_dtw_gy_result_3.append(dtw.getDTW(drop_train_data_set_gy_4, test_data_set_gy))
+                drop_dtw_gx_result_4.append(dtw.getDTW(drop_train_data_set_gx_5, test_data_set_gx))
+                drop_dtw_gy_result_4.append(dtw.getDTW(drop_train_data_set_gy_5, test_data_set_gy))
+
+                drop_dtw_gx_list.extend([drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gx_result_4])
+                drop_dtw_gy_list.extend([drop_dtw_gy_result, drop_dtw_gy_result_1, drop_dtw_gy_result_2, drop_dtw_gy_result_3, drop_dtw_gy_result_4])
+                drop_dtw_gx_result = min(drop_dtw_gx_list) ** 2
+                drop_dtw_gy_result = min(drop_dtw_gy_list) ** 2
+                print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
+                sec = 0
+                elapsed_time = 0
+                sencing_count += 1
+            pick_gx = get_min_data(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
+            pick_gy = get_min_data(pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4)
+            drop_gx = get_min_data(drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gy_result_4)
+            drop_gy = get_min_data(drop_dtw_gy_result, drop_dtw_gy_result_1, drop_dtw_gy_result_2, drop_dtw_gy_result_3, drop_dtw_gy_result_4)
+            
+            
+            print('=============================')
+            print(pick_gx, pick_gy, drop_gx, drop_gy)
+            print('=============================')
+            
+            
+            
+            pick_dtw_gx_result = []
+            pick_dtw_gx_result_1 = []
+            pick_dtw_gx_result_2 = []
+            pick_dtw_gx_result_3 = []
+            pick_dtw_gx_result_4 = []
+
+            pick_dtw_gy_result = []
+            pick_dtw_gy_result_1 = []
+            pick_dtw_gy_result_2 = []
+            pick_dtw_gy_result_3 = []
+            pick_dtw_gy_result_4 = []
+                
     #print_sencing_data()
     #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
     #print_pick_dtw_result(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
