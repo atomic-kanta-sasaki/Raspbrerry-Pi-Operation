@@ -252,6 +252,17 @@ while 1:
     second = time.time()
     sencing_count = 0
     while 0.75 < accel_z < 1.25:
+         # 加速度を取得
+        accel_x, accel_y, accel_z = get_accel_data_g()
+        # 角加速度を取得
+        gyro_x, gyro_y, gyro_z = get_gyro_data_deg()
+        
+        # 枠内にデータを作成する
+        test_data_set_ax = remake_test_data_set(test_data_set_ax, accel_x)
+        test_data_set_ay = remake_test_data_set(test_data_set_ay, accel_y)
+        test_data_set_az = remake_test_data_set(test_data_set_az, accel_z)
+        test_data_set_gx = remake_test_data_set(test_data_set_gx, gyro_x)
+        test_data_set_gy = remake_test_data_set(test_data_set_gy, gyro_y)
         sec = time.time()
         elapsed_time = sec - second
         print(elapsed_time) 
