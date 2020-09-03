@@ -254,7 +254,7 @@ while 1:
     while 0.75 < accel_z < 1.25:
         sec = time.time()
         elapsed_time = sec - second
-        
+        print(elapsed_time) 
         if elapsed_time > 2:
             while sencing_count <= 200:
                 # pickのDTWの値を取得する
@@ -272,7 +272,7 @@ while 1:
 
                 pick_dtw_gx_list.extend([pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4])
                 pick_dtw_gy_list.extend([pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4])
-                pick_dtw_gx_result = min(pick_dtw_gx_list) ** 2     
+                 
 
                 # DroｐのDTW値を算出
 
@@ -301,12 +301,16 @@ while 1:
 
                 drop_dtw_gx_list.extend([drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gx_result_4])
                 drop_dtw_gy_list.extend([drop_dtw_gy_result, drop_dtw_gy_result_1, drop_dtw_gy_result_2, drop_dtw_gy_result_3, drop_dtw_gy_result_4])
-                drop_dtw_gx_result = min(drop_dtw_gx_list) ** 2
-                drop_dtw_gy_result = min(drop_dtw_gy_list) ** 2
+                
                 print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
-                sec = 0
-                elapsed_time = 0
                 sencing_count += 1
+
+
+        #print (elapsed_time)
+        if len(pick_dtw_gx_result) > 0:
+            print(len(pick_dtw_gx_result))
+        if len(pick_dtw_gx_result) > 200: 
+            print(elapsed_time)
             pick_gx = get_min_data(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
             pick_gy = get_min_data(pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4)
             drop_gx = get_min_data(drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gy_result_4)
@@ -317,8 +321,10 @@ while 1:
             print(pick_gx, pick_gy, drop_gx, drop_gy)
             print('=============================')
             
-            
-            
+            #使用していたパラメータを初期化する
+            elapsed_time = 0
+            sec = 0
+            second = 0
             pick_dtw_gx_result = []
             pick_dtw_gx_result_1 = []
             pick_dtw_gx_result_2 = []
@@ -330,7 +336,8 @@ while 1:
             pick_dtw_gy_result_2 = []
             pick_dtw_gy_result_3 = []
             pick_dtw_gy_result_4 = []
-                
+            break
+
     #print_sencing_data()
     #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
     #print_pick_dtw_result(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
