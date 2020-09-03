@@ -10,6 +10,7 @@ from scipy.spatial.distance import euclidean
 from fastdtw import fastdtw
 from matplotlib import pyplot as plt
 import pandas as pd
+import time
 
 ### define #############################################################
 DEV_ADDR = 0x68         # device address
@@ -267,16 +268,20 @@ while 1:
     drop_dtw_gy_list.extend([drop_dtw_gy_result, drop_dtw_gy_result_1, drop_dtw_gy_result_2, drop_dtw_gy_result_3, drop_dtw_gy_result_4])
     drop_dtw_gx_result = min(drop_dtw_gx_list) ** 2
     drop_dtw_gy_result = min(drop_dtw_gy_list) ** 2
-    if 7.5 < accel_z < 12.5:
+    
+    second = time.time()
+    
+    while 0.75 < accel_z < 1.25:
         sec = time.time()
-        print(sec)
+        elapsed_time = sec - second
+        
+        print(elapsed_time)
         print (accel_z)
-        if sec > 2:
+        
+        if elapsed_time > 2:
             print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
-
-            
-
-  
+            sec = 0
+            elapsed_time = 0
     #print_sencing_data()
     #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
     #print_pick_dtw_result(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
