@@ -198,6 +198,14 @@ def print_drop_dtw_result(ax, ay, az, gx, gy):
     print(gy)
     print('--------------------------------end------------------------------------')
 
+def check_pick_or_drop(pick_diw_x, pick_dtw_y, drop_dtw_x, drop_dtw_y):
+    if pick_diw_x < drop_dtw_x and pick_dtw_y < drop_dtw_y:
+        return 'pick'
+    elif pick_diw_x > drop_dtw_x and pick_dtw_y > drop_dtw_y:
+        return 'drop'
+
+
+
 count = 0
 drop_count = 0
 tt = 0
@@ -237,45 +245,36 @@ while 1:
 
     pick_dtw_gx_list.extend([pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4])
     pick_dtw_gy_list.extend([pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4])
-    pick_dtw_gx_result = min(pick_dtw_gx_list) ** 2
-    pick_dtw_gy_result = min(pick_dtw_gy_list) ** 2
-    if tt > 80 and check_pick_motion(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result) == 'pick':
-        count += 1
-        print('=======================================================')
-        print(count)
-        print("======================================================")
-        print(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
-        
-    else:
-        
-        #計算速度を早めるためPick動作が検出されなかった場合のみDrop動作を検出する関数を動かす
-        drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)
-        drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
-        drop_dtw_az_result = dtw.getDTW(drop_train_data_set_az, test_data_set_az)
+    pick_dtw_gx_result = min(pick_dtw_gx_list) ** 2     
 
-        drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
-        drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
-        drop_dtw_gx_result_1 = dtw.getDTW(drop_train_data_set_gx_2, test_data_set_gx)
-        drop_dtw_gy_result_1 = dtw.getDTW(drop_train_data_set_gy_2, test_data_set_gy)
-        drop_dtw_gx_result_2 = dtw.getDTW(drop_train_data_set_gx_3, test_data_set_gx)
-        drop_dtw_gy_result_2 = dtw.getDTW(drop_train_data_set_gy_3, test_data_set_gy)
-        drop_dtw_gx_result_3 = dtw.getDTW(drop_train_data_set_gx_4, test_data_set_gx)
-        drop_dtw_gy_result_3 = dtw.getDTW(drop_train_data_set_gy_4, test_data_set_gy)
-        drop_dtw_gx_result_4 = dtw.getDTW(drop_train_data_set_gx_5, test_data_set_gx)
-        drop_dtw_gy_result_4 = dtw.getDTW(drop_train_data_set_gy_5, test_data_set_gy)
+    # DroｐのDTW値を算出
+    drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)
+    drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
+    drop_dtw_az_result = dtw.getDTW(drop_train_data_set_az, test_data_set_az)
 
-        drop_dtw_gx_list.extend([drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gx_result_4])
-        drop_dtw_gy_list.extend([drop_dtw_gy_result, drop_dtw_gy_result_1, drop_dtw_gy_result_2, drop_dtw_gy_result_3, drop_dtw_gy_result_4])
-        drop_dtw_gx_result = min(drop_dtw_gx_list) ** 2
-        drop_dtw_gy_result = min(drop_dtw_gy_list) ** 2
+    drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
+    drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
+    drop_dtw_gx_result_1 = dtw.getDTW(drop_train_data_set_gx_2, test_data_set_gx)
+    drop_dtw_gy_result_1 = dtw.getDTW(drop_train_data_set_gy_2, test_data_set_gy)
+    drop_dtw_gx_result_2 = dtw.getDTW(drop_train_data_set_gx_3, test_data_set_gx)
+    drop_dtw_gy_result_2 = dtw.getDTW(drop_train_data_set_gy_3, test_data_set_gy)
+    drop_dtw_gx_result_3 = dtw.getDTW(drop_train_data_set_gx_4, test_data_set_gx)
+    drop_dtw_gy_result_3 = dtw.getDTW(drop_train_data_set_gy_4, test_data_set_gy)
+    drop_dtw_gx_result_4 = dtw.getDTW(drop_train_data_set_gx_5, test_data_set_gx)
+    drop_dtw_gy_result_4 = dtw.getDTW(drop_train_data_set_gy_5, test_data_set_gy)
 
-        if tt > 80  and check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result) == 'drop':
-            drop_count += 1
-            print('======================================================')
-            print(drop_count)
-            print('======================================================')
-            print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
+    drop_dtw_gx_list.extend([drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gx_result_4])
+    drop_dtw_gy_list.extend([drop_dtw_gy_result, drop_dtw_gy_result_1, drop_dtw_gy_result_2, drop_dtw_gy_result_3, drop_dtw_gy_result_4])
+    drop_dtw_gx_result = min(drop_dtw_gx_list) ** 2
+    drop_dtw_gy_result = min(drop_dtw_gy_list) ** 2
+    if 7.5 < accel_z < 12.5:
+        sec = time.time()
+        if sec > 2:
+            print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
 
+            
+
+  
     #print_sencing_data()
     #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
     #print_pick_dtw_result(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
