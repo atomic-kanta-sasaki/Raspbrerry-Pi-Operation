@@ -269,6 +269,8 @@ while 1:
     drop_dtw_gy_result = min(drop_dtw_gy_list) ** 2
     if 7.5 < accel_z < 12.5:
         sec = time.time()
+        print(sec)
+        print (accel_z)
         if sec > 2:
             print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
 
