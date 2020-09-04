@@ -264,6 +264,7 @@ while 1:
 
             # 200個のセンシングデータを作成する
             while sencing_count <= 200:
+                gyro_x, gyro_y, gyro_z = get_gyro_data_deg()
                 # pickのDTWの値を取得する
                 test_data_set_gx = remake_test_data_set(test_data_set_gy, gyro_x)
                 test_data_set_gy = remake_test_data_set(test_data_set_gy, gyro_y)
