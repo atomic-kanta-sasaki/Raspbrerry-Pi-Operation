@@ -10,7 +10,7 @@ from scipy.spatial.distance import euclidean
 from fastdtw import fastdtw
 from matplotlib import pyplot as plt
 import pandas as pd
-
+import time
 
 ### define #############################################################
 DEV_ADDR = 0x68         # device address
@@ -23,12 +23,39 @@ GYRO_XOUT = 0x43        # Gyro X-axis
 GYRO_YOUT = 0x45        # Gyro Y-axis
 GYRO_ZOUT = 0x47        # Gyro Z-axis
 
-# 異なる2種類のデータを定義
-train_data_set = pd.read_csv('sample.csv', usecols=[0]).values.reshape(-1, 1)
-test_data_set = np.arange(120).reshape(-1, 1)
+# Pickの学習用データを定義
+train_data_set_gx = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
 
+train_data_set_gy = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+
+# Dropの学習用データを定義
+drop_train_data_set_gx = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gy = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+
+# テストデータを作成するための初期データを作成
+test_data_set_ax = np.arange(60).reshape(-1, 1)
+test_data_set_ay = np.arange(60).reshape(-1, 1)
+test_data_set_az = np.arange(60).reshape(-1, 1)
+test_data_set_gx = np.arange(60).reshape(-1, 1)
+test_data_set_gy = np.arange(60).reshape(-1, 1)
+
+pick_dtw_gx_list = []
+pick_dtw_gy_list = []
+drop_dtw_gx_list = []
+drop_dtw_gy_list = []
+pick_dtw_gx_result = []
+pick_dtw_gy_result = []
+"""
+データ数120個の枠内に新しいデータを挿入し不要なデータをドロップさせる
+* 枠内のデータ数は考える必要あり
+
+@param 観測データセット
+@param 観測データ
+
+@return 生成した観測データセット
+"""
 def remake_test_data_set(test_data_set, data):
-    new_data = np.insert(test_data_set, 120, data, axis=0)
+    new_data = np.insert(test_data_set, 60, data, axis=0)
     new_data = np.delete(new_data, 0, 0)
     return new_data
 
@@ -86,61 +113,170 @@ def get_accel_data_g():
     z = z / 16384.0
     return [x, y, z]
 
-def insert_accel_x_csv(accel_x):
-    with open('accel_x.csv', 'a') as csvfile:
+def insert_csv(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z):
+    with open('sample.csv', 'a') as csvfile:
         writer = csv.writer(csvfile, lineterminator='\n')
-        writer.writerow([accel_x])
-
-def insert_accel_y_csv(accel_y):
-    with open('accel_y.csv', 'a') as csvfile:
-        writer = csv.writer(csvfile, lineterminator='\n')
-        writer.writerow([accel_y])
-
-def insert_accel_z_csv(accel_z):
-    with open('accel_z.csv', 'a') as csvfile:
-        writer = csv.writer(csvfile, lineterminator='\n')
-        writer.writerow([accel_z])
-
-def insert_gyro_x_csv(gyro_x):
-    with open('gyro_x.csv', 'a') as csvfile:
-        writer = csv.writer(csvfile, lineterminator='\n')
-        writer.writerow([gyro_x])
-
-def insert_gyro_y_csv(gyro_y):
-    with open('gyro_y.csv', 'a') as csvfile:
-        writer = csv.writer(csvfile, lineterminator='\n')
-        writer.writerow([gyro_y])
-
+        writer.writerow([gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z])
 ### Main function ######################################################
 bus = smbus.SMBus( 1 )
 bus.write_byte_data( DEV_ADDR, PWR_MGMT_1, 0 )
 
-print '計測する値を入力してください'
-print 'accel_x, accel_y, accel_z, gyro_x, gyro_y'
-#raw = raw_input()
-while 1:
+"""
+pick動作を検出する
+
+@param 加速度、各加速度を用いたDTWの値
+"""
+def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
+    if 0.75 < accel_z and dtw_gx_result < 100000 and dtw_gy_result < 2000000:
+        print ('pick')
+        return 'pick'
+
+"""
+Drop動作を検出する
+@param 加速度、各加速度を用いたDTWの値
+"""
+def check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result):
+    if 0.75 < accel_z and  drop_dtw_gx_result < 400000 and drop_dtw_gy_result < 2000000:
+        print('drop')
+        return 'drop'
+"""
+観測データを出力する
+"""
+def print_sencing_data():
     temp = get_temp()
     print 't= %.2f' % temp, '\t',
- 
+
     gyro_x,gyro_y,gyro_z = get_gyro_data_deg()
     print 'Gx= %.3f' % gyro_x, '\t',
     print 'Gy= %.3f' % gyro_y, '\t',
     print 'Gz= %.3f' % gyro_z, '\t',
- 
+
     accel_x,accel_y,accel_z = get_accel_data_g()
     print 'Ax= %.3f' % accel_x, '\t',
     print 'Ay= %.3f' % accel_y, '\t',
     print 'Az= %.3f' % accel_z, '\t',
     print # 改行
+
+def print_pick_dtw_result(ax, ay, az, gx, gy):
+    print('-----------------------pick dtw result-------------------------------')
+    print(ax)
+    print(ay)
+    print(az)
+    print(gx)
+    print(gy)
+    print('--------------------------------end-----------------------------------')
+
+def print_drop_dtw_result(ax, ay, az, gx, gy):
+    print('-----------------------drop dtw result--------------------------------')
+    print(ax)
+    print(ay)
+    print(az)
+    print(gx)
+    print(gy)
+    print('--------------------------------end------------------------------------')
+
+def check_pick_or_drop(pick_diw_x, pick_dtw_y, drop_dtw_x, drop_dtw_y):
+    print(pick_diw_x)
+    if pick_diw_x < drop_dtw_x and pick_dtw_y < drop_dtw_y:
+        return 'pick'
+    elif pick_diw_x > drop_dtw_x and pick_dtw_y > drop_dtw_y:
+        return 'drop'
+def get_min_data(dtw_1, dtw_2, dtw_3, dtw_4, dtw_5):
+    gx_list = []
+    gx_list.append(min(dtw_1))
+    gx_list.append(min(dtw_2))
+    gx_list.append(min(dtw_3))
+    gx_list.append(min(dtw_4))
+    gx_list.append(min(dtw_5))
+    return min(gx_list)
+
+
+
+count = 0
+drop_count = 0
+tt = 0
+while 1:
+#    print_sencing_data()
+#    print 'csvファイル書き込み'
+    #insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
+
+    # 加速度を取得
+    accel_x, accel_y, accel_z = get_accel_data_g()
+    # 角加速度を取得
+    gyro_x, gyro_y, gyro_z = get_gyro_data_deg()
     
-    print 'csvファイル書き込み'
-#    if raw == 'accel_x':
-    insert_accel_x_csv(accel_x)
-#    elif raw == 'accel_y':
-    insert_accel_y_csv(accel_y)
-#    elif raw == 'accel_z':
-    insert_accel_z_csv(accel_z)
-#    elif raw == 'gyro_x':
-    insert_gyro_x_csv(gyro_x)
-#    elif raw == 'gyro_y':
-    insert_gyro_y_csv(gyro_y)
+    # 枠内にデータを作成する 
+    second = time.time()
+    sencing_count = 0
+    while 0.85 < accel_z < 1.1:
+         # 加速度を取得
+        accel_x, accel_y, accel_z = get_accel_data_g()
+        # 角加速度を取得
+        gyro_x, gyro_y, gyro_z = get_gyro_data_deg()
+
+        sec = time.time()
+        elapsed_time = sec - second
+        print(elapsed_time) 
+
+        #2秒以上状態を維持する
+        if elapsed_time > 2:
+
+            # 200個のセンシングデータを作成する
+            while sencing_count <= 200:
+                gyro_x, gyro_y, gyro_z = get_gyro_data_deg()
+                
+                #print(gyro_x)
+                # pickのDTWの値を取得する
+                test_data_set_gx = remake_test_data_set(test_data_set_gy, gyro_x)
+                test_data_set_gy = remake_test_data_set(test_data_set_gy, gyro_y)
+                pick_dtw_gx_result.append(dtw.getDTW(train_data_set_gx, test_data_set_gx))
+                pick_dtw_gy_result.append(dtw.getDTW(train_data_set_gy, test_data_set_gy))
+               
+                print(dtw.getDTW(train_data_set_gx, test_data_set_gx))
+                print(dtw.getDTW(train_data_set_gy, test_data_set_gy))
+
+                # DroｐのDTW値を算出
+                drop_dtw_gx_result = []
+
+                drop_dtw_gy_result = []
+                
+                drop_dtw_gx_result.append(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
+                drop_dtw_gy_result.append(dtw.getDTW(drop_train_data_set_gy, test_data_set_gy))
+
+                #print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
+                sencing_count += 1
+
+
+        #print (elapsed_time)
+        #if len(pick_dtw_gx_result) > 0:
+            #print(pick_dtw_gx_result)
+
+        # ２００回データを計測しDTW値を持っている場合
+        if len(pick_dtw_gx_result) > 200: 
+            #print(test_data_set_gx)
+            pick_gx = get_min_data(pick_dtw_gx_result)
+            pick_gy = get_min_data(pick_dtw_gy_result)
+            drop_gx = get_min_data(drop_dtw_gx_result)
+            drop_gy = get_min_data(drop_dtw_gy_result)
+        
+            print(check_pick_or_drop(pick_gx, pick_gy, drop_gx, drop_gy))
+            
+            #使用していたパラメータを初期化する
+            elapsed_time = 0
+            sec = 0
+            second = 0
+            pick_dtw_gx_result = []
+
+            pick_dtw_gy_result = []
+            break
+
+    #print_sencing_data()
+    #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
+    #print_pick_dtw_result(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
+    #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
+    #print_drop_dtw_result(pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4)
+    pick_dtw_gx_list = []
+    pick_dtw_gy_list = []
+    drop_dtw_gx_list = []
+    drop_dtw_gy_list = []
+    tt += 1
