@@ -181,14 +181,10 @@ def check_pick_or_drop(pick_diw_x, pick_dtw_y, drop_dtw_x, drop_dtw_y):
         return 'pick'
     elif pick_diw_x > drop_dtw_x and pick_dtw_y > drop_dtw_y:
         return 'drop'
-def get_min_data(dtw_1, dtw_2, dtw_3, dtw_4, dtw_5):
+def get_min_data(dtw_1):
     gx_list = []
-    gx_list.append(min(dtw_1))
-    gx_list.append(min(dtw_2))
-    gx_list.append(min(dtw_3))
-    gx_list.append(min(dtw_4))
-    gx_list.append(min(dtw_5))
-    return min(gx_list)
+    gx_list = min(dtw_1)
+    return gx_list
 
 
 
@@ -233,7 +229,7 @@ while 1:
                 pick_dtw_gy_result.append(dtw.getDTW(train_data_set_gy, test_data_set_gy))
                
                 print(dtw.getDTW(train_data_set_gx, test_data_set_gx))
-                print(dtw.getDTW(train_data_set_gy, test_data_set_gy))
+                
 
                 # DroｐのDTW値を算出
                 drop_dtw_gx_result = []
@@ -254,12 +250,13 @@ while 1:
         # ２００回データを計測しDTW値を持っている場合
         if len(pick_dtw_gx_result) > 200: 
             #print(test_data_set_gx)
-            pick_gx = get_min_data(pick_dtw_gx_result)
-            pick_gy = get_min_data(pick_dtw_gy_result)
-            drop_gx = get_min_data(drop_dtw_gx_result)
-            drop_gy = get_min_data(drop_dtw_gy_result)
-        
-            print(check_pick_or_drop(pick_gx, pick_gy, drop_gx, drop_gy))
+            #pick_gx = get_min_data(pick_dtw_gx_result)
+            #pick_gy = get_min_data(pick_dtw_gy_result)
+            #drop_gx = get_min_data(drop_dtw_gx_result)
+            #drop_gy = get_min_data(drop_dtw_gy_result)
+            #print(pick_dtw_gx_result)
+            #print(pick_dtw_gy_result)
+            #print(check_pick_or_drop(pick_gx, pick_gy, drop_gx, drop_gy))
             
             #使用していたパラメータを初期化する
             elapsed_time = 0
