@@ -212,6 +212,7 @@ def print_drop_dtw_result(ax, ay, az, gx, gy):
     print('--------------------------------end------------------------------------')
 
 def check_pick_or_drop(pick_diw_x, pick_dtw_y, drop_dtw_x, drop_dtw_y):
+    print(pick_diw_x)
     if pick_diw_x < drop_dtw_x and pick_dtw_y < drop_dtw_y:
         return 'pick'
     elif pick_diw_x > drop_dtw_x and pick_dtw_y > drop_dtw_y:
@@ -259,7 +260,8 @@ while 1:
             # 200個のセンシングデータを作成する
             while sencing_count <= 200:
                 gyro_x, gyro_y, gyro_z = get_gyro_data_deg()
-                print(gyro_x)
+                
+                #print(gyro_x)
                 # pickのDTWの値を取得する
                 test_data_set_gx = remake_test_data_set(test_data_set_gy, gyro_x)
                 test_data_set_gy = remake_test_data_set(test_data_set_gy, gyro_y)
@@ -276,7 +278,7 @@ while 1:
 
                 pick_dtw_gx_list.extend([pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4])
                 pick_dtw_gy_list.extend([pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4])
-
+                print(dtw.getDTW(train_data_set_gx, test_data_set_gx))
                 # DroｐのDTW値を算出
 
                 drop_dtw_gx_result = []
@@ -305,7 +307,7 @@ while 1:
                 drop_dtw_gx_list.extend([drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gx_result_4])
                 drop_dtw_gy_list.extend([drop_dtw_gy_result, drop_dtw_gy_result_1, drop_dtw_gy_result_2, drop_dtw_gy_result_3, drop_dtw_gy_result_4])
                 
-                print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
+                #print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
                 sencing_count += 1
 
 
@@ -315,7 +317,7 @@ while 1:
 
         # ２００回データを計測しDTW値を持っている場合
         if len(pick_dtw_gx_result) > 200: 
-            print(test_data_set_gx)
+            #print(test_data_set_gx)
             pick_gx = get_min_data(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
             pick_gy = get_min_data(pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4)
             drop_gx = get_min_data(drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gy_result_4)
@@ -325,6 +327,7 @@ while 1:
             #print('=============================')
             #print(pick_gx, pick_gy, drop_gx, drop_gy)
             #print('=============================')
+            print(check_pick_or_drop(pick_gx, pick_gy, drop_gx, drop_gy))
             
             #使用していたパラメータを初期化する
             elapsed_time = 0
