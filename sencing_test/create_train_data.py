@@ -45,6 +45,8 @@ drop_dtw_gx_list = []
 drop_dtw_gy_list = []
 pick_dtw_gx_result = []
 pick_dtw_gy_result = []
+drop_dtw_gx_result = []
+drop_dtw_gy_result = []
 """
 データ数120個の枠内に新しいデータを挿入し不要なデータをドロップさせる
 * 枠内のデータ数は考える必要あり
@@ -175,8 +177,7 @@ def print_drop_dtw_result(ax, ay, az, gx, gy):
     print(gy)
     print('--------------------------------end------------------------------------')
 
-def check_pick_or_drop(pick_diw_x, pick_dtw_y, drop_dtw_x, drop_dtw_y):
-    print(pick_diw_x)
+def check_pick_or_drop(pick_diw_x, pick_dtw_y, drop_dtw_x, drop_dtw_y): 
     if pick_diw_x < drop_dtw_x and pick_dtw_y < drop_dtw_y:
         return 'pick'
     elif pick_diw_x > drop_dtw_x and pick_dtw_y > drop_dtw_y:
@@ -204,7 +205,7 @@ while 1:
     # 枠内にデータを作成する 
     second = time.time()
     sencing_count = 0
-    while 0.85 < accel_z < 1.1:
+    while 0.7 < accel_z < 1.3:
          # 加速度を取得
         accel_x, accel_y, accel_z = get_accel_data_g()
         # 角加速度を取得
@@ -223,22 +224,20 @@ while 1:
                 
                 #print(gyro_x)
                 # pickのDTWの値を取得する
-                test_data_set_gx = remake_test_data_set(test_data_set_gy, gyro_x)
+                test_data_set_gx = remake_test_data_set(test_data_set_gx, gyro_x)
                 test_data_set_gy = remake_test_data_set(test_data_set_gy, gyro_y)
                 pick_dtw_gx_result.append(dtw.getDTW(train_data_set_gx, test_data_set_gx))
                 pick_dtw_gy_result.append(dtw.getDTW(train_data_set_gy, test_data_set_gy))
                
-                print(dtw.getDTW(train_data_set_gx, test_data_set_gx))
+                print(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
                 
 
                 # DroｐのDTW値を算出
-                drop_dtw_gx_result = []
-
-                drop_dtw_gy_result = []
                 
                 drop_dtw_gx_result.append(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
                 drop_dtw_gy_result.append(dtw.getDTW(drop_train_data_set_gy, test_data_set_gy))
-
+                #print(drop_dtw_gx_result)
+                
                 #print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
                 sencing_count += 1
 
@@ -250,12 +249,13 @@ while 1:
         # ２００回データを計測しDTW値を持っている場合
         if len(pick_dtw_gx_result) > 200: 
             #print(test_data_set_gx)
-            #pick_gx = get_min_data(pick_dtw_gx_result)
-            #pick_gy = get_min_data(pick_dtw_gy_result)
-            #drop_gx = get_min_data(drop_dtw_gx_result)
-            #drop_gy = get_min_data(drop_dtw_gy_result)
-            #print(pick_dtw_gx_result)
-            #print(pick_dtw_gy_result)
+            pick_gx = get_min_data(pick_dtw_gx_result)
+            pick_gy = get_min_data(pick_dtw_gy_result)
+            drop_gx = get_min_data(drop_dtw_gx_result)
+            drop_gy = get_min_data(drop_dtw_gy_result)
+            #print(pick_gx)
+            #print('-------------------')
+            #print(drop_gx)
             #print(check_pick_or_drop(pick_gx, pick_gy, drop_gx, drop_gy))
             
             #使用していたパラメータを初期化する
