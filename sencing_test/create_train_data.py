@@ -189,7 +189,8 @@ def get_min_data(dtw_1):
     return gx_list
 
 def get_abs_pick_drop(pick, drop):
-    diff = pick - drop
+    diff = drop - pick
+    print(diff)
     if abs(diff) > 2500:
         if diff < 0:
             return 'drop'
@@ -236,8 +237,10 @@ while 1:
                 pick_dtw_gx_result.append(dtw.getDTW(train_data_set_gx, test_data_set_gx))
                 pick_dtw_gy_result.append(dtw.getDTW(train_data_set_gy, test_data_set_gy))
             
+                print('==============================================================')
+                print(dtw.getDTW(train_data_set_gx, test_data_set_gx))
                 print(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
-
+                print('===============================================================')
                 # DroｐのDTW値を算出
                 drop_dtw_gx_result.append(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
                 drop_dtw_gy_result.append(dtw.getDTW(drop_train_data_set_gy, test_data_set_gy))
@@ -245,6 +248,7 @@ while 1:
                 
                 print(get_abs_pick_drop(dtw.getDTW(train_data_set_gx, test_data_set_gx), dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)))
 
+                print('===============================================================')
                 #print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
                 sencing_count += 1
 
@@ -254,7 +258,7 @@ while 1:
             #print(pick_dtw_gx_result)
 
         # ２００回データを計測しDTW値を持っている場合
-        # if len(pick_dtw_gx_result) > 200: 
+        if len(pick_dtw_gx_result) > 200: 
         #     #print(test_data_set_gx)
         #     pick_gx = get_min_data(pick_dtw_gx_result)
         #     pick_gy = get_min_data(pick_dtw_gy_result)
@@ -266,13 +270,13 @@ while 1:
         #     #print(check_pick_or_drop(pick_gx, pick_gy, drop_gx, drop_gy))
             
         #     #使用していたパラメータを初期化する
-        #     elapsed_time = 0
-        #     sec = 0
-        #     second = 0
-        #     pick_dtw_gx_result = []
+            elapsed_time = 0
+            sec = 0
+            second = 0
+            pick_dtw_gx_result = []
 
-        #     pick_dtw_gy_result = []
-        #     break
+            pick_dtw_gy_result = []
+            break
 
     #print_sencing_data()
     #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
