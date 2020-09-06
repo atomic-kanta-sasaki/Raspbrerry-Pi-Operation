@@ -39,6 +39,7 @@ test_data_set_az = np.arange(60).reshape(-1, 1)
 test_data_set_gx = np.arange(60).reshape(-1, 1)
 test_data_set_gy = np.arange(60).reshape(-1, 1)
 
+results = []
 pick_dtw_gx_list = []
 pick_dtw_gy_list = []
 drop_dtw_gx_list = []
@@ -187,7 +188,13 @@ def get_min_data(dtw_1):
     gx_list = min(dtw_1)
     return gx_list
 
-
+def get_abs_pick_drop(pick, drop):
+    diff = pick - drop
+    if abs(diff) > 2500:
+        if diff < 0:
+            return 'drop'
+        else:
+            return 'pick'
 
 count = 0
 drop_count = 0
@@ -228,16 +235,16 @@ while 1:
                 test_data_set_gy = remake_test_data_set(test_data_set_gy, gyro_y)
                 pick_dtw_gx_result.append(dtw.getDTW(train_data_set_gx, test_data_set_gx))
                 pick_dtw_gy_result.append(dtw.getDTW(train_data_set_gy, test_data_set_gy))
-               
+            
                 print(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
-                
 
                 # DroｐのDTW値を算出
-                
                 drop_dtw_gx_result.append(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
                 drop_dtw_gy_result.append(dtw.getDTW(drop_train_data_set_gy, test_data_set_gy))
                 #print(drop_dtw_gx_result)
                 
+                print(get_abs_pick_drop(dtw.getDTW(train_data_set_gx, test_data_set_gx), dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)))
+
                 #print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
                 sencing_count += 1
 
@@ -247,25 +254,25 @@ while 1:
             #print(pick_dtw_gx_result)
 
         # ２００回データを計測しDTW値を持っている場合
-        if len(pick_dtw_gx_result) > 200: 
-            #print(test_data_set_gx)
-            pick_gx = get_min_data(pick_dtw_gx_result)
-            pick_gy = get_min_data(pick_dtw_gy_result)
-            drop_gx = get_min_data(drop_dtw_gx_result)
-            drop_gy = get_min_data(drop_dtw_gy_result)
-            #print(pick_gx)
-            #print('-------------------')
-            #print(drop_gx)
-            #print(check_pick_or_drop(pick_gx, pick_gy, drop_gx, drop_gy))
+        # if len(pick_dtw_gx_result) > 200: 
+        #     #print(test_data_set_gx)
+        #     pick_gx = get_min_data(pick_dtw_gx_result)
+        #     pick_gy = get_min_data(pick_dtw_gy_result)
+        #     drop_gx = get_min_data(drop_dtw_gx_result)
+        #     drop_gy = get_min_data(drop_dtw_gy_result)
+        #     #print(pick_gx)
+        #     #print('-------------------')
+        #     #print(drop_gx)
+        #     #print(check_pick_or_drop(pick_gx, pick_gy, drop_gx, drop_gy))
             
-            #使用していたパラメータを初期化する
-            elapsed_time = 0
-            sec = 0
-            second = 0
-            pick_dtw_gx_result = []
+        #     #使用していたパラメータを初期化する
+        #     elapsed_time = 0
+        #     sec = 0
+        #     second = 0
+        #     pick_dtw_gx_result = []
 
-            pick_dtw_gy_result = []
-            break
+        #     pick_dtw_gy_result = []
+        #     break
 
     #print_sencing_data()
     #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
