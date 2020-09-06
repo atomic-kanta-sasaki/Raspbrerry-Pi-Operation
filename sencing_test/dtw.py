@@ -10,8 +10,10 @@ def getDTW(train_data_set, test_data_set):
 #    print (distance)
     return distance
 
-def getDTWPath(train_data_set, test_data_set):
-    distance, path = fastdtw(train_data_set, test_data_set, dist=euclidean)
+def getDTWPath(x, y):
+    distance, path = fastdtw(x, y, dist=euclidean)
+    plt.plot(x, label='x')
+    plt.plot(y, label='y')
     for x_, y_ in path:
         plt.plot([x_, y_], [x[x_], y[y_]], color='gray', linestyle='dotted', linewidth=1)
     plt.legend()
