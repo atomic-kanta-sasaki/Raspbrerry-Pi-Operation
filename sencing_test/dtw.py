@@ -11,7 +11,7 @@ def getDTW(train_data_set, test_data_set):
     return distance
 
 def getDTWPath(train_data_set, test_data_set):
-    distance, path = fastdtw(train_data_set, test_data_set)
+    distance, path = fastdtw(train_data_set, test_data_set, dist=euclidean)
     for x_, y_ in path:
         plt.plot([x_, y_], [x[x_], y[y_]], color='gray', linestyle='dotted', linewidth=1)
     plt.legend()
