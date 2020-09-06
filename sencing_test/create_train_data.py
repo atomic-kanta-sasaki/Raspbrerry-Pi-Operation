@@ -197,6 +197,7 @@ def get_abs_pick_drop(pick, drop):
         else:
             return 'pick'
 
+
 count = 0
 drop_count = 0
 tt = 0
@@ -245,30 +246,19 @@ while 1:
                 drop_dtw_gx_result.append(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
                 drop_dtw_gy_result.append(dtw.getDTW(drop_train_data_set_gy, test_data_set_gy))
                 #print(drop_dtw_gx_result)
+                hoge = get_abs_pick_drop(dtw.getDTW(train_data_set_gx, test_data_set_gx), dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
+                if hoge == 'pick':
+                    dtw.getDTWPath(train_data_set_gx, test_data_set_gx)
+                elif hoge == 'drop':
+                    dtw.getDTWPath(drop_train_data_set_gx, test_data_set_gx)
                 
-                print(get_abs_pick_drop(dtw.getDTW(train_data_set_gx, test_data_set_gx), dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)))
 
                 print('===============================================================')
                 #print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
                 sencing_count += 1
 
-
-        #print (elapsed_time)
-        #if len(pick_dtw_gx_result) > 0:
-            #print(pick_dtw_gx_result)
-
         # ２００回データを計測しDTW値を持っている場合
         if len(pick_dtw_gx_result) > 200: 
-        #     #print(test_data_set_gx)
-        #     pick_gx = get_min_data(pick_dtw_gx_result)
-        #     pick_gy = get_min_data(pick_dtw_gy_result)
-        #     drop_gx = get_min_data(drop_dtw_gx_result)
-        #     drop_gy = get_min_data(drop_dtw_gy_result)
-        #     #print(pick_gx)
-        #     #print('-------------------')
-        #     #print(drop_gx)
-        #     #print(check_pick_or_drop(pick_gx, pick_gy, drop_gx, drop_gy))
-            
         #     #使用していたパラメータを初期化する
             elapsed_time = 0
             sec = 0
@@ -277,12 +267,6 @@ while 1:
 
             pick_dtw_gy_result = []
             break
-
-    #print_sencing_data()
-    #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
-    #print_pick_dtw_result(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
-    #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
-    #print_drop_dtw_result(pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4)
     pick_dtw_gx_list = []
     pick_dtw_gy_list = []
     drop_dtw_gx_list = []
