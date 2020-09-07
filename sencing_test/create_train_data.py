@@ -129,8 +129,8 @@ pick動作を検出する
 
 @param 加速度、各加速度を用いたDTWの値
 """
-def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
-    if 0.75 < accel_z and dtw_gx_result < 100000 and dtw_gy_result < 2000000:
+def check_pick_motion(accel_z, dtw_gx_result, dtw_gy_result):
+    if dtw_gx_result < 400 and dtw_gy_result < 2000000:
         print ('pick')
         return 'pick'
 
@@ -139,7 +139,7 @@ Drop動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
 def check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result):
-    if 0.75 < accel_z and  drop_dtw_gx_result < 400000 and drop_dtw_gy_result < 2000000:
+    if 0.75 < accel_z and  drop_dtw_gx_result < 600 and drop_dtw_gy_result < 2000000:
         print('drop')
         return 'drop'
 """
@@ -190,7 +190,7 @@ def get_min_data(dtw_1):
 
 def get_abs_pick_drop(pick, drop):
     diff = drop - pick
-    print(diff)
+    #print(diff)
     if abs(diff) > 2500:
         if diff < 0:
             return 'drop'
@@ -214,7 +214,7 @@ while 1:
     # 枠内にデータを作成する 
     second = time.time()
     sencing_count = 0
-    while 0.7 < accel_z < 1.3:
+    while 0.3 < accel_z:
          # 加速度を取得
         accel_x, accel_y, accel_z = get_accel_data_g()
         # 角加速度を取得
@@ -240,17 +240,21 @@ while 1:
             
                 print('==============================================================')
                 print(dtw.getDTW(train_data_set_gx, test_data_set_gx))
-                print(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
+                #print(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
                 print('===============================================================')
                 # DroｐのDTW値を算出
                 drop_dtw_gx_result.append(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
                 drop_dtw_gy_result.append(dtw.getDTW(drop_train_data_set_gy, test_data_set_gy))
                 #print(drop_dtw_gx_result)
                 hoge = get_abs_pick_drop(dtw.getDTW(train_data_set_gx, test_data_set_gx), dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
-                if hoge == 'pick':
+                #print(dtw.getDTW(train_data_set_gx, test_data_set_gx))
+                #print(dtw.getDTW(train_data_set_gy, test_data_set_gy))
+                #print(accel_x)
+                hoge = check_pick_motion(accel_z, dtw.getDTW(train_data_set_gx, test_data_set_gx), dtw.getDTW(train_data_set_gy, test_data_set_gy))
+                if hoge == 'pick': 
                     dtw.getDTWPath(train_data_set_gx, test_data_set_gx)
-                elif hoge == 'drop':
-                    dtw.getDTWPath(drop_train_data_set_gx, test_data_set_gx)
+                #elif hoge == 'drop':
+                    #dtw.getDTWPath(drop_train_data_set_gx, test_data_set_gx)
                 
 
                 print('===============================================================')
