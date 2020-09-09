@@ -229,6 +229,7 @@ while 1:
 
             # 200個のセンシングデータを作成する
             while sencing_count <= 200:
+                #sencing_start_time = time.time()
                 gyro_x, gyro_y, gyro_z = get_gyro_data_deg()
                 
                 #print(gyro_x)
@@ -260,6 +261,8 @@ while 1:
                 print('===============================================================')
                 #print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
                 sencing_count += 1
+                #sencing_end_time = time.time()
+                #print(sencing_end_time - sencing_start_time)
 
         # ２００回データを計測しDTW値を持っている場合
         if len(pick_dtw_gx_result) > 200: 
