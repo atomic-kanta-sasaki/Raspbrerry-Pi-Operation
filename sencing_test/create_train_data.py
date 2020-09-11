@@ -214,7 +214,7 @@ while 1:
     # 枠内にデータを作成する 
     second = time.time()
     sencing_count = 0
-    while 0.3 < accel_z:
+    while 0.75 < accel_z < 1.25:
          # 加速度を取得
         accel_x, accel_y, accel_z = get_accel_data_g()
         # 角加速度を取得
@@ -241,7 +241,7 @@ while 1:
             
                 print('==============================================================')
                 print(dtw.getDTW(train_data_set_gx, test_data_set_gx))
-                #print(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
+                print(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
                 print('===============================================================')
                 # DroｐのDTW値を算出
                 drop_dtw_gx_result.append(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
@@ -252,13 +252,13 @@ while 1:
                 #print(dtw.getDTW(train_data_set_gy, test_data_set_gy))
                 #print(accel_x)
                 hoge = check_pick_motion(accel_z, dtw.getDTW(train_data_set_gx, test_data_set_gx), dtw.getDTW(train_data_set_gy, test_data_set_gy))
-                if hoge == 'pick': 
-                    dtw.getDTWPath(train_data_set_gx, test_data_set_gx)
+                #if hoge == 'pick': 
+                 #   dtw.getDTWPath(train_data_set_gx, test_data_set_gx)
                 #elif hoge == 'drop':
                     #dtw.getDTWPath(drop_train_data_set_gx, test_data_set_gx)
                 
 
-                print('===============================================================')
+                #print('===============================================================')
                 #print(check_pick_or_drop(pick_dtw_gx_result, pick_dtw_gy_result, drop_dtw_gx_result, drop_dtw_gy_result))
                 sencing_count += 1
                 #sencing_end_time = time.time()
