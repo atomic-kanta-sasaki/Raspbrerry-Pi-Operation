@@ -240,8 +240,8 @@ while 1:
                 pick_dtw_gy_result.append(dtw.getDTW(train_data_set_gy, test_data_set_gy))
             
                 print('==============================================================')
-                print(dtw.getDTW(train_data_set_gx, test_data_set_gx))
-                print(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
+                print(dtw.getDTW(train_data_set_gy, test_data_set_gy))
+                print(dtw.getDTW(drop_train_data_set_gy, test_data_set_gy))
                 print('===============================================================')
                 # DroｐのDTW値を算出
                 drop_dtw_gx_result.append(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
@@ -253,7 +253,8 @@ while 1:
                 #print(accel_x)
                 hoge = check_pick_motion(accel_z, dtw.getDTW(train_data_set_gx, test_data_set_gx), dtw.getDTW(train_data_set_gy, test_data_set_gy))
                 #if hoge == 'pick': 
-                 #   dtw.getDTWPath(train_data_set_gx, test_data_set_gx)
+                    #dtw.getDTWPath(train_data_set_gy, test_data_set_gy)
+                    #print(test_data_set_gy)
                 #elif hoge == 'drop':
                     #dtw.getDTWPath(drop_train_data_set_gx, test_data_set_gx)
                 
