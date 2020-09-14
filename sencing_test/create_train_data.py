@@ -190,12 +190,13 @@ def get_min_data(dtw_1):
 
 def get_abs_pick_drop(pick, drop):
     diff = drop - pick
-    #print(diff)
-    if abs(diff) > 2500:
-        if diff < 0:
-            return 'drop'
-        else:
+
+    if diff > 0:
+        if abs(diff) > 1500:
             return 'pick'
+    else:
+        if abs(diff) > 2500:
+            return 'drop'
 
 
 count = 0
@@ -240,8 +241,9 @@ while 1:
                 pick_dtw_gy_result.append(dtw.getDTW(train_data_set_gy, test_data_set_gy))
             
                 print('==============================================================')
-                print(dtw.getDTW(train_data_set_gy, test_data_set_gy))
-                print(dtw.getDTW(drop_train_data_set_gy, test_data_set_gy))
+                print(dtw.getDTW(train_data_set_gx, test_data_set_gx))
+                #print(gyro_y)
+                print(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
                 print('===============================================================')
                 # DroｐのDTW値を算出
                 drop_dtw_gx_result.append(dtw.getDTW(drop_train_data_set_gx, test_data_set_gx))
@@ -251,7 +253,8 @@ while 1:
                 #print(dtw.getDTW(train_data_set_gx, test_data_set_gx))
                 #print(dtw.getDTW(train_data_set_gy, test_data_set_gy))
                 #print(accel_x)
-                hoge = check_pick_motion(accel_z, dtw.getDTW(train_data_set_gx, test_data_set_gx), dtw.getDTW(train_data_set_gy, test_data_set_gy))
+                #hoge = check_pick_motion(accel_z, dtw.getDTW(train_data_set_gx, test_data_set_gx), dtw.getDTW(train_data_set_gy, test_data_set_gy))
+                print(hoge)
                 #if hoge == 'pick': 
                     #dtw.getDTWPath(train_data_set_gy, test_data_set_gy)
                     #print(test_data_set_gy)
