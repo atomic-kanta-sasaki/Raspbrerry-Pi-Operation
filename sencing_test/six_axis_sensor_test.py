@@ -10,6 +10,7 @@ from scipy.spatial.distance import euclidean
 from fastdtw import fastdtw
 from matplotlib import pyplot as plt
 import pandas as pd
+import time
 
 ### define #############################################################
 DEV_ADDR = 0x68         # device address
@@ -202,6 +203,7 @@ count = 0
 drop_count = 0
 tt = 0
 while 1:
+    #sec = time.time()
 #    print_sencing_data()
 #    print 'csvファイル書き込み'
     #insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
@@ -304,3 +306,5 @@ while 1:
     drop_dtw_gx_list = []
     drop_dtw_gy_list = []
     tt += 1
+    #elapsed_time = time.time()
+    #print(elapsed_time - sec)
