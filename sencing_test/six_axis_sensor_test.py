@@ -69,6 +69,18 @@ pick_dtw_gy_list = []
 drop_dtw_gx_list = []
 drop_dtw_gy_list = []
 
+
+pick_dtw_gx_result = []
+pick_dtw_gx_result_1 = []
+pick_dtw_gx_result_2 = []
+pick_dtw_gx_result_3 = []
+pick_dtw_gx_result_4 = []
+
+pick_dtw_gy_result = []
+pick_dtw_gy_result_1 = []
+pick_dtw_gy_result_2 = []
+pick_dtw_gy_result_3 = []
+pick_dtw_gy_result_4 = []
 """
 データ数120個の枠内に新しいデータを挿入し不要なデータをドロップさせる
 * 枠内のデータ数は考える必要あり
@@ -199,11 +211,28 @@ def print_drop_dtw_result(ax, ay, az, gx, gy):
     print(gy)
     print('--------------------------------end------------------------------------')
 
+def check_pick_or_drop(pick_diw_x, pick_dtw_y, drop_dtw_x, drop_dtw_y):
+    print(pick_diw_x)
+    if pick_diw_x < drop_dtw_x and pick_dtw_y < drop_dtw_y:
+        return 'pick'
+    elif pick_diw_x > drop_dtw_x and pick_dtw_y > drop_dtw_y:
+        return 'drop'
+def get_min_data(dtw_1, dtw_2, dtw_3, dtw_4, dtw_5):
+    gx_list = []
+    gx_list.append(min(dtw_1))
+    gx_list.append(min(dtw_2))
+    gx_list.append(min(dtw_3))
+    gx_list.append(min(dtw_4))
+    gx_list.append(min(dtw_5))
+    return min(gx_list)
+
+
+
 count = 0
 drop_count = 0
 tt = 0
 while 1:
-    #sec = time.time()
+    sec = time.time()
 #    print_sencing_data()
 #    print 'csvファイル書き込み'
     #insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
@@ -296,6 +325,7 @@ while 1:
             dtw.getDTWPath(drop_train_data_set_gx, test_data_set_gx)
             print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
+
     #print_sencing_data()
     #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
     #print_pick_dtw_result(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
@@ -306,5 +336,5 @@ while 1:
     drop_dtw_gx_list = []
     drop_dtw_gy_list = []
     tt += 1
-    #elapsed_time = time.time()
-    #print(elapsed_time - sec)
+    elapsed_time = time.time()
+    print(elapsed_time - sec)
