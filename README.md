@@ -95,3 +95,6 @@ Raspberry Pi 4B上で/dev/rfcomm0 22のアドレスを開放しwindowsとCUIベ�
  - rfcomm<数字>によりいくらでも接続することができるのかもしれない
  - rfcomm<数字>によりいくらでも接続することができる
  - 一台接続してから次のfrcommポートを開かないとソケットが解放されない
+
+#### 実験用ファイルではsencing_testディレクトリにあるsencing.pyに最新のプログラムが記載されている
+#### ジェスチャ認識に使用しているコードはcreate_train_data.pyに記載されている

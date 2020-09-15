@@ -317,7 +317,13 @@ def createNewUrlList():
         del new_url_list[0]
         return new_url_list
 
+"""
+Pick動作を行った際に１を送信し, PC側で1を受け取ったら現在フォアグランドにある情報を転送してくる
+転送してきたデータをRaspyで受信しCSVファイルに保存する
 
+@param null
+@return null
+"""
 def pick():
     print('sdlkjfla;jsd;l')
     data = str('1')
@@ -335,7 +341,9 @@ def pick():
     print "現在のCSvファイルの情報"
     printCsvContents()
 
-
+"""
+Drop動作を行った際にPC側にCSVでスタックされている情報を送信する
+"""
 def drop():
     data = readCsv()
     print data
