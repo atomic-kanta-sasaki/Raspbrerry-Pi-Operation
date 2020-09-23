@@ -24,20 +24,20 @@ GYRO_YOUT = 0x45        # Gyro Y-axis
 GYRO_ZOUT = 0x47        # Gyro Z-axis
 
 # Pickの学習用データを定義
-train_data_set_ax = pd.read_csv('pick_train_data_2/pick_accel_x.csv', usecols=[2]).values.reshape(-1, 1)
+train_data_set_ax = pd.read_csv('pick_train_data_2/pick_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
 train_data_set_ay = pd.read_csv('pick_train_data_2/pick_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_az = pd.read_csv('pick_train_data_2/pick_accel_z.csv', usecols=[2]).values.reshape(-1, 1)
+train_data_set_az = pd.read_csv('pick_train_data_2/pick_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
 train_data_set_gx = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
 
 train_data_set_gy = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_gx_2 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[1]).values.reshape(-1, 1)
-train_data_set_gy_2 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[1]).values.reshape(-1, 1)
-train_data_set_gx_3 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
-train_data_set_gy_3 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[2]).values.reshape(-1, 1)
-train_data_set_gx_4 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
-train_data_set_gy_4 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[3]).values.reshape(-1, 1)
-train_data_set_gx_5 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
-train_data_set_gy_5 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[4]).values.reshape(-1, 1)
+train_data_set_gx_2 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gy_2 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gx_3 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gy_3 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gx_4 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gy_4 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gx_5 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gy_5 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
 
 
 # Dropの学習用データを定義
@@ -45,24 +45,24 @@ drop_train_data_set_ax = pd.read_csv('drop_train_data/drop_accel_x.csv', usecols
 drop_train_data_set_ay = pd.read_csv('drop_train_data/drop_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
 drop_train_data_set_az = pd.read_csv('drop_train_data/drop_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
 drop_train_data_set_gx = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_gx_2 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[1]).values.reshape(-1, 1)
-drop_train_data_set_gx_3 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
-drop_train_data_set_gx_4 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
-drop_train_data_set_gx_5 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
+drop_train_data_set_gx_2 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gx_3 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gx_4 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gx_5 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
 
 drop_train_data_set_gy = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_gy_2 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[1]).values.reshape(-1, 1)
-drop_train_data_set_gy_3 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
-drop_train_data_set_gy_4 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
-drop_train_data_set_gy_5 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
+drop_train_data_set_gy_2 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gy_3 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gy_4 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gy_5 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
 
 
 # テストデータを作成するための初期データを作成
-test_data_set_ax = np.arange(50, dtype=float).reshape(-1, 1)
-test_data_set_ay = np.arange(50, dtype=float).reshape(-1, 1)
-test_data_set_az = np.arange(50, dtype=float).reshape(-1, 1)
-test_data_set_gx = np.arange(50, dtype=float).reshape(-1, 1)
-test_data_set_gy = np.arange(50, dtype=float).reshape(-1, 1)
+test_data_set_ax = np.arange(99, dtype=float).reshape(-1, 1)
+test_data_set_ay = np.arange(99, dtype=float).reshape(-1, 1)
+test_data_set_az = np.arange(99, dtype=float).reshape(-1, 1)
+test_data_set_gx = np.arange(99, dtype=float).reshape(-1, 1)
+test_data_set_gy = np.arange(99, dtype=float).reshape(-1, 1)
 
 pick_dtw_gx_list = []
 pick_dtw_gy_list = []
@@ -91,7 +91,7 @@ pick_dtw_gy_result_4 = []
 @return 生成した観測データセット
 """
 def remake_test_data_set(test_data_set, data):
-    new_data = np.insert(test_data_set, 50, data ,axis=0)
+    new_data = np.insert(test_data_set, 99, data ,axis=0)
     new_data = np.delete(new_data, 0, 0)
     return new_data
 
@@ -261,10 +261,12 @@ while 1:
     # pickのDTWの値を取得する
     pick_dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
     pick_dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
+    pick_dtw_az_result = dtw.getDTW(train_data_set_az, test_data_set_az)
     pick_dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx)
     pick_dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set_gy)
-    drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax) + 8
-    #drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
+    drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax) 
+    drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
+    drop_dtw_az_result = dtw.getDTW(drop_train_data_set_az, test_data_set_az)
     drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
     drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
     """
@@ -360,6 +362,7 @@ while 1:
     #print_pick_dtw_result(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
     #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
     #print_drop_dtw_result(pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4)
+
     pick_dtw_gx_list = []
     pick_dtw_gy_list = []
     drop_dtw_gx_list = []
