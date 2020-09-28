@@ -30,14 +30,14 @@ train_data_set_az = pd.read_csv('pick_train_data_2/pick_accel_z.csv', usecols=[2
 train_data_set_gx = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
 
 train_data_set_gy = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_gx_2 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[1]).values.reshape(-1, 1)
-train_data_set_gy_2 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[1]).values.reshape(-1, 1)
-train_data_set_gx_3 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
-train_data_set_gy_3 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[2]).values.reshape(-1, 1)
-train_data_set_gx_4 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
-train_data_set_gy_4 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[3]).values.reshape(-1, 1)
-train_data_set_gx_5 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
-train_data_set_gy_5 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[4]).values.reshape(-1, 1)
+# train_data_set_gx_2 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[1]).values.reshape(-1, 1)
+# train_data_set_gy_2 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[1]).values.reshape(-1, 1)
+# train_data_set_gx_3 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
+# train_data_set_gy_3 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[2]).values.reshape(-1, 1)
+# train_data_set_gx_4 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
+# train_data_set_gy_4 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[3]).values.reshape(-1, 1)
+# train_data_set_gx_5 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
+# train_data_set_gy_5 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[4]).values.reshape(-1, 1)
 
 
 # Dropの学習用データを定義
@@ -45,16 +45,16 @@ drop_train_data_set_ax = pd.read_csv('drop_train_data/drop_accel_x.csv', usecols
 drop_train_data_set_ay = pd.read_csv('drop_train_data/drop_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
 drop_train_data_set_az = pd.read_csv('drop_train_data/drop_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
 drop_train_data_set_gx = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_gx_2 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[1]).values.reshape(-1, 1)
-drop_train_data_set_gx_3 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
-drop_train_data_set_gx_4 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
-drop_train_data_set_gx_5 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
+# drop_train_data_set_gx_2 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[1]).values.reshape(-1, 1)
+# drop_train_data_set_gx_3 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
+# drop_train_data_set_gx_4 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
+# drop_train_data_set_gx_5 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
 
-drop_train_data_set_gy = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_gy_2 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[1]).values.reshape(-1, 1)
-drop_train_data_set_gy_3 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
-drop_train_data_set_gy_4 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
-drop_train_data_set_gy_5 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
+drop_train_data_set_gy = pd.read_csv('drop_train_data/drop_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+# drop_train_data_set_gy_2 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[1]).values.reshape(-1, 1)
+# drop_train_data_set_gy_3 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
+# drop_train_data_set_gy_4 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
+# drop_train_data_set_gy_5 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
 
 
 # テストデータを作成するための初期データを作成
