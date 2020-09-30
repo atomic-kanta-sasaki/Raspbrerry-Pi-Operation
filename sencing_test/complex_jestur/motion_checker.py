@@ -38,11 +38,11 @@ drop_train_data_set_gx = pd.read_csv('drop_data/drop_gyro_x.csv', usecols=[0]).v
 drop_train_data_set_gy = pd.read_csv('drop_data/drop_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
 
 # テストデータを作成するための初期データを作成
-test_data_set_ax = np.arange(40, dtype=float).reshape(-1, 1)
-test_data_set_ay = np.arange(40, dtype=float).reshape(-1, 1)
-test_data_set_az = np.arange(40, dtype=float).reshape(-1, 1)
-test_data_set_gx = np.arange(40, dtype=float).reshape(-1, 1)
-test_data_set_gy = np.arange(40, dtype=float).reshape(-1, 1)
+test_data_set_ax = np.arange(70, dtype=float).reshape(-1, 1)
+test_data_set_ay = np.arange(70, dtype=float).reshape(-1, 1)
+test_data_set_az = np.arange(70, dtype=float).reshape(-1, 1)
+test_data_set_gx = np.arange(70, dtype=float).reshape(-1, 1)
+test_data_set_gy = np.arange(70, dtype=float).reshape(-1, 1)
 
 pick_dtw_gx_list = []
 pick_dtw_gy_list = []
@@ -71,7 +71,7 @@ pick_dtw_gy_result_4 = []
 @return 生成した観測データセット
 """
 def remake_test_data_set(test_data_set, data):
-    new_data = np.insert(test_data_set,40, data ,axis=0)
+    new_data = np.insert(test_data_set, 70, data ,axis=0)
     new_data = np.delete(new_data, 0, 0)
     return new_data
 
