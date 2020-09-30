@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 import math
 from time import sleep  # time module
 import csv
@@ -52,7 +55,8 @@ drop_train_data_set_gy = pd.read_csv('drop_data/drop_gyro_y.csv', usecols=[0]).v
 ax_result = dtw.getDTW(train_data_set_ax, drop_train_data_set_ax)
 ay_result = dtw.getDTW(train_data_set_ay, drop_train_data_set_ay)
 az_result = dtw.getDTW(train_data_set_az, drop_train_data_set_az)
-gx_result = dtw.getDTW(drop_train_data_set_gx, train_data_set_gx)
+gx_result = dtw.getDTW(train_data_set_gx, drop_train_data_set_gx)
+gy_result = dtw.getDTW(train_data_set_gy, drop_train_data_set_gy)
 gy_result = dtw.getDTW(train_data_set_gy, drop_train_data_set_gy)
 print(ax_result)
 print(ay_result)
@@ -60,4 +64,4 @@ print(az_result)
 print(gx_result)
 print(gy_result)
 
-dtw.getDTWPath(train_data_set_gx, drop_train_data_set_gx)
+dtw.getDTWPath(train_data_set_gy, drop_train_data_set_gy)
