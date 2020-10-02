@@ -252,30 +252,7 @@ while 1:
     print(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
     print(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
     print(drop_dtw_ax_result - pick_dtw_ax_result, drop_dtw_ay_result - pick_dtw_ay_result, drop_dtw_az_result - pick_dtw_az_result, drop_dtw_gx_result - pick_dtw_gx_result, drop_dtw_gy_result - pick_dtw_gy_result)
-    """
-    pick_dtw_gx_result_1 = dtw.getDTW(train_data_set_gx_2, test_data_set_gx)
-    pick_dtw_gy_result_1 = dtw.getDTW(train_data_set_gy_2, test_data_set_gy)
-    pick_dtw_gx_result_2 = dtw.getDTW(train_data_set_gx_3, test_data_set_gx)
-    pick_dtw_gy_result_2 = dtw.getDTW(train_data_set_gy_3, test_data_set_gy)
-    pick_dtw_gx_result_3 = dtw.getDTW(train_data_set_gx_4, test_data_set_gx)
-    pick_dtw_gy_result_3 = dtw.getDTW(train_data_set_gy_4, test_data_set_gy)
-    pick_dtw_gx_result_4 = dtw.getDTW(train_data_set_gx_5, test_data_set_gx)
-    pick_dtw_gy_result_4 = dtw.getDTW(train_data_set_gy_5, test_data_set_gy)
-    pick_dtw_gx_result_1 = dtw.getDTW(train_data_set_gx_2, test_data_set_gx)
 
-    pick_dtw_gx_list.extend([pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4])
-    pick_dtw_gy_list.extend([pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4])
-    pick_dtw_gx_result = min(pick_dtw_gx_list) 
-    pick_dtw_gy_result = min(pick_dtw_gy_list)
-    print(pick_dtw_gy_result)
-    """
-    """ 
-    print("========================")
-    print(drop_dtw_ay_result - pick_dtw_ay_result)
-    print(drop_dtw_gx_result - pick_dtw_gx_result)
-    print(drop_dtw_gy_result - pick_dtw_gy_result)
-    print("======================")
-    """
     if tt > 80 and operation_identification(drop_dtw_ax_result - pick_dtw_ax_result, drop_dtw_gx_result - pick_dtw_gx_result, drop_dtw_gy_result - pick_dtw_gy_result,  accel_y, accel_z) == 'pick':
         count += 1
         print('=========================================================')
@@ -291,46 +268,7 @@ while 1:
     else:
         
         #計算速度を早めるためPick動作が検出されなかった場合のみDrop動作を検出する関数を動かす
-        """
-        drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax) + 8
-        drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
-        drop_dtw_az_result = dtw.getDTW(drop_train_data_set_az, test_data_set_az)
-        drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
-        drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
-        drop_dtw_gx_result_1 = dtw.getDTW(drop_train_data_set_gx_2, test_data_set_gx)
-        drop_dtw_gy_result_1 = dtw.getDTW(drop_train_data_set_gy_2, test_data_set_gy)
-        drop_dtw_gx_result_2 = dtw.getDTW(drop_train_data_set_gx_3, test_data_set_gx)
-        drop_dtw_gy_result_2 = dtw.getDTW(drop_train_data_set_gy_3, test_data_set_gy)
-        drop_dtw_gx_result_3 = dtw.getDTW(drop_train_data_set_gx_4, test_data_set_gx)
-        drop_dtw_gy_result_3 = dtw.getDTW(drop_train_data_set_gy_4, test_data_set_gy)
-        drop_dtw_gx_result_4 = dtw.getDTW(drop_train_data_set_gx_5, test_data_set_gx)
-        drop_dtw_gy_result_4 = dtw.getDTW(drop_train_data_set_gy_5, test_data_set_gy)
-        drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
-        drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
-        drop_dtw_gx_result_1 = dtw.getDTW(drop_train_data_set_gx_2, test_data_set_gx)
-        drop_dtw_gy_result_1 = dtw.getDTW(drop_train_data_set_gy_2, test_data_set_gy)
-        drop_dtw_gx_result_2 = dtw.getDTW(drop_train_data_set_gx_3, test_data_set_gx)
-        drop_dtw_gy_result_2 = dtw.getDTW(drop_train_data_set_gy_3, test_data_set_gy)
-        drop_dtw_gx_result_3 = dtw.getDTW(drop_train_data_set_gx_4, test_data_set_gx)
-        drop_dtw_gy_result_3 = dtw.getDTW(drop_train_data_set_gy_4, test_data_set_gy)
-        drop_dtw_gx_result_4 = dtw.getDTW(drop_train_data_set_gx_5, test_data_set_gx)
-        drop_dtw_gy_result_4 = dtw.getDTW(drop_train_data_set_gy_5, test_data_set_gy)
-        drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
-        drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
 
-        drop_dtw_gx_list.extend([drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gx_result_4])
-        drop_dtw_gy_list.extend([drop_dtw_gy_result, drop_dtw_gy_result_1, drop_dtw_gy_result_2, drop_dtw_gy_result_3, drop_dtw_gy_result_4])
-        drop_dtw_gx_result = min(drop_dtw_gx_list) 
-        drop_dtw_gy_result = min(drop_dtw_gy_list) 
-        """
-        """
-        print("=======================")
-        print(pick_dtw_gy_result)
-        print(drop_dtw_gy_result)
-        print(drop_dtw_ax_result - pick_dtw_ax_result)
-        print(pick_dtw_ay_result)
-        print("=======================")
-        """
         if tt > 80  and operation_identification(drop_dtw_ax_result - pick_dtw_ax_result, drop_dtw_gx_result - pick_dtw_gx_result, drop_dtw_gy_result - pick_dtw_gy_result, accel_y, accel_z) == 'drop':
             drop_count += 1
             print('-------------------------------------------------------')
@@ -340,12 +278,6 @@ while 1:
             #dtw.getDTWPath(drop_train_data_set_gx, test_data_set_gx)
             #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
-
-    #print_sencing_data()
-    #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
-    #print_pick_dtw_result(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
-    #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
-    #print_drop_dtw_result(pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4)
 
     pick_dtw_gx_list = []
     pick_dtw_gy_list = []
