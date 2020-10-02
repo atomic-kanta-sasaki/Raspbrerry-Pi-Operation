@@ -149,9 +149,9 @@ def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result
 
 def operation_identification(diff_ax, diff_gx, diff_gy, ay, az):
     #print(diff_ax, diff_gx, diff_gy, ay, az)
-    if diff_ax > 10 and diff_gx > 3500 and diff_gy > 5000 and 0.5 < az < 1.3:
+    if diff_ax > 10 and diff_gx > 3000 and diff_gy > 4000 and 0.2 < az < 0.9:
         return 'pick'
-    elif diff_ax < -18 and diff_gx < -3500 and diff_gy < -5000 and 0.75 < az < 1.25:
+    elif diff_ax < 0 and diff_gx < -4000 and diff_gy < -4000 and 0.5 < az < 1.36:
         return 'drop'
 
 """
@@ -177,6 +177,7 @@ def print_sencing_data():
     accel_x,accel_y,accel_z = get_accel_data_g()
     print 'Ax= %.3f' % accel_x, '\t',
     print 'Ay= %.3f' % accel_y, '\t',
+
     print 'Az= %.3f' % accel_z, '\t',
     print # 改行
 
@@ -260,6 +261,7 @@ while 1:
         #print(drop_dtw_gy_result)
         #print(pick_dtw_ax_result)
         #print(drop_dtw_ax_result)
+        #print(accel_z)
         print('pick')
         #dtw.getDTWPath(train_data_set_gy, test_data_set_gy)
         #dtw.getDTWPath(drop_train_data_set_gy, test_data_set_gy)
@@ -275,7 +277,7 @@ while 1:
             print('drop')
             #print(drop_dtw_gy_result)
             print('------------------------------------------------------')
-            #dtw.getDTWPath(drop_train_data_set_gx, test_data_set_gx)
+            #dtw.getDTWPath(drop_train_data_set_gy, test_data_set_gy)
             #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
 
 
