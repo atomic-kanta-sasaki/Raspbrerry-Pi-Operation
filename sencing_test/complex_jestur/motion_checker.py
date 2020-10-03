@@ -151,7 +151,7 @@ def operation_identification(diff_ax, diff_gx, diff_gy, ay, az):
     #print(diff_ax, diff_gx, diff_gy, ay, az)
     if diff_ax > 10 and diff_gx > 2300 and diff_gy > 5200 and 0.2 < az < 0.9:
         return 'pick'
-    elif diff_ax < -10 and diff_gx < -200 and diff_gy < -52000 and 0.5 < az < 1.36:
+    elif diff_ax < -10 and diff_gx < -2000 and diff_gy < -5200 and 0.5 < az < 1.36:
         return 'drop'
 
 """
