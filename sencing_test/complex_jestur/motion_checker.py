@@ -149,9 +149,9 @@ def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result
 
 def operation_identification(diff_ax, diff_gx, diff_gy, ay, az):
     #print(diff_ax, diff_gx, diff_gy, ay, az)
-    if diff_ax > 10 and diff_gx > 2300 and diff_gy > 5200 and 0.2 < az < 0.9:
+    if diff_ax > 0 and diff_gx > 300 and diff_gy > 4000 and 0.2 < az < 0.9:
         return 'pick'
-    elif diff_ax < -10 and diff_gx < -2000 and diff_gy < -5200 and 0.5 < az < 1.36:
+    elif diff_ax < 0 and diff_gx < -2000 and diff_gy < -5200 and 0.5 < az < 1.36:
         return 'drop'
 
 """
@@ -261,7 +261,7 @@ while 1:
         #print(drop_dtw_gy_result)
         #print(pick_dtw_ax_result)
         #print(drop_dtw_ax_result)
-        #print(accel_z)
+        print(accel_x)
         print('pick')
         #dtw.getDTWPath(train_data_set_gy, test_data_set_gy)
         #dtw.getDTWPath(drop_train_data_set_gy, test_data_set_gy)
