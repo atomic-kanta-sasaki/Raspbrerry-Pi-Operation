@@ -261,9 +261,9 @@ drop_count = 0
 tt = 0
 while 1:
     sec = time.time()
-#    print_sencing_data()
-#    print 'csvファイル書き込み'
-    #insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
+    # print_sencing_data()
+    # print 'csvファイル書き込み'
+    # insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
 
     # 加速度を取得
     accel_x, accel_y, accel_z = get_accel_data_g()
@@ -276,52 +276,53 @@ while 1:
     test_data_set_az = remake_test_data_set(test_data_set_az, accel_z)
     test_data_set_gx = remake_test_data_set(test_data_set_gx, gyro_x)
     test_data_set_gy = remake_test_data_set(test_data_set_gy, gyro_y)
-
-#    print (len(test_data_set))
     
-    # pickのDTWの値を取得する
-    pick_dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
-    pick_dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
-    pick_dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx)
-    pick_dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set_gy)
+    if check_motion_first_level(accel_x, accel_y, accel_z) == "waiper gesture":    
+        waiper_left_dtw_ax_result = dtw.getDTW(waiper_left_data_set_ax, test_data_set_ax)
+        waiper_left_dtw_gy_result = dtw.getDTW(waiper_left_data_set_gy, test_data_set_gy)
+
+        waiper_right_dtw_ax_result = dtw.getDTW(waiper_right_data_set_ax, test_data_set_ax)
+        waiper_right_dtw_gy_result = dtw.getDTW(waiper_right_data_set_gy, test_data_set_gy)
+        print("====================waiper left dtw====================================")
+        print(waiper_left_dtw_ax_result)
+        print(waiper_left_dtw_gy_result)
+        print("====================waiper right dtw====================================")
+        print(waiper_right_dtw_ax_result)
+        print(waiper_right_dtw_gy_result)
+
+    elif check_motion_first_level(accel_x, accel_y, accel_z) == "pick drop down gesture":
+        pick_dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
+        pick_dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
+        pick_dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx)
+        pick_dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set_gy)
+        
+        drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)
+        drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
+        drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
+
+        hand_down_dtw_ay_result = dtw.getDTW(hand_down_data_set_ay, test_data_set_ay)
+        hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
+        print("====================pick dtw====================================")
+        print(pick_dtw_ax_result)
+        print(pick_dtw_ay_result)
+        print(pick_dtw_gx_result)
+        print(pick_dtw_gy_result)
+        print("====================drop dtw====================================")
+        print(drop_dtw_ax_result)
+        print(drop_dtw_gx_result)
+        print(drop_dtw_gy_result)
     
-    drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)
-    drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
-    drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
-
-    waiper_left_dtw_ax_result = dtw.getDTW(waiper_left_data_set_ax, test_data_set_ax)
-    waiper_left_dtw_gy_result = dtw.getDTW(waiper_left_data_set_gy, test_data_set_gy)
-
-    waiper_right_dtw_ax_result = dtw.getDTW(waiper_right_data_set_ax, test_data_set_ax)
-    waiper_right_dtw_gy_result = dtw.getDTW(waiper_right_data_set_gy, test_data_set_gy)
-
-    hand_down_dtw_ay_result = dtw.getDTW(hand_down_data_set_ay, test_data_set_ay)
-    hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
-
-    hand_up_dtw_ay_result = dtw.getDTW(hand_up_data_set_ay, test_data_set_ay)
-    hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
-
-    print("====================pick dtw====================================")
-    print(pick_dtw_ax_result)
-    print(pick_dtw_ay_result)
-    print(pick_dtw_gx_result)
-    print(pick_dtw_gy_result)
-    print("====================drop dtw====================================")
-    print(drop_dtw_ax_result)
-    print(drop_dtw_gx_result)
-    print(drop_dtw_gy_result)
-    print("====================waiper left dtw====================================")
-    print(waiper_left_dtw_ax_result)
-    print(waiper_left_dtw_gy_result)
-    print("====================waiper right dtw====================================")
-    print(waiper_right_dtw_ax_result)
-    print(waiper_right_dtw_gy_result)
-    print("====================hand down dtw====================================")
-    print(hand_down_dtw_ay_result)
-    print(hand_down_dtw_az_result)
-    print("====================hand up dtw====================================")
-    print(hand_up_dtw_ay_result)
-    print(hand_up_dtw_az_result)
+        print("====================hand down dtw====================================")
+        print(hand_down_dtw_ay_result)
+        print(hand_down_dtw_az_result)
+    elif check_motion_first_level(accel_x, accel_y, accel_z) == "hand up gesture":
+        hand_up_dtw_ay_result = dtw.getDTW(hand_up_data_set_ay, test_data_set_ay)
+        hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
+        print("====================hand up dtw====================================")
+        print(hand_up_dtw_ay_result)
+        print(hand_up_dtw_az_result)
+    else:
+        print("not gesture")
 
     pick_dtw_gx_list = []
     pick_dtw_gy_list = []
