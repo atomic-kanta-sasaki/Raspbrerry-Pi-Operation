@@ -30,31 +30,13 @@ train_data_set_az = pd.read_csv('pick_train_data_2/pick_accel_z.csv', usecols=[2
 train_data_set_gx = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
 
 train_data_set_gy = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
-# train_data_set_gx_2 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[1]).values.reshape(-1, 1)
-# train_data_set_gy_2 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[1]).values.reshape(-1, 1)
-# train_data_set_gx_3 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
-# train_data_set_gy_3 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[2]).values.reshape(-1, 1)
-# train_data_set_gx_4 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
-# train_data_set_gy_4 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[3]).values.reshape(-1, 1)
-# train_data_set_gx_5 = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
-# train_data_set_gy_5 = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[4]).values.reshape(-1, 1)
-
 
 # Dropの学習用データを定義
 drop_train_data_set_ax = pd.read_csv('drop_train_data/drop_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
 drop_train_data_set_ay = pd.read_csv('drop_train_data/drop_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
 drop_train_data_set_az = pd.read_csv('drop_train_data/drop_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
 drop_train_data_set_gx = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
-# drop_train_data_set_gx_2 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[1]).values.reshape(-1, 1)
-# drop_train_data_set_gx_3 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
-# drop_train_data_set_gx_4 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
-# drop_train_data_set_gx_5 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
-
 drop_train_data_set_gy = pd.read_csv('drop_train_data/drop_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
-# drop_train_data_set_gy_2 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[1]).values.reshape(-1, 1)
-# drop_train_data_set_gy_3 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
-# drop_train_data_set_gy_4 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
-# drop_train_data_set_gy_5 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
 
 # 左ワイパースイング学習データ
 waiper_left_data_set_ax = pd.read_csv('waiper_left/waiper_left_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
@@ -203,58 +185,6 @@ def check_motion_first_level(ax, ay, az):
     else:
         return "not gesture"
 
-def check_pick_drop_down_motion():
-    if 
-
-# 以下動作識別関数
-"""
-pick動作を検出する
-
-@param 加速度、各加速度を用いたDTWの値
-"""
-def check_pick_motion(dtw_ax_result, dtw_ay_result, dtw_az_result, dtw_gx_result, dtw_gy_result):
-    if 0.75 < accel_z and dtw_gx_result < 60000 and dtw_gy_result < 600000:
-        print ('pick')
-        return 'pick'
-
-"""
-Drop動作を検出する
-@param 加速度、各加速度を用いたDTWの値
-"""
-def check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result):
-    if 0.75 < accel_z and  drop_dtw_gx_result < 400000 and drop_dtw_gy_result < 2000000:
-        print('drop')
-        return 'drop'
-
-"""
-waiper left動作を検出する
-@param 加速度、各加速度を用いたDTWの値
-"""
-def check_waiper_left_motion(waiper_left_dtw_ax_result, waiper_left_dtw_gy_result):
-    if 
-
-"""
-waiper right動作を検出する
-@param 加速度、各加速度を用いたDTWの値
-"""
-def check_waiper_right_motion(waiper_right_dtw_ax_result, ):
-    if
-
-"""
-hand down 動作を検出する
-@param 加速度、各加速度を用いたDTWの値
-"""
-def check_hand_down_motion():
-    if
-
-"""
-hand up動作を検出する
-@param 加速度、各加速度を用いたDTWの値
-"""
-def check_hand_up_motion():
-    if
-
-
 """
 DTW間の差分を取り動作を出力する
 """
@@ -354,103 +284,45 @@ while 1:
     pick_dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
     pick_dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx)
     pick_dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set_gy)
-    drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax) + 8
-    #drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
+    
+    drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)
     drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
     drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
-    """
-    pick_dtw_gx_result_1 = dtw.getDTW(train_data_set_gx_2, test_data_set_gx)
-    pick_dtw_gy_result_1 = dtw.getDTW(train_data_set_gy_2, test_data_set_gy)
-    pick_dtw_gx_result_2 = dtw.getDTW(train_data_set_gx_3, test_data_set_gx)
-    pick_dtw_gy_result_2 = dtw.getDTW(train_data_set_gy_3, test_data_set_gy)
-    pick_dtw_gx_result_3 = dtw.getDTW(train_data_set_gx_4, test_data_set_gx)
-    pick_dtw_gy_result_3 = dtw.getDTW(train_data_set_gy_4, test_data_set_gy)
-    pick_dtw_gx_result_4 = dtw.getDTW(train_data_set_gx_5, test_data_set_gx)
-    pick_dtw_gy_result_4 = dtw.getDTW(train_data_set_gy_5, test_data_set_gy)
-    pick_dtw_gx_result_1 = dtw.getDTW(train_data_set_gx_2, test_data_set_gx)
 
-    pick_dtw_gx_list.extend([pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4])
-    pick_dtw_gy_list.extend([pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4])
-    pick_dtw_gx_result = min(pick_dtw_gx_list) 
-    pick_dtw_gy_result = min(pick_dtw_gy_list)
+    waiper_left_dtw_ax_result = dtw.getDTW(waiper_left_data_set_ax, test_data_set_ax)
+    waiper_left_dtw_gy_result = dtw.getDTW(waiper_left_data_set_gy, test_data_set_gy)
+
+    waiper_right_dtw_ax_result = dtw.getDTW(waiper_right_data_set_ax, test_data_set_ax)
+    waiper_right_dtw_gy_result = dtw.getDTW(waiper_right_data_set_gy, test_data_set_gy)
+
+    hand_down_dtw_ay_result = dtw.getDTW(hand_down_data_set_ay, test_data_set_ay)
+    hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
+
+    hand_up_dtw_ay_result = dtw.getDTW(hand_up_data_set_ay, test_data_set_ay)
+    hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
+
+    print("====================pick dtw====================================")
+    print(pick_dtw_ax_result)
+    print(pick_dtw_ay_result)
+    print(pick_dtw_gx_result)
     print(pick_dtw_gy_result)
-    """
-    """ 
-    print("========================")
-    print(drop_dtw_ay_result - pick_dtw_ay_result)
-    print(drop_dtw_gx_result - pick_dtw_gx_result)
-    print(drop_dtw_gy_result - pick_dtw_gy_result)
-    print("======================")
-    """
-    if tt > 80 and operation_identification(drop_dtw_ax_result - pick_dtw_ax_result, drop_dtw_gx_result - pick_dtw_gx_result, drop_dtw_gy_result - pick_dtw_gy_result,  accel_y, accel_z) == 'pick':
-        count += 1
-        print('=========================================================')
-        #print(pick_dtw_gy_result)
-        #print(drop_dtw_gy_result)
-        #print(pick_dtw_ax_result)
-        #print(drop_dtw_ax_result)
-        print('pick')
-        #dtw.getDTWPath(train_data_set_gy, test_data_set_gy)
-        print("============================================================")
-        
-    else:
-        
-        #計算速度を早めるためPick動作が検出されなかった場合のみDrop動作を検出する関数を動かす
-        """
-        drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax) + 8
-        drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
-        drop_dtw_az_result = dtw.getDTW(drop_train_data_set_az, test_data_set_az)
-        drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
-        drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
-        drop_dtw_gx_result_1 = dtw.getDTW(drop_train_data_set_gx_2, test_data_set_gx)
-        drop_dtw_gy_result_1 = dtw.getDTW(drop_train_data_set_gy_2, test_data_set_gy)
-        drop_dtw_gx_result_2 = dtw.getDTW(drop_train_data_set_gx_3, test_data_set_gx)
-        drop_dtw_gy_result_2 = dtw.getDTW(drop_train_data_set_gy_3, test_data_set_gy)
-        drop_dtw_gx_result_3 = dtw.getDTW(drop_train_data_set_gx_4, test_data_set_gx)
-        drop_dtw_gy_result_3 = dtw.getDTW(drop_train_data_set_gy_4, test_data_set_gy)
-        drop_dtw_gx_result_4 = dtw.getDTW(drop_train_data_set_gx_5, test_data_set_gx)
-        drop_dtw_gy_result_4 = dtw.getDTW(drop_train_data_set_gy_5, test_data_set_gy)
-        drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
-        drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
-        drop_dtw_gx_result_1 = dtw.getDTW(drop_train_data_set_gx_2, test_data_set_gx)
-        drop_dtw_gy_result_1 = dtw.getDTW(drop_train_data_set_gy_2, test_data_set_gy)
-        drop_dtw_gx_result_2 = dtw.getDTW(drop_train_data_set_gx_3, test_data_set_gx)
-        drop_dtw_gy_result_2 = dtw.getDTW(drop_train_data_set_gy_3, test_data_set_gy)
-        drop_dtw_gx_result_3 = dtw.getDTW(drop_train_data_set_gx_4, test_data_set_gx)
-        drop_dtw_gy_result_3 = dtw.getDTW(drop_train_data_set_gy_4, test_data_set_gy)
-        drop_dtw_gx_result_4 = dtw.getDTW(drop_train_data_set_gx_5, test_data_set_gx)
-        drop_dtw_gy_result_4 = dtw.getDTW(drop_train_data_set_gy_5, test_data_set_gy)
-        drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
-        drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
+    print("====================drop dtw====================================")
+    print(drop_dtw_ax_result)
+    print(drop_dtw_gx_result)
+    print(drop_dtw_gy_result)
+    print("====================waiper left dtw====================================")
+    print(waiper_left_dtw_ax_result)
+    print(waiper_left_dtw_gy_result)
+    print("====================waiper right dtw====================================")
+    print(waiper_right_dtw_ax_result)
+    print(waiper_right_dtw_gy_result)
+    print("====================hand down dtw====================================")
+    print(hand_down_dtw_ay_result)
+    print(hand_down_dtw_az_result)
+    print("====================hand up dtw====================================")
+    print(hand_up_dtw_ay_result)
+    print(hand_up_dtw_az_result)
 
-        drop_dtw_gx_list.extend([drop_dtw_gx_result, drop_dtw_gx_result_1, drop_dtw_gx_result_2, drop_dtw_gx_result_3, drop_dtw_gx_result_4])
-        drop_dtw_gy_list.extend([drop_dtw_gy_result, drop_dtw_gy_result_1, drop_dtw_gy_result_2, drop_dtw_gy_result_3, drop_dtw_gy_result_4])
-        drop_dtw_gx_result = min(drop_dtw_gx_list) 
-        drop_dtw_gy_result = min(drop_dtw_gy_list) 
-        """
-        """
-        print("=======================")
-        print(pick_dtw_gy_result)
-        print(drop_dtw_gy_result)
-        print(drop_dtw_ax_result - pick_dtw_ax_result)
-        print(pick_dtw_ay_result)
-        print("=======================")
-        """
-        if tt > 80  and operation_identification(drop_dtw_ax_result - pick_dtw_ax_result, drop_dtw_gx_result - pick_dtw_gx_result, drop_dtw_gy_result - pick_dtw_gy_result, accel_y, accel_z) == 'drop':
-            drop_count += 1
-            print('-------------------------------------------------------')
-            print('drop')
-            #print(drop_dtw_gy_result)
-            print('------------------------------------------------------')
-            #dtw.getDTWPath(drop_train_data_set_gx, test_data_set_gx)
-            #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
-
-
-    #print_sencing_data()
-    #print_pick_dtw_result(pick_dtw_ax_result, pick_dtw_ay_result, pick_dtw_az_result, pick_dtw_gx_result, pick_dtw_gy_result)
-    #print_pick_dtw_result(pick_dtw_gx_result, pick_dtw_gx_result_1, pick_dtw_gx_result_2, pick_dtw_gx_result_3, pick_dtw_gx_result_4)
-    #print_drop_dtw_result(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result, drop_dtw_gx_result, drop_dtw_gy_result)
-    #print_drop_dtw_result(pick_dtw_gy_result, pick_dtw_gy_result_1, pick_dtw_gy_result_2, pick_dtw_gy_result_3, pick_dtw_gy_result_4)
     pick_dtw_gx_list = []
     pick_dtw_gy_list = []
     drop_dtw_gx_list = []

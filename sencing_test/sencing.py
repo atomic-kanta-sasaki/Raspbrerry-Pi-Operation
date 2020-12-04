@@ -78,6 +78,23 @@ drop_train_data_set_gy_2 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecol
 drop_train_data_set_gy_3 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[2]).values.reshape(-1, 1)
 drop_train_data_set_gy_4 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[3]).values.reshape(-1, 1)
 drop_train_data_set_gy_5 = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[4]).values.reshape(-1, 1)
+
+# 左ワイパースイング学習データ
+waiper_left_data_set_ax = pd.read_csv('waiper_left/waiper_left_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
+waiper_left_data_set_gy = pd.read_csv('waiper_left/waiper_left_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+
+# 右ワイパースイング学習データ
+waiper_right_data_set_ax = pd.read_csv('waiper_right/waiper_right_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
+waiper_right_data_set_gy = pd.read_csv('waiper_right/waiper_right_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+
+# 手を下に下げる動作の学習データ
+hand_down_data_set_ay = pd.read_csv('hand_down/hand_down_accel_ay.csv', usecols=[0]).values.reshape(-1, 1)
+hand_down_data_set_az = pd.read_csv('hand_down/hand_down_accel_az.csv', usecols=[0]).values.reshape(-1, 1)
+
+# 手を上にあげる動作の学習データ
+hand_up_data_set_ay = pd.read_csv('hand_up/hand_up_accel_ay.csv', usecols=[0]).values.reshape(-1, 1)
+hand_up_data_set_az = pd.read_csv('hand_up/hand_up_accel_az.csv', usecols=[0]).values.reshape(-1, 1)
+
 # テストデータを作成するための初期データを作成
 test_data_set_ax = np.arange(60).reshape(-1, 1)
 test_data_set_ay = np.arange(60).reshape(-1, 1)
@@ -167,6 +184,29 @@ bus = smbus.SMBus( 1 )
 bus.write_byte_data( DEV_ADDR, PWR_MGMT_1, 0 )
 
 """
+決定木第一段階
+Ｘ軸 ＝ 0.98 → なし
+Ｘ軸 = -0.98 → なし
+Y軸 = 0.98 → wiper right, wiper left 
+Y軸 = -0.98 → なし
+Z軸 = 0.98 → pick, drop, hand down 
+Z軸 = -0.98 → hand up
+ジェスチャ可能性なし
+"""
+def check_motion_first_level(ax, ay, az):
+    if 0.75 < ay < 1.25:
+        return "waiper gesture"
+    elif 0.75 < az < 1.25:
+        return "pick drop down gesture"
+    elif - 1.25 < az < -0.75:
+        return "hand up gesture"
+    else:
+        return "not gesture"
+
+
+# 以下動作識別関数
+
+"""
 pick動作を検出する
 
 @param 加速度、各加速度を用いたDTWの値
@@ -184,6 +224,35 @@ def check_drop_motion(drop_dtw_ax_result, drop_dtw_ay_result, drop_dtw_az_result
     if 0.75 < accel_z and  drop_dtw_gx_result < 400000 and drop_dtw_gy_result < 2000000:
         print('drop')
         return 'drop'
+
+"""
+waiper left動作を検出する
+@param 加速度、各加速度を用いたDTWの値
+"""
+def check_waiper_left_motion(waiper_left_dtw_ax_result, waiper_left_dtw_gy_result):
+    if 
+
+"""
+waiper right動作を検出する
+@param 加速度、各加速度を用いたDTWの値
+"""
+def check_waiper_right_motion(waiper_right_dtw_ax_result, ):
+    if
+
+"""
+hand down 動作を検出する
+@param 加速度、各加速度を用いたDTWの値
+"""
+def check_hand_down_motion():
+    if
+
+"""
+hand up動作を検出する
+@param 加速度、各加速度を用いたDTWの値
+"""
+def check_hand_up_motion():
+    if
+
 """
 観測データを出力する
 """
