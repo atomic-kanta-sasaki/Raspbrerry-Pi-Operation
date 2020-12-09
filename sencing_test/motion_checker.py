@@ -280,7 +280,8 @@ while 1:
     if check_motion_first_level(accel_x, accel_y, accel_z) == "waiper gesture":    
         waiper_left_dtw_ax_result = dtw.getDTW(waiper_left_data_set_ax, test_data_set_ax)
         waiper_left_dtw_gy_result = dtw.getDTW(waiper_left_data_set_gy, test_data_set_gy)
-
+        
+        # axに着いてはDTWの値を使用してgyｙに着いてはDTWの差分を利用してデータを取得する
         waiper_right_dtw_ax_result = dtw.getDTW(waiper_right_data_set_ax, test_data_set_ax)
         waiper_right_dtw_gy_result = dtw.getDTW(waiper_right_data_set_gy, test_data_set_gy)
         print("====================waiper left dtw====================================")
@@ -291,6 +292,7 @@ while 1:
         print(waiper_right_dtw_gy_result)
 
     elif check_motion_first_level(accel_x, accel_y, accel_z) == "pick drop down gesture":
+        # pickとdropはDTWの差分を使用して分類する
         pick_dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
         pick_dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
         pick_dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx)
@@ -300,6 +302,7 @@ while 1:
         drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
         drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
 
+        # ax ay の値がhand downに近づけば無条件でhand downを検出する
         hand_down_dtw_ay_result = dtw.getDTW(hand_down_data_set_ay, test_data_set_ay)
         hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
         print("====================pick dtw====================================")
@@ -316,6 +319,7 @@ while 1:
         print(hand_down_dtw_ay_result)
         print(hand_down_dtw_az_result)
     elif check_motion_first_level(accel_x, accel_y, accel_z) == "hand up gesture":
+        # ax, ayのDTWの値に直接閾値を用いる
         hand_up_dtw_ay_result = dtw.getDTW(hand_up_data_set_ay, test_data_set_ay)
         hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
         print("====================hand up dtw====================================")
