@@ -289,12 +289,12 @@ while 1:
         elif accel_x > 0.98:
             print("waiper left")
 
-        print("====================waiper left dtw====================================")
-        print(waiper_left_dtw_ax_result)
-        print(waiper_left_dtw_gy_result)
-        print("====================waiper right dtw====================================")
-        print(waiper_right_dtw_ax_result)
-        print(waiper_right_dtw_gy_result)
+#        print("====================waiper left dtw====================================")
+#        print(waiper_left_dtw_ax_result)
+#        print(waiper_left_dtw_gy_result)
+#        print("====================waiper right dtw====================================")
+#        print(waiper_right_dtw_ax_result)
+#        print(waiper_right_dtw_gy_result)
 
     elif check_motion_first_level(accel_x, accel_y, accel_z) == "pick drop down gesture":
         pick_dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
@@ -316,26 +316,26 @@ while 1:
         # ax ay の値がhand downに近づけば無条件でhand downを検出する
         hand_down_dtw_ay_result = dtw.getDTW(hand_down_data_set_ay, test_data_set_ay)
         hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
-        print("====================pick dtw====================================")
-        print(pick_dtw_ax_result)
-        print(pick_dtw_ay_result)
-        print(pick_dtw_gx_result)
-        print(pick_dtw_gy_result)
-        print("====================drop dtw====================================")
-        print(drop_dtw_ax_result)
-        print(drop_dtw_gx_result)
-        print(drop_dtw_gy_result)
+ #       print("====================pick dtw====================================")
+ #       print(pick_dtw_ax_result)
+ #       print(pick_dtw_ay_result)
+ #       print(pick_dtw_gx_result)
+ #       print(pick_dtw_gy_result)
+ #       print("====================drop dtw====================================")
+ #       print(drop_dtw_ax_result)
+ #       print(drop_dtw_gx_result)
+ #       print(drop_dtw_gy_result)
     
-        print("====================hand down dtw====================================")
-        print(hand_down_dtw_ay_result)
-        print(hand_down_dtw_az_result)
+  #      print("====================hand down dtw====================================")
+  #      print(hand_down_dtw_ay_result)
+  #      print(hand_down_dtw_az_result)
     elif check_motion_first_level(accel_x, accel_y, accel_z) == "hand up gesture":
         # ax, ayのDTWの値に直接閾値を用いる
         hand_up_dtw_ay_result = dtw.getDTW(hand_up_data_set_ay, test_data_set_ay)
         hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
-        print("====================hand up dtw====================================")
-        print(hand_up_dtw_ay_result)
-        print(hand_up_dtw_az_result)
+  #      print("====================hand up dtw====================================")
+  #      print(hand_up_dtw_ay_result)
+  #      print(hand_up_dtw_az_result)
         if accel_x < -1.2:
             print("hand down gesture")
     else:
