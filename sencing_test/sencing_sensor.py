@@ -60,10 +60,10 @@ while 1:
     ax, ay, az = getAccel()
     gx, gy, gz = getGyro()
 
-    #print ('{0:4.3f},   {0:4.3f},    {0:4.3f},     {0:4.3f},      {0:4.3f},      {0:4.3f},' .format(gx, gy, gz, ax, ay, az))
+    print (ax, ay, az, gx, gy, gz)
     roll = math.atan(ay/az) * 57.324
     pitch = math.atan(-ax / math.sqrt( ay* ay+ az*az ) ) * 57.324
 
     #pitch = math.atan(-ax / (ay*math.sin(roll) + az*math.cos(roll)))
 
-    print('{0:4.3f},   {0:4.3f},' .format(pitch, roll))
+    #print('{0:4.3f},   {0:4.3f},' .format(pitch, roll))
