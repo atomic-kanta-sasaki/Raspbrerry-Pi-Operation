@@ -24,35 +24,41 @@ GYRO_YOUT = 0x45        # Gyro Y-axis
 GYRO_ZOUT = 0x47        # Gyro Z-axis
 
 # Pickの学習用データを定義
-train_data_set_ax = pd.read_csv('pick_train_data_2/pick_accel_x.csv', usecols=[2]).values.reshape(-1, 1)
-train_data_set_ay = pd.read_csv('pick_train_data_2/pick_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
-train_data_set_az = pd.read_csv('pick_train_data_2/pick_accel_z.csv', usecols=[2]).values.reshape(-1, 1)
-train_data_set_gx = pd.read_csv('pick_train_data_2/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
-
-train_data_set_gy = pd.read_csv('pick_train_data_2/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_ax = pd.read_csv('pick/pick_accel_x.csv', usecols=[2]).values.reshape(-1, 1)
+train_data_set_ay = pd.read_csv('pick/pick_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_az = pd.read_csv('pick/pick_accel_z.csv', usecols=[2]).values.reshape(-1, 1)
+train_data_set_gx = pd.read_csv('pick/pick_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gy = pd.read_csv('pick/pick_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+train_data_set_gz = pd.read_csv('pick/pick_gyro_z.csv', usecols=[0]).values.reshape(-1, 1)
 
 # Dropの学習用データを定義
-drop_train_data_set_ax = pd.read_csv('drop_train_data/drop_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_ay = pd.read_csv('drop_train_data/drop_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_az = pd.read_csv('drop_train_data/drop_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_gx = pd.read_csv('drop_train_data/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
-drop_train_data_set_gy = pd.read_csv('drop_train_data/drop_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_ax = pd.read_csv('drop/drop_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_ay = pd.read_csv('drop/drop_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_az = pd.read_csv('drop/drop_accel_z.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gx = pd.read_csv('drop/drop_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gy = pd.read_csv('drop/drop_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+drop_train_data_set_gz = pd.read_csv('drop/drop_gyro_z.csv', usecols=[0]).values.reshape(-1, 1)
 
 # 左ワイパースイング学習データ
 waiper_left_data_set_ax = pd.read_csv('waiper_left/waiper_left_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
-waiper_left_data_set_gy = pd.read_csv('waiper_left/waiper_left_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+waiper_left_data_set_ay = pd.read_csv('waiper_left/waiper_left_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
+waiper_left_data_set_gz = pd.read_csv('waiper_left/waiper_left_gyro_z.csv', usecols=[0]).values.reshape(-1, 1)
 
 # 右ワイパースイング学習データ
 waiper_right_data_set_ax = pd.read_csv('waiper_right/waiper_right_accel_x.csv', usecols=[0]).values.reshape(-1, 1)
-waiper_right_data_set_gy = pd.read_csv('waiper_right/waiper_right_gyro_y.csv', usecols=[0]).values.reshape(-1, 1)
+waiper_right_data_set_ay = pd.read_csv('waiper_right/waiper_right_accel_y.csv', usecols=[0]).values.reshape(-1, 1)
+waiper_right_data_set_gz = pd.read_csv('waiper_right/waiper_right_gyro_z.csv', usecols=[0]).values.reshape(-1, 1)
+
 
 # 手を下に下げる動作の学習データ
 hand_down_data_set_ay = pd.read_csv('hand_down/hand_down_accel_ay.csv', usecols=[0]).values.reshape(-1, 1)
 hand_down_data_set_az = pd.read_csv('hand_down/hand_down_accel_az.csv', usecols=[0]).values.reshape(-1, 1)
+hand_down_data_set_gx = pd.read_csv('hand_down/hand_down_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
 
 # 手を上にあげる動作の学習データ
 hand_up_data_set_ay = pd.read_csv('hand_up/hand_up_accel_ay.csv', usecols=[0]).values.reshape(-1, 1)
 hand_up_data_set_az = pd.read_csv('hand_up/hand_up_accel_az.csv', usecols=[0]).values.reshape(-1, 1)
+hand_up_data_set_gx = pd.read_csv('hand_up/hand_up_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
 
 # テストデータを作成するための初期データを作成
 test_data_set_ax = np.arange(50, dtype=float).reshape(-1, 1)
@@ -60,6 +66,7 @@ test_data_set_ay = np.arange(50, dtype=float).reshape(-1, 1)
 test_data_set_az = np.arange(50, dtype=float).reshape(-1, 1)
 test_data_set_gx = np.arange(50, dtype=float).reshape(-1, 1)
 test_data_set_gy = np.arange(50, dtype=float).reshape(-1, 1)
+test_data_set_gz = np.arange(50, dtype=float).reshape(-1, 1)
 
 pick_dtw_gx_list = []
 pick_dtw_gy_list = []
@@ -254,8 +261,6 @@ def get_min_data(dtw_1, dtw_2, dtw_3, dtw_4, dtw_5):
     gx_list.append(min(dtw_5))
     return min(gx_list)
 
-
-
 count = 0
 drop_count = 0
 tt = 0
@@ -276,34 +281,59 @@ while 1:
     test_data_set_az = remake_test_data_set(test_data_set_az, accel_z)
     test_data_set_gx = remake_test_data_set(test_data_set_gx, gyro_x)
     test_data_set_gy = remake_test_data_set(test_data_set_gy, gyro_y)
-    
-    # if tt > 80 and check_motion_first_level(accel_x, accel_y, accel_z) == "waiper gesture":    
-    waiper_left_dtw_ax_result = dtw.getDTW(waiper_left_data_set_ax, test_data_set_ax)
-    waiper_left_dtw_gy_result = dtw.getDTW(waiper_left_data_set_gy, test_data_set_gy)
-    
-    # axに着いてはDTWの値を使用してgyｙに着いてはDTWの差分を利用してデータを取得する
-    waiper_right_dtw_ax_result = dtw.getDTW(waiper_right_data_set_ax, test_data_set_ax)
-    waiper_right_dtw_gy_result = dtw.getDTW(waiper_right_data_set_gy, test_data_set_gy)
-    # if accel_x < -0.98:
-    #     print("waiper right")
-    # elif accel_x > 0.98:
-    #     print("waiper left")
+    test_data_set_gz = remake_test_data_set(test_data_set_gz, gyro_z)
 
-    print("====================waiper left dtw====================================")
-    print(waiper_left_dtw_ax_result)
-    print(waiper_left_dtw_gy_result)
-    print("====================waiper right dtw====================================")
-    print(waiper_right_dtw_ax_result)
-    print(waiper_right_dtw_gy_result)
-
-    # elif check_motion_first_level(accel_x, accel_y, accel_z) == "pick drop down gesture":
     pick_dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
     pick_dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
-    pick_dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx)
-    pick_dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set_gy)
+    pick_dtw_gz_result = dtw.getDTW(train_data_set_gz, test_data_set_gz)
+    
     drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)
-    drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
-    drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
+    drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
+    drop_dtw_gz_result = dtw.getDTW(drop_train_data_set_gz, test_data_set_gz)
+
+    hand_down_dtw_ay_result = dtw.getDTW(hand_down_data_set_ay, test_data_set_ay)
+    hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
+    hand_down_dtw_gx_result = dtw.getDTW(hand_down_data_set_gx, test_data_set_gx)
+
+    hand_up_dtw_ay_result = dtw.getDTW(hand_up_data_set_ay, test_data_set_ay)
+    hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
+    hand_up_dtw_gx_result = dtw.getDTW(hand_up_data_set_gx, test_data_set_gx)
+
+    waiper_left_dtw_ax_result = dtw.getDTW(waiper_left_dtw_ax_result, test_data_set_ax)
+    waiper_left_dtw_ay_result = dtw.getDTW(waiper_left_dtw_ay_result, test_data_set_ay)
+    waiper_left_dtw_gz_result = dtw.getDTW(waiper_left_dtw_gz_result, test_data_set_gz)
+
+    waiper_right_dtw_ax_result = dtw.getDTW(waiper_right_dtw_ax_result, test_data_set_ax)
+    waiper_right_dtw_ay_result = dtw.getDTW(waiper_right_dtw_ay_result, test_data_set_ay)
+    waiper_right_dtw_gz_result = dtw.getDTW(waiper_right_dtw_gz_result, test_data_set_gz)
+    """
+    if tt > 80 and check_motion_first_level(accel_x, accel_y, accel_z) == "waiper gesture":    
+        waiper_left_dtw_ax_result = dtw.getDTW(waiper_left_data_set_ax, test_data_set_ax)
+        waiper_left_dtw_gy_result = dtw.getDTW(waiper_left_data_set_gy, test_data_set_gy)
+    
+        # axに着いてはDTWの値を使用してgyｙに着いてはDTWの差分を利用してデータを取得する
+        waiper_right_dtw_ax_result = dtw.getDTW(waiper_right_data_set_ax, test_data_set_ax)
+        waiper_right_dtw_gy_result = dtw.getDTW(waiper_right_data_set_gy, test_data_set_gy)
+        # if accel_x < -0.98:
+        #     print("waiper right")
+        # elif accel_x > 0.98:
+        #     print("waiper left")
+
+        print("====================waiper left dtw====================================")
+        print(waiper_left_dtw_ax_result)
+        print(waiper_left_dtw_gy_result)
+        print("====================waiper right dtw====================================")
+        print(waiper_right_dtw_ax_result)
+        print(waiper_right_dtw_gy_result)
+
+    elif check_motion_first_level(accel_x, accel_y, accel_z) == "pick drop down gesture":
+        pick_dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
+        pick_dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
+        pick_dtw_gx_result = dtw.getDTW(train_data_set_gx, test_data_set_gx)
+        pick_dtw_gy_result = dtw.getDTW(train_data_set_gy, test_data_set_gy)
+        drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)
+        drop_dtw_gx_result = dtw.getDTW(drop_train_data_set_gx, test_data_set_gx)
+        drop_dtw_gy_result = dtw.getDTW(drop_train_data_set_gy, test_data_set_gy)
     # if accel_z > 1:
     #     print("hand down gesture")
     # elif operation_identification(drop_dtw_ax_result - pick_dtw_ax_result, drop_dtw_gx_result - pick_dtw_gx_result, drop_dtw_gy_result - pick_dtw_gy_result, accel_y, accel_z) == 'drop':
@@ -313,33 +343,34 @@ while 1:
     # pickとdropはDTWの差分を使用して分類する
     
 
-    # ax ay の値がhand downに近づけば無条件でhand downを検出する
-    hand_down_dtw_ay_result = dtw.getDTW(hand_down_data_set_ay, test_data_set_ay)
-    hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
-    print("====================pick dtw====================================")
-    print(pick_dtw_ax_result)
-    print(pick_dtw_ay_result)
-    print(pick_dtw_gx_result)
-    print(pick_dtw_gy_result)
-    print("====================drop dtw====================================")
-    print(drop_dtw_ax_result)
-    print(drop_dtw_gx_result)
-    print(drop_dtw_gy_result)
+        # ax ay の値がhand downに近づけば無条件でhand downを検出する
+        hand_down_dtw_ay_result = dtw.getDTW(hand_down_data_set_ay, test_data_set_ay)
+        hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
+        print("====================pick dtw====================================")
+        print(pick_dtw_ax_result)
+        print(pick_dtw_ay_result)
+        print(pick_dtw_gx_result)
+        print(pick_dtw_gy_result)
+        print("====================drop dtw====================================")
+        print(drop_dtw_ax_result)
+        print(drop_dtw_gx_result)
+        print(drop_dtw_gy_result)
 
-    print("====================hand down dtw====================================")
-    print(hand_down_dtw_ay_result)
-    print(hand_down_dtw_az_result)
-    # elif check_motion_first_level(accel_x, accel_y, accel_z) == "hand up gesture":
-    # ax, ayのDTWの値に直接閾値を用いる
-    hand_up_dtw_ay_result = dtw.getDTW(hand_up_data_set_ay, test_data_set_ay)
-    hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
-    print("====================hand up dtw====================================")
-    print(hand_up_dtw_ay_result)
-    print(hand_up_dtw_az_result)
+        print("====================hand down dtw====================================")
+        print(hand_down_dtw_ay_result)
+        print(hand_down_dtw_az_result)
+    elif check_motion_first_level(accel_x, accel_y, accel_z) == "hand up gesture":
+        # ax, ayのDTWの値に直接閾値を用いる
+        hand_up_dtw_ay_result = dtw.getDTW(hand_up_data_set_ay, test_data_set_ay)
+        hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
+        print("====================hand up dtw====================================")
+        print(hand_up_dtw_ay_result)
+        print(hand_up_dtw_az_result)
     # if accel_x < -1.2:
     #     print("hand down gesture")
-    print("not gesture")
-
+    else:
+        print("not gesture")
+    """
     pick_dtw_gx_list = []
     pick_dtw_gy_list = []
     drop_dtw_gx_list = []

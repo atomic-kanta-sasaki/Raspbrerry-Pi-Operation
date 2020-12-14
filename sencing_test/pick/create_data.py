@@ -4,7 +4,7 @@ import smbus            # use I2C
 import math
 from time import sleep  # time module
 import csv
-import dtw
+#import dtw
 import numpy as np
 from scipy.spatial.distance import euclidean
 from fastdtw import fastdtw
@@ -84,7 +84,7 @@ def get_accel_data_g():
     return [x, y, z]
 
 def insert_csv(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z):
-    with open('sample_1.csv', 'a') as csvfile:
+    with open('sample_5.csv', 'a') as csvfile:
 
         writer = csv.writer(csvfile, lineterminator='\n')
         writer.writerow([gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z])
@@ -130,3 +130,4 @@ while 1:
     time.sleep(0.00632)
     elapsed_time = time.time()
     print(elapsed_time - sec)
+
