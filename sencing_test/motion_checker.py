@@ -299,13 +299,13 @@ while 1:
     hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
     hand_up_dtw_gx_result = dtw.getDTW(hand_up_data_set_gx, test_data_set_gx)
 
-    waiper_left_dtw_ax_result = dtw.getDTW(waiper_left_dtw_ax_result, test_data_set_ax)
-    waiper_left_dtw_ay_result = dtw.getDTW(waiper_left_dtw_ay_result, test_data_set_ay)
-    waiper_left_dtw_gz_result = dtw.getDTW(waiper_left_dtw_gz_result, test_data_set_gz)
+    waiper_left_dtw_ax_result = dtw.getDTW(waiper_left_data_set_ax, test_data_set_ax)
+    waiper_left_dtw_ay_result = dtw.getDTW(waiper_left_data_set_ay, test_data_set_ay)
+    waiper_left_dtw_gz_result = dtw.getDTW(waiper_left_data_set_gz, test_data_set_gz)
 
-    waiper_right_dtw_ax_result = dtw.getDTW(waiper_right_dtw_ax_result, test_data_set_ax)
-    waiper_right_dtw_ay_result = dtw.getDTW(waiper_right_dtw_ay_result, test_data_set_ay)
-    waiper_right_dtw_gz_result = dtw.getDTW(waiper_right_dtw_gz_result, test_data_set_gz)
+    waiper_right_dtw_ax_result = dtw.getDTW(waiper_right_data_set_ax, test_data_set_ax)
+    waiper_right_dtw_ay_result = dtw.getDTW(waiper_right_data_set_ay, test_data_set_ay)
+    waiper_right_dtw_gz_result = dtw.getDTW(waiper_right_data_set_gz, test_data_set_gz)
     """
     if tt > 80 and check_motion_first_level(accel_x, accel_y, accel_z) == "waiper gesture":    
         waiper_left_dtw_ax_result = dtw.getDTW(waiper_left_data_set_ax, test_data_set_ax)
