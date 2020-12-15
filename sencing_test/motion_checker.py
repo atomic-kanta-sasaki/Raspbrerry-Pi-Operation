@@ -292,6 +292,10 @@ while 1:
         print(dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)) 
         print(dtw.getDTW(drop_train_data_set_ay, test_data_set_ay))
         print(dtw.getDTW(drop_train_data_set_gz, test_data_set_gz))
+        print("---------------------------------------hand down ay az gx----------------------------------------")
+        print(dtw.getDTW(hand_down_data_set_ay, test_data_set_ay))
+        print(dtw.getDTW(hand_down_data_set_az, test_data_set_az))
+        print(dtw.getDTW(hand_down_data_set_gx, test_data_set_gx))
     elif -0.3 < accel_z < 0.3:
         print("----------------------------------------waiper left ax ay gz--------------------------------------")
         print(dtw.getDTW(waiper_left_data_set_ay, test_data_set_ay))
@@ -301,12 +305,6 @@ while 1:
         print(dtw.getDTW(waiper_right_data_set_ax, test_data_set_ax))
         print(dtw.getDTW(waiper_right_data_set_ay, test_data_set_ay))
         print(dtw.getDTW(waiper_right_data_set_gz, test_data_set_gz))
-    elif 0.6 < accel_z < 1.25:
-            
-        print("---------------------------------------hand down ay az gx----------------------------------------")
-        print(dtw.getDTW(hand_down_data_set_ay, test_data_set_ay))
-        print(dtw.getDTW(hand_down_data_set_az, test_data_set_az))
-        print(dtw.getDTW(hand_down_data_set_gx, test_data_set_gx))
     elif -1.25 < accel_z < -0.6:
         print("-------------------------------------hand up ay az gx----------------------------------------------")
         print(dtw.getDTW(hand_up_data_set_ay, test_data_set_ay))
