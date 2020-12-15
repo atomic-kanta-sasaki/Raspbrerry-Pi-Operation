@@ -194,12 +194,13 @@ def check_motion_first_level(ax, ay, az):
 
 """
 DTW間の差分を取り動作を出力する
+pick dtw - drop dtw
 """
-def operation_identification(diff_ax, diff_gx, diff_gy, ay, az):
-    print(diff_ax, diff_gx, diff_gy, ay, az)
-    if diff_ax > 20 and diff_gx > 2000 and diff_gy > -350 and 0.75 < az < 1.25:
+def operation_identification(diff_gz):
+    print(diff_gz)
+    if diff_gz < -7000:
         return 'pick'
-    elif diff_ax < -15 and diff_gx < -2000 and diff_gy < -300 and 0.65 < az < 1.25:
+    elif diff_gz > 7000:
         return 'drop'
 
 """
@@ -284,18 +285,31 @@ while 1:
     test_data_set_gz = remake_test_data_set(test_data_set_gz, gyro_z)
 
     if 0.6 < accel_z < 1.25:
-        print("--------------------------------------pick ax ay gz----------------------------------------------")
-        print(dtw.getDTW(train_data_set_ax, test_data_set_ax))
-        print(dtw.getDTW(train_data_set_ay, test_data_set_ay))
-        print(dtw.getDTW(train_data_set_gz, test_data_set_gz))
-        print("--------------------------------------drop ax ay gz----------------------------------------------")
-        print(dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)) 
-        print(dtw.getDTW(drop_train_data_set_ay, test_data_set_ay))
-        print(dtw.getDTW(drop_train_data_set_gz, test_data_set_gz))
-        print("---------------------------------------hand down ay az gx----------------------------------------")
-        print(dtw.getDTW(hand_down_data_set_ay, test_data_set_ay))
-        print(dtw.getDTW(hand_down_data_set_az, test_data_set_az))
-        print(dtw.getDTW(hand_down_data_set_gx, test_data_set_gx))
+        # print("--------------------------------------pick ax ay gz----------------------------------------------")
+        # print(dtw.getDTW(train_data_set_ax, test_data_set_ax))
+        # print(dtw.getDTW(train_data_set_ay, test_data_set_ay))
+        # print(dtw.getDTW(train_data_set_gz, test_data_set_gz))
+        # print("--------------------------------------drop ax ay gz----------------------------------------------")
+        # print(dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)) 
+        # print(dtw.getDTW(drop_train_data_set_ay, test_data_set_ay))
+        # print(dtw.getDTW(drop_train_data_set_gz, test_data_set_gz))
+        # print("---------------------------------------hand down ay az gx----------------------------------------")
+        # print(dtw.getDTW(hand_down_data_set_ay, test_data_set_ay))
+        # print(dtw.getDTW(hand_down_data_set_az, test_data_set_az))
+        # print(dtw.getDTW(hand_down_data_set_gx, test_data_set_gx))
+        pick_dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
+        pick_dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
+        pick_dtw_gz_result = dtw.getDTW(train_data_set_gz, test_data_set_gz)
+        drop_dtw_ax_result = dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)
+        drop_dtw_ay_result = dtw.getDTW(drop_train_data_set_ay, test_data_set_ay)
+        drop_dtw_gz_result = dtw.getDTW(drop_train_data_set_gz, test_data_set_gz)
+        hand_down_dtw_ay_result = dtw.getDTW(hand_down_data_set_ay, test_data_set_ay)
+        hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
+        hand_down_dtw_gx_result = dtw.getDTW(hand_down_data_set_gx, test_data_set_gx)
+        print(operation_identification(pick_dtw_gz_result - drop_dtw_gz_result))
+        if gz > 1.5:
+            print("hand down")
+
     elif -0.3 < accel_z < 0.3 and -0.2 <  accel_y:
         print("----------------------------------------waiper left ax ay gz--------------------------------------")
         print(dtw.getDTW(waiper_left_data_set_ay, test_data_set_ay))
