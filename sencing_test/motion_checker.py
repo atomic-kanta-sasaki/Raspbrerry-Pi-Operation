@@ -296,7 +296,7 @@ while 1:
         print(dtw.getDTW(hand_down_data_set_ay, test_data_set_ay))
         print(dtw.getDTW(hand_down_data_set_az, test_data_set_az))
         print(dtw.getDTW(hand_down_data_set_gx, test_data_set_gx))
-    elif -0.3 < accel_z < 0.3:
+    elif -0.3 < accel_z < 0.3 and -0.2 <  accel_y:
         print("----------------------------------------waiper left ax ay gz--------------------------------------")
         print(dtw.getDTW(waiper_left_data_set_ay, test_data_set_ay))
         print(dtw.getDTW(waiper_left_data_set_ax, test_data_set_ax))
