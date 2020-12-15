@@ -61,8 +61,8 @@ while 1:
     gx, gy, gz = getGyro()
 
     print (ax, ay, az, gx, gy, gz)
-    roll = math.atan(ay/az) * 57.324
-    pitch = math.atan(-ax / math.sqrt( ay* ay+ az*az ) ) * 57.324
+    #roll = math.atan(ay/az) * 57.324
+    #pitch = math.atan(-ax / math.sqrt( ay* ay+ az*az ) ) * 57.324
 
     #pitch = math.atan(-ax / (ay*math.sin(roll) + az*math.cos(roll)))
 
