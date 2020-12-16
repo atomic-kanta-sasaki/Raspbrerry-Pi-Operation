@@ -200,22 +200,28 @@ def operation_identification(diff_gz):
     print(diff_gz)
     if diff_gz < -8500:
         print("pick")
+        time.sleep(1)
         return 'pick'
     elif diff_gz > 8500:
         print("drop")
+        time.sleep(1)
         return 'drop'
 
 """
 DTWの差分を取り動作を出力する(ワイパー動作)
 waiper_left dtw - waiper_right dtw
 """
-def waiper_operation_identification(diff_gz):
+def waiper_operation_identification(diff_gz, accel_x):
     print("------waiper----------")
     print(diff_gz)
-    if diff_gz < -7500:
-        print("waiper left")
-    elif diff_gz > 7500:
-        print("waiper right")
+    if 0.6 < accel_x:
+        if diff_gz < -7500:
+            print("waiper left")
+            time.sleep(1)
+    elif -0.6 > accel_x:
+        if diff_gz > 7500:
+            print("waiper right")
+            time.sleep(1)
 
 """
 Drop動作を検出する
@@ -300,7 +306,7 @@ while 1:
     print("hogehoge")
     print(accel_x, accel_y, accel_z)
     print("hogehoge")
-    if -0.15 < accel_x < 0.15 and -0.15 < accel_y < 0.15 and 0.75 < accel_z < 1.2:
+    if 0.75 < accel_z:
         # print("--------------------------------------pick ax ay gz----------------------------------------------")
         # print(dtw.getDTW(train_data_set_ax, test_data_set_ax))
         # print(dtw.getDTW(train_data_set_ay, test_data_set_ay))
@@ -313,7 +319,7 @@ while 1:
         # print(dtw.getDTW(hand_down_data_set_ay, test_data_set_ay))
         # print(dtw.getDTW(hand_down_data_set_az, test_data_set_az))
         # print(dtw.getDTW(hand_down_data_set_gx, test_data_set_gx))
-       
+        print("=============================================pick and drop and hand down===============================================") 
         pick_dtw_ax_result = dtw.getDTW(train_data_set_ax, test_data_set_ax)
         pick_dtw_ay_result = dtw.getDTW(train_data_set_ay, test_data_set_ay)
         pick_dtw_gz_result = dtw.getDTW(train_data_set_gz, test_data_set_gz)
@@ -323,9 +329,21 @@ while 1:
         hand_down_dtw_ay_result = dtw.getDTW(hand_down_data_set_ay, test_data_set_ay)
         hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
         hand_down_dtw_gx_result = dtw.getDTW(hand_down_data_set_gx, test_data_set_gx)
-        operation_identification(pick_dtw_gz_result - drop_dtw_gz_result) 
+        operation_identification(pick_dtw_gz_result - drop_dtw_gz_result)
+        print(hand_down_dtw_az_result)
+        if hand_down_dtw_az_result < 8:
+            print("hand down")
+            time.sleep(1)
 
-    elif -0.3 < accel_z < 0.6 and accel_y > 0:
+    elif accel_z < -0.3:
+        hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
+        print(hand_up_dtw_az_result)
+        print("---------------------------------hand up-----------------------------")
+        if hand_up_dtw_az_result < 9:
+            print("hand up")
+            time.sleep(1)
+
+    elif 0 < accel_y:
         # print("----------------------------------------waiper left ax ay gz--------------------------------------")
         # print(dtw.getDTW(waiper_left_data_set_ay, test_data_set_ay))
         # print(dtw.getDTW(waiper_left_data_set_ax, test_data_set_ax))
@@ -334,16 +352,11 @@ while 1:
         # print(dtw.getDTW(waiper_right_data_set_ax, test_data_set_ax))
         # print(dtw.getDTW(waiper_right_data_set_ay, test_data_set_ay))
         # print(dtw.getDTW(waiper_right_data_set_gz, test_data_set_gz))
+        print("-------------------------------------------waiper-----------------------------------------------------")
         waiper_left_gz_result = dtw.getDTW(waiper_left_data_set_gz, test_data_set_gz)
         waiper_right_gz_result = dtw.getDTW(waiper_right_data_set_gz, test_data_set_gz)
-        waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result)
-    elif accel_z < -0.75:
-        hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
-        print(hand_up_dtw_az_result)
-        print("-------------------------------------hand up ay az gx----------------------------------------------")
-        # print(dtw.getDTW(hand_up_data_set_ay, test_data_set_ay))
-        # print(dtw.getDTW(hand_up_data_set_az, test_data_set_az))
-        # print(dtw.getDTW(hand_up_data_set_gx, test_data_set_gx))
+        waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, accel_x)
+
     else:
         print("動作なし")
     """ 
