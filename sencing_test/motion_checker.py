@@ -334,6 +334,18 @@ while 1:
             hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
             hand_down_dtw_gx_result = dtw.getDTW(hand_down_data_set_gx, test_data_set_gx)
             operation_identification(pick_dtw_gz_result - drop_dtw_gz_result)
+            print("--------------------------------------pick ax ay gz----------------------------------------------")
+            print(dtw.getDTW(train_data_set_ax, test_data_set_ax))
+            print(dtw.getDTW(train_data_set_ay, test_data_set_ay))
+            print(dtw.getDTW(train_data_set_gz, test_data_set_gz))
+            print("--------------------------------------drop ax ay gz----------------------------------------------")
+            print(dtw.getDTW(drop_train_data_set_ax, test_data_set_ax)) 
+            print(dtw.getDTW(drop_train_data_set_ay, test_data_set_ay))
+            print(dtw.getDTW(drop_train_data_set_gz, test_data_set_gz))
+            print("---------------------------------------hand down ay az gx----------------------------------------")
+            print(dtw.getDTW(hand_down_data_set_ay, test_data_set_ay))
+            print(dtw.getDTW(hand_down_data_set_az, test_data_set_az))
+            print(dtw.getDTW(hand_down_data_set_gx, test_data_set_gx))
 
     elif -0.3 < accel_z < 0.6 and accel_y > 0:
         # print("----------------------------------------waiper left ax ay gz--------------------------------------")
