@@ -295,10 +295,10 @@ def get_min_data(dtw_1, dtw_2, dtw_3, dtw_4, dtw_5):
     gx_list.append(min(dtw_5))
     return min(gx_list)
 
-def insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, flag="not jestur"):
+def insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data,flag="not jestur"):
     with open('log.csv', 'a') as csvfile:
         writer = csv.writer(csvfile, lineterminator='\n')
-        writer.writerow([accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, flag])
+        writer.writerow([accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data, flag])
 
 count = 0
 drop_count = 0
@@ -356,10 +356,10 @@ while 1:
             test_data_set_gz = np.zeros_like(test_data_set_gz)
             if operation_identification(pick_dtw_gz_result - drop_dtw_gz_result) == "pick":
                 flag = "pick"
-                insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, pick_dtw_gz_result, flag)
+                insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, pick_dtw_gz_result, pick_dtw_gz_result - drop_dtw_gz_result, flag)
             elif operation_identification(pick_dtw_gz_result - drop_dtw_gz_result) == "drop":
                 flag = "drop"
-                insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, drop_dtw_gz_result, flag)
+                insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, drop_dtw_gz_result, pick_dtw_gz_result - drop_dtw_gz_result, flag)
         elif hand_down_dtw_az_result < 8:
             print("hand down")
             test_data_set_ax = np.zeros_like(test_data_set_ax)
@@ -369,11 +369,11 @@ while 1:
             test_data_set_gy = np.zeros_like(test_data_set_gy)
             test_data_set_gz = np.zeros_like(test_data_set_gz)
             flag = "hand down"
-            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, hand_down_dtw_az_result, 0, 0, 0, flag)
+            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, hand_down_dtw_az_result, 0, 0, 0, 0, flag)
             time.sleep(1)
         else:
-            flag = "not jestur"
-            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, 0, flag)
+            flag = "pick and drop and hand down form"
+            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, 0, 0, flag)
 
     elif accel_z < -0.3:
         hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
@@ -388,11 +388,11 @@ while 1:
             test_data_set_gy = np.zeros_like(test_data_set_gy)
             test_data_set_gz = np.zeros_like(test_data_set_gz)
             flag = "hand up"
-            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, hand_up_dtw_az_result, 0, 0, 0, flag)
+            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, hand_up_dtw_az_result, 0, 0, 0, 0, flag)
             time.sleep(1)
         else:
-            flag = "not jestur"
-            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, 0, flag)
+            flag = "hand up form"
+            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, 0, 0, flag)
 
     elif -0.1 < accel_y:
         print("-------------------------------------------waiper-----------------------------------------------------")
@@ -410,17 +410,17 @@ while 1:
             time.sleep(1)
             if waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, accel_x, test_data_set_ax[0][0]) == "waiper left":
                 flag = "waiper left"
-                insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, waiper_left_gz_result, flag)
+                insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, waiper_left_gz_result, waiper_left_gz_result - waiper_right_gz_result,flag)
             elif waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, accel_x, test_data_set_ax[0][0]) == "waiper right":
                 flag = "waiper right"
-                insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, waiper_right_gz_result, flag)
+                insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, waiper_right_gz_result, waiper_left_gz_result - waiper_right_gz_result, flag)
         else:
-            flag = "not jestur"
-            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, 0, flag)
+            flag = "waiper form"
+            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, 0, 0, flag)
 
     else:
         flag = "not jestur"
-        insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, 0, flag)
+        insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, 0, 0, flag)
         print("動作なし")
     """ 
     if tt > 80 and check_motion_first_level(accel_x, accel_y, accel_z) == "waiper gesture":    
