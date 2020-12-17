@@ -225,18 +225,6 @@ def waiper_operation_identification(diff_gz, accel_x, latest_accel_x):
 
 
 """
-DTWの差分を取り動作を出力する waiper right
-waiper left dtw - waiper right dtw
-"""
-def waiper_right_operation_identification(diff_gz, accel_x):
-    print("---------waiper right---------------")
-    if -0.6 > accel_x:
-        if diff_gz > 7500:
-            print("waiper right")
-            return "waiper right"
-
-
-"""
 Drop動作を検出する
 @param 加速度、各加速度を用いたDTWの値
 """
@@ -295,6 +283,13 @@ def get_min_data(dtw_1, dtw_2, dtw_3, dtw_4, dtw_5):
     gx_list.append(min(dtw_5))
     return min(gx_list)
 
+"""
+被験者のログデータをlog.csvファイルに記録する
+log_(被験者名).csvファイルというファイル名に変更すること
+加速度、角加速度は指標に使用しているしていないにかかわらずデータをインサートしていく
+DTWの値に関しては動作分析に使用している指標のデータのみインサートしていく
+pick dropやwaiperのようにDTWの差分を使用しているものが存在するため第１３引数に定義している
+"""
 def insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data,flag="not jestur"):
     with open('log.csv', 'a') as csvfile:
         writer = csv.writer(csvfile, lineterminator='\n')
@@ -373,7 +368,7 @@ while 1:
             time.sleep(1)
         else:
             flag = "pick and drop and hand down form"
-            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, 0, 0, flag)
+            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, hand_down_dtw_az_result, 0, 0, 0, pick_dtw_gz_result - drop_dtw_gz_result, flag)
 
     elif accel_z < -0.3:
         hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
@@ -392,7 +387,7 @@ while 1:
             time.sleep(1)
         else:
             flag = "hand up form"
-            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, 0, 0, flag)
+            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, hand_up_dtw_az_result, 0, 0, 0, 0, flag)
 
     elif -0.1 < accel_y:
         print("-------------------------------------------waiper-----------------------------------------------------")
@@ -416,7 +411,7 @@ while 1:
                 insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, waiper_right_gz_result, waiper_left_gz_result - waiper_right_gz_result, flag)
         else:
             flag = "waiper form"
-            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, 0, 0, flag)
+            insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, 0, 0, 0, 0, waiper_left_gz_result - waiper_right_gz_result, flag)
 
     else:
         flag = "not jestur"
