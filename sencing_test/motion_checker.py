@@ -211,14 +211,15 @@ def operation_identification(diff_gz):
 DTWの差分を取り動作を出力する waiper left
 waiper_left dtw - waiper_right dtw
 """
-def waiper_operation_identification(diff_gz, accel_x):
-    print("---------waiper left------------")
+def waiper_operation_identification(diff_gz, accel_x, latest_accel_x):
     print(diff_gz)
-    if 0.6 < accel_x:
+    print(latest_accel_x)
+    if 0.7 < accel_x and -0.3 < latest_accel_x < 0.3:
         if diff_gz < -7500:
             print("waiper left")
             return "waiper left"
-        elif diff_gz > 7500:
+    if -0.7 > accel_x and -0.3 < latest_accel_x < 0.3:
+        if diff_gz > 7500:
             print("waiper right")
             return "waiper right"
 
@@ -374,18 +375,19 @@ while 1:
             time.sleep(1)
 
     elif -0.1 < accel_y:
-        if -0.2 < test_data_set_ax[0][0] < 0.2:
-            print("-------------------------------------------waiper-----------------------------------------------------")
-            waiper_left_gz_result = dtw.getDTW(waiper_left_data_set_gz, test_data_set_gz)
-            waiper_right_gz_result = dtw.getDTW(waiper_right_data_set_gz, test_data_set_gz)
-            if waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, accel_x) == "waiper left" or waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, accel_x) == "waiper right":
-                test_data_set_ax = np.zeros_like(test_data_set_ax)
-                test_data_set_ay = np.zeros_like(test_data_set_ay)
-                test_data_set_az = np.zeros_like(test_data_set_az)
-                test_data_set_gx = np.zeros_like(test_data_set_gx)
-                test_data_set_gy = np.zeros_like(test_data_set_gy)
-                test_data_set_gz = np.zeros_like(test_data_set_gz)
-                time.sleep(1)
+        print("-------------------------------------------waiper-----------------------------------------------------")
+        waiper_left_gz_result = dtw.getDTW(waiper_left_data_set_gz, test_data_set_gz)
+        waiper_right_gz_result = dtw.getDTW(waiper_right_data_set_gz, test_data_set_gz)
+        if waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, accel_x, test_data_set_ax[0][0]) == "waiper left" or waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, accel_x, test_data_set_ax[0][0]) == "waiper right":
+
+            print(test_data_set_ax)
+            test_data_set_ax = np.zeros_like(test_data_set_ax)
+            test_data_set_ay = np.zeros_like(test_data_set_ay)
+            test_data_set_az = np.zeros_like(test_data_set_az)
+            test_data_set_gx = np.zeros_like(test_data_set_gx)
+            test_data_set_gy = np.zeros_like(test_data_set_gy)
+            test_data_set_gz = np.zeros_like(test_data_set_gz)
+            time.sleep(1)
 
     else:
         print("動作なし")
