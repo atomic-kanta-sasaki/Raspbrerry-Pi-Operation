@@ -83,11 +83,11 @@ def get_accel_data_g():
     z = z / 16384.0
     return [x, y, z]
 
-def insert_csv(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z):
+def insert_csv(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z):
     with open('sample_5.csv', 'a') as csvfile:
 
         writer = csv.writer(csvfile, lineterminator='\n')
-        writer.writerow([gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z])
+        writer.writerow([accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z])
 ### Main function ######################################################
 bus = smbus.SMBus( 1 )
 bus.write_byte_data( DEV_ADDR, PWR_MGMT_1, 0 )
