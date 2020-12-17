@@ -211,13 +211,16 @@ def operation_identification(diff_gz):
 DTWの差分を取り動作を出力する waiper left
 waiper_left dtw - waiper_right dtw
 """
-def waiper_left_operation_identification(diff_gz, accel_x):
+def waiper_operation_identification(diff_gz, accel_x):
     print("---------waiper left------------")
     print(diff_gz)
     if 0.6 < accel_x:
         if diff_gz < -7500:
             print("waiper left")
             return "waiper left"
+        elif diff_gz > 7500:
+            print("waiper right")
+            return "waiper right"
 
 
 """
@@ -375,18 +378,7 @@ while 1:
             print("-------------------------------------------waiper-----------------------------------------------------")
             waiper_left_gz_result = dtw.getDTW(waiper_left_data_set_gz, test_data_set_gz)
             waiper_right_gz_result = dtw.getDTW(waiper_right_data_set_gz, test_data_set_gz)
-            if waiper_left_operation_identification(waiper_left_gz_result - waiper_right_gz_result, accel_x) == "waiper left":
-                test_data_set_ax = np.zeros_like(test_data_set_ax)
-                test_data_set_ay = np.zeros_like(test_data_set_ay)
-                test_data_set_az = np.zeros_like(test_data_set_az)
-                test_data_set_gx = np.zeros_like(test_data_set_gx)
-                test_data_set_gy = np.zeros_like(test_data_set_gy)
-                test_data_set_gz = np.zeros_like(test_data_set_gz)
-                time.sleep(1)
-        elif -0.2 < test_data_set_ax[0][0] < 0.2:
-            waiper_left_gz_result = dtw.getDTW(waiper_left_data_set_gz, test_data_set_gz)
-            waiper_right_gz_result = dtw.getDTW(waiper_right_data_set_gz, test_data_set_gz)
-            if waiper_right_operation_identification(waiper_left_gz_result - waiper_right_gz_result, accel_x) == "waiper right":
+            if waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, accel_x) == "waiper left" or waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, accel_x) == "waiper right":
                 test_data_set_ax = np.zeros_like(test_data_set_ax)
                 test_data_set_ay = np.zeros_like(test_data_set_ay)
                 test_data_set_az = np.zeros_like(test_data_set_az)
