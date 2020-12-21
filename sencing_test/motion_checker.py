@@ -319,7 +319,7 @@ while 1:
     print("hogehoge")
     print(accel_x, accel_y, accel_z)
     print("hogehoge")
-    if 0.75 < accel_z:
+    if 0.75 < test_data_set_ax[0][0]:
         # print("--------------------------------------pick ax ay gz----------------------------------------------")
         # print(dtw.getDTW(train_data_set_ax, test_data_set_ax))
         # print(dtw.getDTW(train_data_set_ay, test_data_set_ay))
@@ -369,7 +369,7 @@ while 1:
         else:
             flag = "pick and drop and hand down form"
             insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, 0, 0, hand_down_dtw_az_result, 0, 0, 0, pick_dtw_gz_result - drop_dtw_gz_result, flag)
-
+    
     elif accel_z < -0.3:
         hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
         print(hand_up_dtw_az_result)
