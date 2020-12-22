@@ -319,7 +319,7 @@ while 1:
     print("hogehoge")
     print(accel_x, accel_y, accel_z)
     print("hogehoge")
-    if 0.75 < test_data_set_az[10][0]:
+    if 0.75 < test_data_set_az[0][0]:
         # print("--------------------------------------pick ax ay gz----------------------------------------------")
         # print(dtw.getDTW(train_data_set_ax, test_data_set_ax))
         # print(dtw.getDTW(train_data_set_ay, test_data_set_ay))
