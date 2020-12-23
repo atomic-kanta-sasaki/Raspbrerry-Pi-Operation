@@ -291,7 +291,7 @@ DTWの値に関しては動作分析に使用している指標のデータの�
 pick dropやwaiperのようにDTWの差分を使用しているものが存在するため第１３引数に定義している
 """
 def insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data,flag="not jestur"):
-    with open('log_ex1.csv', 'a') as csvfile:
+    with open('log_ex.csv', 'a') as csvfile:
         writer = csv.writer(csvfile, lineterminator='\n')
         writer.writerow([accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data, flag])
 
