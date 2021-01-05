@@ -48,12 +48,7 @@ hand_up_data_set_ay = pd.read_csv('hand_up/hand_up_accel_ay.csv', usecols=[0]).v
 hand_up_data_set_az = pd.read_csv('hand_up/hand_up_accel_az.csv', usecols=[0]).values.reshape(-1, 1)
 hand_up_data_set_gx = pd.read_csv('hand_up/hand_up_gyro_x.csv', usecols=[0]).values.reshape(-1, 1)
 
-log_test_data_set_ax = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[0]).values.reshape(-1, 1)
-log_test_data_set_ay = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[1]).values.reshape(-1, 1)
-log_test_data_set_az = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[2]).values.reshape(-1, 1)
-log_test_data_set_gx = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[3]).values.reshape(-1, 1)
-log_test_data_set_gy = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[4]).values.reshape(-1, 1)
-log_test_data_set_gz = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[5]).values.reshape(-1, 1)
+# page_num = 1
 
 # テストデータを作成するための初期データを作成
 test_data_set_ax = np.arange(50, dtype=float).reshape(-1, 1)
@@ -138,11 +133,9 @@ def operation_identification(diff_gz):
     print(diff_gz)
     if diff_gz < -8500:
         print("pick")
-        time.sleep(1)
         return 'pick'
     elif diff_gz > 8500:
         print("drop")
-        time.sleep(1)
         return 'drop'
 
 """
@@ -178,6 +171,14 @@ def check_pick_or_drop(pick_diw_x, pick_dtw_y, drop_dtw_x, drop_dtw_y):
         return 'pick'
     elif pick_diw_x > drop_dtw_x and pick_dtw_y > drop_dtw_y:
         return 'drop'
+# file_pather = 'sencing_test_result/' +page_num+ '/log_5.csv'
+
+log_test_data_set_ax = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[0]).values.reshape(-1, 1)
+log_test_data_set_ay = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[1]).values.reshape(-1, 1)
+log_test_data_set_az = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[2]).values.reshape(-1, 1)
+log_test_data_set_gx = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[3]).values.reshape(-1, 1)
+log_test_data_set_gy = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[4]).values.reshape(-1, 1)
+log_test_data_set_gz = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[5]).values.reshape(-1, 1)
 
 """
 被験者のログデータをlog.csvファイルに記録する
@@ -187,13 +188,18 @@ DTWの値に関しては動作分析に使用している指標のデータの�
 pick dropやwaiperのようにDTWの差分を使用しているものが存在するため第１３引数に定義している
 """
 def insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data,flag="not jestur"):
-    with open('re_log_num.csv', 'a') as csvfile:
+    with open('/sencing_test_result/odaq/re_log_num_1.csv', 'a') as csvfile:
         writer = csv.writer(csvfile, lineterminator='\n')
         writer.writerow([accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data, flag])
 
 count = 0
-drop_count = 0
 tt = 0
+pick_count = 0
+drop_count = 0
+waiper_left_count = 0
+waiper_right_count = 0
+hand_down_count = 0
+hand_up_count = 0
 while len(log_test_data_set_ax) > count:
     sec = time.time()
     
@@ -205,7 +211,7 @@ while len(log_test_data_set_ax) > count:
     test_data_set_gy = remake_test_data_set(test_data_set_gy, log_test_data_set_gy[count][0])
     test_data_set_gz = remake_test_data_set(test_data_set_gz, log_test_data_set_gz[count][0])
  
-    if 0.75 < test_data_set_az[0][0]:
+    if 0.75 < test_data_set_az[0][0] and test_data_set_ay[49][0] < 0 :
        
         print("=============================================pick and drop and hand down===============================================") 
 
@@ -221,12 +227,14 @@ while len(log_test_data_set_ax) > count:
             test_data_set_gz = np.zeros_like(test_data_set_gz)
             if operation_identification(pick_dtw_gz_result - drop_dtw_gz_result) == "pick":
                 flag = "pick"
+                pick_count += 1
                 insert_log_data(log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, pick_dtw_gz_result, pick_dtw_gz_result - drop_dtw_gz_result, flag)
                 
             elif operation_identification(pick_dtw_gz_result - drop_dtw_gz_result) == "drop":
                 flag = "drop"
+                drop_count += 1
                 insert_log_data(log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, drop_dtw_gz_result, pick_dtw_gz_result - drop_dtw_gz_result, flag)
-                
+
         elif hand_down_dtw_az_result < 8:
             print("hand down")
             test_data_set_ax = np.zeros_like(test_data_set_ax)
@@ -236,20 +244,59 @@ while len(log_test_data_set_ax) > count:
             test_data_set_gy = np.zeros_like(test_data_set_gy)
             test_data_set_gz = np.zeros_like(test_data_set_gz)
             flag = "hand down"
+            hand_down_count += 1
             insert_log_data(log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, 0, flag)
             
-            time.sleep(1)
         else:
             flag = "pick and drop and hand down form"
             insert_log_data(log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, pick_dtw_gz_result - drop_dtw_gz_result, flag)
             
         count += 1
+    
+    
+    elif 0.75 < test_data_set_az[0][0]:
+        pick_dtw_gz_result = dtw.getDTW(train_data_set_gz, test_data_set_gz)
+        drop_dtw_gz_result = dtw.getDTW(drop_train_data_set_gz, test_data_set_gz)
+        hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
+        
+
+        if operation_identification(pick_dtw_gz_result - drop_dtw_gz_result) == "pick":
+            test_data_set_ax = np.zeros_like(test_data_set_ax)
+            test_data_set_ay = np.zeros_like(test_data_set_ay)
+            test_data_set_az = np.zeros_like(test_data_set_az)
+            test_data_set_gx = np.zeros_like(test_data_set_gx)
+            test_data_set_gy = np.zeros_like(test_data_set_gy)
+            test_data_set_gz = np.zeros_like(test_data_set_gz)
+            flag = "pick"
+            pick_count += 1
+            insert_log_data(log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, pick_dtw_gz_result, pick_dtw_gz_result - drop_dtw_gz_result, flag)
+                
+
+        elif hand_down_dtw_az_result < 8:
+            print("hand down")
+            test_data_set_ax = np.zeros_like(test_data_set_ax)
+            test_data_set_ay = np.zeros_like(test_data_set_ay)
+            test_data_set_az = np.zeros_like(test_data_set_az)
+            test_data_set_gx = np.zeros_like(test_data_set_gx)
+            test_data_set_gy = np.zeros_like(test_data_set_gy)
+            test_data_set_gz = np.zeros_like(test_data_set_gz)
+            flag = "hand down"
+            hand_down_count += 1
+            insert_log_data(log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, 0, flag)
+            
+            time.sleep(1)
+        else:
+          flag = "pick or hand down form"
+          insert_log_data(log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, 0, flag)
+        count += 1
+
     elif log_test_data_set_az[count][0] < -0.3:
         hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
         print(hand_up_dtw_az_result)
         print("---------------------------------hand up-----------------------------")
         if hand_up_dtw_az_result < 9:
             print("hand up")
+            hand_up_count += 1
             test_data_set_ax = np.zeros_like(test_data_set_ax)
             test_data_set_ay = np.zeros_like(test_data_set_ay)
             test_data_set_az = np.zeros_like(test_data_set_az)
@@ -278,9 +325,11 @@ while len(log_test_data_set_ax) > count:
             time.sleep(1)
             if waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, log_test_data_set_ax[count][0], test_data_set_ax[0][0]) == "waiper left":
                 flag = "waiper left"
+                waiper_left_count += 1
                 insert_log_data(log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, waiper_left_gz_result, waiper_left_gz_result - waiper_right_gz_result,flag)             
             elif waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, log_test_data_set_ax[count][0], test_data_set_ax[0][0]) == "waiper right":
                 flag = "waiper right"
+                waiper_right_count += 1
                 insert_log_data(log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, waiper_right_gz_result, waiper_left_gz_result - waiper_right_gz_result, flag)
         else:
             flag = "waiper form"
@@ -302,3 +351,16 @@ while len(log_test_data_set_ax) > count:
     print(elapsed_time - sec)
     print("count")
     print(count)
+  
+print("pick")
+print(pick_count)
+print("drop")
+print(drop_count)
+print("waiper left")
+print(waiper_left_count)
+print("waiper right")
+print(waiper_right_count)
+print("hand down")
+print(hand_down_count)
+print("hand up")
+print(hand_up_count)
