@@ -173,12 +173,12 @@ def check_pick_or_drop(pick_diw_x, pick_dtw_y, drop_dtw_x, drop_dtw_y):
         return 'drop'
 # file_pather = 'sencing_test_result/' +page_num+ '/log_5.csv'
 
-log_test_data_set_ax = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[0]).values.reshape(-1, 1)
-log_test_data_set_ay = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[1]).values.reshape(-1, 1)
-log_test_data_set_az = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[2]).values.reshape(-1, 1)
-log_test_data_set_gx = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[3]).values.reshape(-1, 1)
-log_test_data_set_gy = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[4]).values.reshape(-1, 1)
-log_test_data_set_gz = pd.read_csv('sencing_test_result/odaq/log_1.csv', usecols=[5]).values.reshape(-1, 1)
+log_test_data_set_ax = pd.read_csv('sencing_test_result/takagi_m1/log_2.csv', usecols=[0]).values.reshape(-1, 1)
+log_test_data_set_ay = pd.read_csv('sencing_test_result/takagi_m1/log_2.csv', usecols=[1]).values.reshape(-1, 1)
+log_test_data_set_az = pd.read_csv('sencing_test_result/takagi_m1/log_2.csv', usecols=[2]).values.reshape(-1, 1)
+log_test_data_set_gx = pd.read_csv('sencing_test_result/takagi_m1/log_2.csv', usecols=[3]).values.reshape(-1, 1)
+log_test_data_set_gy = pd.read_csv('sencing_test_result/takagi_m1/log_2.csv', usecols=[4]).values.reshape(-1, 1)
+log_test_data_set_gz = pd.read_csv('sencing_test_result/takagi_m1/log_2.csv', usecols=[5]).values.reshape(-1, 1)
 
 """
 被験者のログデータをlog.csvファイルに記録する
@@ -188,7 +188,7 @@ DTWの値に関しては動作分析に使用している指標のデータの�
 pick dropやwaiperのようにDTWの差分を使用しているものが存在するため第１３引数に定義している
 """
 def insert_log_data(accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data,flag="not jestur"):
-    with open('/sencing_test_result/odaq/re_log_num_1.csv', 'a') as csvfile:
+    with open('sencing_test_result/takagi_m1/re_log_num_2.csv', 'a') as csvfile:
         writer = csv.writer(csvfile, lineterminator='\n')
         writer.writerow([accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data, flag])
 
@@ -211,7 +211,7 @@ while len(log_test_data_set_ax) > count:
     test_data_set_gy = remake_test_data_set(test_data_set_gy, log_test_data_set_gy[count][0])
     test_data_set_gz = remake_test_data_set(test_data_set_gz, log_test_data_set_gz[count][0])
  
-    if 0.75 < test_data_set_az[0][0] and test_data_set_ay[49][0] < 0 :
+    if 0.75 < test_data_set_az[0][0] and test_data_set_ay[49][0] < -0.05 :
        
         print("=============================================pick and drop and hand down===============================================") 
 
