@@ -363,8 +363,32 @@ while member_count < len(name_list):
             print(elapsed_time - sec)
             print("count")
             print(count)
+        with open('sencing_test_result/' + name + '/re_re_log_num_1.csv', 'a') as csvfile:
+            writer = csv.writer(csvfile, lineterminator='\n')
+            writer.writerow(['pick count=', pick_count, 'drop count=', drop_count, 'waiper_left_count=', waiper_left_count, 'waiper_right_count=', waiper_right_count, 'hand down count=', hand_down_count, 'hand up count = ', hand_up_count, '最終データの集計結果です', 'ほげほげほげほげほß'])
+
         count = 0
         log_count += 1
+          
+        print("pick")
+        print(pick_count)
+        print("drop")
+        print(drop_count)
+        print("waiper left")
+        print(waiper_left_count)
+        print("waiper right")
+        print(waiper_right_count)
+        print("hand down")
+        print(hand_down_count)
+        print("hand up")
+        print(hand_up_count)
+        pick_count = 0
+        drop_count = 0
+        waiper_left_count = 0
+        waiper_right_count = 0
+        hand_down_count = 0
+        hand_up_count = 0
+
         print("====================================================================================")
         print("====================================================================================")
         print("次のログファイルを探索します.")
@@ -381,16 +405,3 @@ while member_count < len(name_list):
     print("====================================================================================")
     time.sleep(1)
 
-  
-print("pick")
-print(pick_count)
-print("drop")
-print(drop_count)
-print("waiper left")
-print(waiper_left_count)
-print("waiper right")
-print(waiper_right_count)
-print("hand down")
-print(hand_down_count)
-print("hand up")
-print(hand_up_count)
