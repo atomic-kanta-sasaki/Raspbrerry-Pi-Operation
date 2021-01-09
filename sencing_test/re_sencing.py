@@ -183,8 +183,8 @@ log_(被験者名).csvファイルというファイル名に変更すること
 DTWの値に関しては動作分析に使用している指標のデータのみインサートしていく
 pick dropやwaiperのようにDTWの差分を使用しているものが存在するため第１３引数に定義している
 """
-def insert_log_data(name, accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data,flag="not jestur"):
-    with open('sencing_test_result/' + name + '/re_re_log_num_1.csv', 'a') as csvfile:
+def insert_log_data(name, num, accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data,flag="not jestur"):
+    with open('sencing_test_result/' + name + '/re_re_log_num_' + num + '.csv', 'a') as csvfile:
         writer = csv.writer(csvfile, lineterminator='\n')
         writer.writerow([accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data, flag])
 
@@ -240,12 +240,12 @@ while member_count < len(name_list):
                     if operation_identification(pick_dtw_gz_result - drop_dtw_gz_result) == "pick":
                         flag = "pick"
                         pick_count += 1
-                        insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, pick_dtw_gz_result, pick_dtw_gz_result - drop_dtw_gz_result, flag)
+                        insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, pick_dtw_gz_result, pick_dtw_gz_result - drop_dtw_gz_result, flag)
                         
                     elif operation_identification(pick_dtw_gz_result - drop_dtw_gz_result) == "drop":
                         flag = "drop"
                         drop_count += 1
-                        insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, drop_dtw_gz_result, pick_dtw_gz_result - drop_dtw_gz_result, flag)
+                        insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, drop_dtw_gz_result, pick_dtw_gz_result - drop_dtw_gz_result, flag)
 
                 elif hand_down_dtw_az_result < 8:
                     print("hand down")
@@ -257,11 +257,11 @@ while member_count < len(name_list):
                     test_data_set_gz = np.zeros_like(test_data_set_gz)
                     flag = "hand down"
                     hand_down_count += 1
-                    insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, 0, flag)
+                    insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, 0, flag)
                     
                 else:
                     flag = "pick and drop and hand down form"
-                    insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, pick_dtw_gz_result - drop_dtw_gz_result, flag)
+                    insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, pick_dtw_gz_result - drop_dtw_gz_result, flag)
                     
                 count += 1
             
@@ -281,7 +281,7 @@ while member_count < len(name_list):
                     test_data_set_gz = np.zeros_like(test_data_set_gz)
                     flag = "pick"
                     pick_count += 1
-                    insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, pick_dtw_gz_result, pick_dtw_gz_result - drop_dtw_gz_result, flag)
+                    insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, pick_dtw_gz_result, pick_dtw_gz_result - drop_dtw_gz_result, flag)
                         
 
                 elif hand_down_dtw_az_result < 8:
@@ -294,12 +294,12 @@ while member_count < len(name_list):
                     test_data_set_gz = np.zeros_like(test_data_set_gz)
                     flag = "hand down"
                     hand_down_count += 1
-                    insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, 0, flag)
+                    insert_log_data(name_list[member_count], log_num[log_count],  log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, 0, flag)
                     
                     time.sleep(1)
                 else:
                   flag = "pick or hand down form"
-                  insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, 0, flag)
+                  insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, 0, flag)
                 count += 1
 
             elif log_test_data_set_az[count][0] < -0.3:
@@ -316,11 +316,11 @@ while member_count < len(name_list):
                     test_data_set_gy = np.zeros_like(test_data_set_gy)
                     test_data_set_gz = np.zeros_like(test_data_set_gz)
                     flag = "hand up"
-                    insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_up_dtw_az_result, 0, 0, 0, 0, flag)            
+                    insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_up_dtw_az_result, 0, 0, 0, 0, flag)            
                     time.sleep(1)
                 else:
                     flag = "hand up form"
-                    insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_up_dtw_az_result, 0, 0, 0, 0, flag)
+                    insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_up_dtw_az_result, 0, 0, 0, 0, flag)
                 count += 1
             elif -0.1 < test_data_set_ay[0][0]:
                 print("-------------------------------------------waiper-----------------------------------------------------")
@@ -338,18 +338,18 @@ while member_count < len(name_list):
                     if waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, log_test_data_set_ax[count][0], test_data_set_ax[0][0]) == "waiper left":
                         flag = "waiper left"
                         waiper_left_count += 1
-                        insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, waiper_left_gz_result, waiper_left_gz_result - waiper_right_gz_result,flag)             
+                        insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, waiper_left_gz_result, waiper_left_gz_result - waiper_right_gz_result,flag)             
                     elif waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, log_test_data_set_ax[count][0], test_data_set_ax[0][0]) == "waiper right":
                         flag = "waiper right"
                         waiper_right_count += 1
-                        insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, waiper_right_gz_result, waiper_left_gz_result - waiper_right_gz_result, flag)
+                        insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, waiper_right_gz_result, waiper_left_gz_result - waiper_right_gz_result, flag)
                 else:
                     flag = "waiper form"
-                    insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, waiper_right_gz_result, waiper_left_gz_result - waiper_right_gz_result, flag)         
+                    insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, waiper_right_gz_result, waiper_left_gz_result - waiper_right_gz_result, flag)         
                 count += 1
             else:
                 flag = "not jestur"
-                insert_log_data(name_list[member_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, 0, 0, flag)
+                insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, 0, 0, flag)
 
                 print("動作なし")
                 count += 1
@@ -363,9 +363,9 @@ while member_count < len(name_list):
             print(elapsed_time - sec)
             print("count")
             print(count)
-        with open('sencing_test_result/' + name + '/re_re_log_num_1.csv', 'a') as csvfile:
+        with open('sencing_test_result/' + name_list[member_count] + '/re_re_log_num_' + log_num[log_count] + '.csv', 'a') as csvfile:
             writer = csv.writer(csvfile, lineterminator='\n')
-            writer.writerow(['pick count=', pick_count, 'drop count=', drop_count, 'waiper_left_count=', waiper_left_count, 'waiper_right_count=', waiper_right_count, 'hand down count=', hand_down_count, 'hand up count = ', hand_up_count, '最終データの集計結果です', 'ほげほげほげほげほß'])
+            writer.writerow(['pick count=', pick_count, 'drop count=', drop_count, 'waiper_left_count=', waiper_left_count, 'waiper_right_count=', waiper_right_count, 'hand down count=', hand_down_count, 'hand up count = ', hand_up_count, '最終データの集計結果です', log_count])
 
         count = 0
         log_count += 1
@@ -391,7 +391,7 @@ while member_count < len(name_list):
 
         print("====================================================================================")
         print("====================================================================================")
-        print("次のログファイルを探索します.")
+        print("次のログファイルで再実験を開始します.")
         print("====================================================================================")
         print("====================================================================================")
         time.sleep(1)
@@ -400,7 +400,7 @@ while member_count < len(name_list):
     member_count += 1
     print("====================================================================================")
     print("====================================================================================")
-    print("次のメンバーログファイルを探索します.")
+    print("次のメンバーログファイルで再実験を開始します.")
     print("====================================================================================")
     print("====================================================================================")
     time.sleep(1)
