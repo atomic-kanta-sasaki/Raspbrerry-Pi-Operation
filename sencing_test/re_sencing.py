@@ -150,7 +150,7 @@ def waiper_operation_identification(diff_gz, accel_x, latest_accel_x):
             print("waiper left")
             return "waiper left"
     if -0.7 > accel_x and -0.65 < latest_accel_x < 0.55:
-        if diff_gz > 4500:
+        if diff_gz > 5500:
             print("waiper right")
             return "waiper right"
 
@@ -184,7 +184,7 @@ DTWの値に関しては動作分析に使用している指標のデータの�
 pick dropやwaiperのようにDTWの差分を使用しているものが存在するため第１３引数に定義している
 """
 def insert_log_data(name, num, accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data,flag="not jestur"):
-    with open('sencing_test_result/' + name + '/re_re_re_log_num_' + num + '.csv', 'a') as csvfile:
+    with open('sencing_test_result/' + name + '/re_re_re_re_log_num_' + num + '.csv', 'a') as csvfile:
         writer = csv.writer(csvfile, lineterminator='\n')
         writer.writerow([accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data, flag])
 
@@ -340,9 +340,10 @@ while member_count < len(name_list):
                         waiper_left_count += 1
                         insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, waiper_left_gz_result, waiper_left_gz_result - waiper_right_gz_result,flag)             
                     elif waiper_operation_identification(waiper_left_gz_result - waiper_right_gz_result, log_test_data_set_ax[count][0], test_data_set_ax[0][0]) == "waiper right":
-                        flag = "waiper right"
-                        waiper_right_count += 1
-                        insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, waiper_right_gz_result, waiper_left_gz_result - waiper_right_gz_result, flag)
+                        if waiper_right_gz_result < 3600:
+                            flag = "waiper right"
+                            waiper_right_count += 1
+                            insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, waiper_right_gz_result, waiper_left_gz_result - waiper_right_gz_result, flag)
                 else:
                     flag = "waiper form"
                     insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, 0, 0, 0, waiper_right_gz_result, waiper_left_gz_result - waiper_right_gz_result, flag)         
@@ -363,7 +364,7 @@ while member_count < len(name_list):
             print(elapsed_time - sec)
             print("count")
             print(count)
-        with open('sencing_test_result/' + name_list[member_count] + '/re_re_re_log_num_1.csv', 'a') as csvfile:
+        with open('sencing_test_result/' + name_list[member_count] + '/re_re_re_re_log_num_1.csv', 'a') as csvfile:
             writer = csv.writer(csvfile, lineterminator='\n')
             writer.writerow(['pick count=', pick_count, 'drop count=', drop_count, 'waiper_left_count=', waiper_left_count, 'waiper_right_count=', waiper_right_count, 'hand down count=', hand_down_count, 'hand up count = ', hand_up_count, '最終データの集計結果です', log_count])
 
