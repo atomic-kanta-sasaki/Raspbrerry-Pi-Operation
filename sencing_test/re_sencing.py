@@ -184,7 +184,7 @@ DTWの値に関しては動作分析に使用している指標のデータの�
 pick dropやwaiperのようにDTWの差分を使用しているものが存在するため第１３引数に定義している
 """
 def insert_log_data(name, num, accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data,flag="not jestur"):
-    with open('sencing_test_result/' + name + '/re_re_re_re_log_num_' + num + '.csv', 'a') as csvfile:
+    with open('sencing_test_result/' + name + '/re_re_re_re_re_log_num_' + num + '.csv', 'a') as csvfile:
         writer = csv.writer(csvfile, lineterminator='\n')
         writer.writerow([accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, ax_dtw, ay_dtw, az_dtw, gyro_x_dtw, gyro_y_dtw, gyro_z_dtw, diff_data, flag])
 
@@ -223,7 +223,7 @@ while member_count < len(name_list):
             test_data_set_gy = remake_test_data_set(test_data_set_gy, log_test_data_set_gy[count][0])
             test_data_set_gz = remake_test_data_set(test_data_set_gz, log_test_data_set_gz[count][0])
         
-            if 0.75 < test_data_set_az[0][0] and test_data_set_ay[49][0] < -0.05 :
+            if 0.75 < log_test_data_set_az[count - 50][0] and log_test_data_set_ay[count][0] < -0.05 :
               
                 print("=============================================pick and drop and hand down===============================================") 
 
@@ -266,7 +266,7 @@ while member_count < len(name_list):
                 count += 1
             
             
-            elif 0.75 < test_data_set_az[0][0]:
+            elif 0.75 < log_test_data_set_az[count - 50][0]:
                 pick_dtw_gz_result = dtw.getDTW(train_data_set_gz, test_data_set_gz)
                 drop_dtw_gz_result = dtw.getDTW(drop_train_data_set_gz, test_data_set_gz)
                 hand_down_dtw_az_result = dtw.getDTW(hand_down_data_set_az, test_data_set_az)
@@ -302,7 +302,7 @@ while member_count < len(name_list):
                   insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, 0, flag)
                 count += 1
 
-            elif log_test_data_set_az[count][0] < -0.3:
+            elif log_test_data_set_az[count - 35][0] < -0.6:
                 hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
                 print(hand_up_dtw_az_result)
                 print("---------------------------------hand up-----------------------------")
@@ -322,7 +322,7 @@ while member_count < len(name_list):
                     flag = "hand up form"
                     insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_up_dtw_az_result, 0, 0, 0, 0, flag)
                 count += 1
-            elif -0.1 < test_data_set_ay[0][0]:
+            elif -0.1 < log_test_data_set_ay[count - 50][0]:
                 print("-------------------------------------------waiper-----------------------------------------------------")
                 waiper_left_gz_result = dtw.getDTW(waiper_left_data_set_gz, test_data_set_gz)
                 waiper_right_gz_result = dtw.getDTW(waiper_right_data_set_gz, test_data_set_gz)
@@ -364,7 +364,7 @@ while member_count < len(name_list):
             print(elapsed_time - sec)
             print("count")
             print(count)
-        with open('sencing_test_result/' + name_list[member_count] + '/re_re_re_re_log_num_1.csv', 'a') as csvfile:
+        with open('sencing_test_result/' + name_list[member_count] + '/re_re_re_re_re_log_num_1.csv', 'a') as csvfile:
             writer = csv.writer(csvfile, lineterminator='\n')
             writer.writerow(['pick count=', pick_count, 'drop count=', drop_count, 'waiper_left_count=', waiper_left_count, 'waiper_right_count=', waiper_right_count, 'hand down count=', hand_down_count, 'hand up count = ', hand_up_count, '最終データの集計結果です', log_count])
 

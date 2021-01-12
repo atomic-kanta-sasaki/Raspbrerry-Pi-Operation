@@ -205,7 +205,7 @@ while member_count < len(name_list):
     while log_count < len(log_num):
 
         name_list = ['mother']
-        log_num = ['1']
+        log_num = ['4']
         log_test_data_set_ax = pd.read_csv('sencing_test_result/' + name_list[member_count] + '/log_' + log_num[log_count] + '.csv', usecols=[0]).values.reshape(-1, 1)
         log_test_data_set_ay = pd.read_csv('sencing_test_result/' + name_list[member_count] + '/log_' + log_num[log_count] + '.csv', usecols=[1]).values.reshape(-1, 1)
         log_test_data_set_az = pd.read_csv('sencing_test_result/' + name_list[member_count] + '/log_' + log_num[log_count] + '.csv', usecols=[2]).values.reshape(-1, 1)
@@ -319,7 +319,7 @@ while member_count < len(name_list):
                   insert_log_data(name_list[member_count], log_num[log_count], log_test_data_set_ax[count][0], log_test_data_set_ay[count][0], log_test_data_set_az[count][0], log_test_data_set_gx[count][0], log_test_data_set_gy[count][0], log_test_data_set_gz[count][0], 0, 0, hand_down_dtw_az_result, 0, 0, 0, 0, flag)
                 count += 1
 
-            elif log_test_data_set_az[count][0] < -0.3:
+            elif log_test_data_set_az[count - 35][0] < -0.6:
                 hand_up_dtw_az_result = dtw.getDTW(hand_up_data_set_az, test_data_set_az)
                 print(hand_up_dtw_az_result)
                 print("---------------------------------hand up-----------------------------")
