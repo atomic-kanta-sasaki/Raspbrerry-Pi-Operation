@@ -1,15 +1,15 @@
 ## Raspberry Pi 4B CUI操作メモ
 
-### bluetoothを接続する方法
-#### SDPサービスの確認方法
+### bluetoothを接続
+#### SDPサービスの確認
  - sdptool browse local
 エラーが出ている場合は権限が必要なため以下のコマンドを入力する<br />
  - sudo chmod 777 /var/run/sdp
 
-#### bluetooth modeに入る方法
+#### bluetooth modeに入る
  - bluetoothctl
 
-#### 周辺のBluetooth機器をScanする方法
+#### 周辺のBluetooth機器をScanする
  - scan on （これにより接続済みデバイスのRSSIも取得することができる）
 
 #### 接続方法
